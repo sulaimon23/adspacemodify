@@ -1,22 +1,24 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import Header from "../../components/Header/Header";
-import HeaderLinks from "../../components/Header/HeaderLinks";
-import image from "../../assets/img/dg1.jpg";
+// import Header from "../../components/Header/Header";
+// import HeaderLinks from "../../components/Header/HeaderLinks";
+// import image from "../../assets/img/dg1.jpg";
 import loginPageStyle from "../../assets/jss/material-kit-pro-react/views/loginPageStyle.js";
 import { withStyles } from "@material-ui/core";
-import GridContainer from "../../components/Grid/GridContainer";
-import GridItem from "../../components/Grid/GridItem";
-import Card from "../../components/Card/Card";
-import Button from "../../components/CustomButtons/Button";
-import CardBody from "../../components/Card/CardBody";
-import CustomInput from "../../components/CustomInput/CustomInput";
+// import GridContainer from "../../components/Grid/GridContainer";
+// import GridItem from "../../components/Grid/GridItem";
+// import Card from "../../components/Card/Card";
+// import Button from "../../components/CustomButtons/Button";
+// import CardBody from "../../components/Card/CardBody";
+// import CustomInput from "../../components/CustomInput/CustomInput";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
 import { Email } from "@material-ui/icons";
 import Icon from "@material-ui/core/Icon";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, Redirect } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import headerlogo from "../../images/Asset 6.png";
 import {
   displayLoginMessage,
   loginUser,
@@ -78,25 +80,24 @@ class Login extends Component {
     if (showForgotPass && forgotPasswordEmailSent) return null;
     else if (showForgotPass) {
       return (
-        <Button
+        <button
           // color="success"
-          size="md" 
-          style={{ width: "85%", backgroundColor: "#3a75bc" }}
+          // size="md"
+          className="btn btn-primary btn-block"
           onClick={() => this.forgotPasswordClicked()}
         >
-          SUBMIT
-        </Button>
+          Reset Password{" "}
+        </button>
       );
     } else {
       return (
-        <Button
-          // color="primary"
-          size="md"
-          style={{ width: "85%", backgroundColor: "#3a75bc" }}
+        <button
+          className="btn btn-primary btn-block"
+          type="submit"
           onClick={() => this.loginClicked()}
         >
-          LOGIN
-        </Button>
+          Login{" "}
+        </button>
       );
     }
   }
@@ -129,83 +130,58 @@ class Login extends Component {
       : "/";
 
     if (isAuthenticated === undefined) {
-      return <div></div>;
+      return <div> </div>;
     }
 
     if (isAuthenticated) {
       return <Redirect to={routeTo} />;
     }
     return (
-      <div>
-        <Header
-          absolute
-          color="transparent"
-          brand="AD SPACE"
-          links={
-            <HeaderLinks
-              dropdownHoverColor="info"
-              isAuthenticated={isAuthenticated}
-              user={user}
-              logOutUser={() => logOut()}
-            />
-          }
-        />
-        <div
-          className={classes.pageHeader}
-          style={{
-            backgroundImage: "url(" + image + ")",
-            backgroundSize: "cover",
-            backgroundPosition: "top center",
-          }}
-        >
-          <div className={classes.container}>
-            <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={6}>
-                <Card style={{ maxWidth: "70%", margin: "auto" }}>
-                  <form className={classes.form}>
-                    {/* <CardHeader
-                                            color="primary"
-                                            signup
-                                            className={classes.cardHeader}
-                                        >
-                                            <h4 className={classes.cardTitle}>Login</h4>
-                                        </CardHeader> */}
-                    <CardBody signup>
-                      <h3
-                        style={{
-                          margin: "auto",
-                          textAlign: "center",
-                          paddingTop: "3rem",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        Sign in to your account
-                      </h3>
-                      <br />
-                      {/* <CustomInput
-                        id="login_email"
-                        value={email}
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        inputProps={{
-                          onChange: (e) => {
-                            this.setState({ email: e.target.value });
-                          },
-                          autoFocus: true,
-                          placeholder: "Email...",
-                          type: "email",
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <Email className={classes.inputIconsColor} />
-                            </InputAdornment>
-                          ),
-                        }}
-                      /> */}
+      <Fragment>
+        <div className="main-wrapper login-body">
+          <div className="login-wrapper">
+            <div className="container">
+              <div className="loginbox">
+                <div className="login-left">
+                  <Link to="/">
+                    <img
+                      className="img-fluid"
+                      src={headerlogo}
+                      alt="Logo"
+                      width={250}
+                      height={70}
+                      style={{
+                        display: "inline",
+                      }}
+                    />{" "}
+                  </Link>{" "}
+                </div>{" "}
+                <div className="login-right">
+                  <div className="login-right-wrap">
+                    <h1
+                      style={{
+                        marginBottom: "30px",
+                      }}
+                      className="use"
+                    >
+                      <span>
+                        <i
+                          className="fe fe-user"
+                          style={{
+                            color: "blue",
+                            marginBottom: "20px",
+                          }}
+                        >
+                          {" "}
+                        </i>{" "}
+                      </span>{" "}
+                    </h1>{" "}
+                    <form>
                       <TextField
                         style={{
                           paddingBottom: "1rem",
                           width: "100%",
+                          marginBottom: "10px",
                         }}
                         id="login_email"
                         value={email}
@@ -213,18 +189,14 @@ class Login extends Component {
                           fullWidth: true,
                         }}
                         size="small"
-                        // startAdornment={
-                        //   <InputAdornment position="start">
-                        //     <Email className={classes.inputIconsColor} />
-                        //     $
-                        //   </InputAdornment>
-                        // }
                         startAdornment={
-                          <InputAdornment position="start">$</InputAdornment>
+                          <InputAdornment position="start"> $ </InputAdornment>
                         }
                         inputProps={{
                           onChange: (e) => {
-                            this.setState({ email: e.target.value });
+                            this.setState({
+                              email: e.target.value,
+                            });
                           },
                           autoFocus: true,
                           placeholder: "Email...",
@@ -232,8 +204,7 @@ class Login extends Component {
                         }}
                         label="Email"
                         variant="outlined"
-                      />
-                      <br />
+                      />{" "}
                       {!showForgotPass && (
                         // <CustomInput
                         //   id="login_pass"
@@ -270,15 +241,17 @@ class Login extends Component {
                           value={password}
                           inputProps={{
                             onChange: (e) => {
-                              this.setState({ password: e.target.value });
+                              this.setState({
+                                password: e.target.value,
+                              });
                             },
                             placeholder: "Password",
                             type: "password",
                             startAdornment: (
                               <InputAdornment position="start">
                                 <Icon className={classes.inputIconsColor}>
-                                  lock_utline
-                                </Icon>
+                                  lock_utline{" "}
+                                </Icon>{" "}
                               </InputAdornment>
                             ),
                             autoComplete: "off",
@@ -286,7 +259,7 @@ class Login extends Component {
                           variant="outlined"
                           label="Password"
                         />
-                      )}
+                      )}{" "}
                       {showForgotPass && (
                         <>
                           <br />
@@ -300,87 +273,93 @@ class Login extends Component {
                           >
                             {forgotPasswordEmailSent
                               ? "An Email has been sent to your email inbox."
-                              : "Please provide an email"}
-                          </h6>
+                              : ""}{" "}
+                          </h6>{" "}
                         </>
-                      )}
-                      <br />
+                      )}{" "}
                       {loading && (
                         <div className={classes.textCenter}>
                           <CircularProgress />
                         </div>
-                      )}
+                      )}{" "}
                       {error && (
                         <h6 className={classes.errorMessage}>
-                          {message || ""}
+                          {" "}
+                          {message || ""}{" "}
                         </h6>
-                      )}
-                    </CardBody>
-                    <div className={classes.textCenter}>
-                      {this.renderButtons()}
-                    </div>
-                    {!emailVerified && (
+                      )}{" "}
                       <div className={classes.textCenter}>
-                        <Button
-                          round
-                          color="success"
-                          size="lg"
-                          onClick={() => sendVerificationEmail()}
-                        >
-                          VERIFY
-                        </Button>
-                      </div>
-                    )}
-                    <div
-                      className={classes.textCenter}
-                      style={{ paddingTop: 10, paddingBottom: 10 }}
-                    >
+                        {" "}
+                        {this.renderButtons()}{" "}
+                      </div>{" "}
+                      {!emailVerified && (
+                        <div className={classes.textCenter}>
+                          <button
+                            round
+                            color="success"
+                            size="lg"
+                            onClick={() => sendVerificationEmail()}
+                          >
+                            VERIFY{" "}
+                          </button>{" "}
+                        </div>
+                      )}{" "}
                       <div
                         className={classes.textCenter}
-                        style={{ paddingTop: 10, paddingBottom: 10 }}
+                        style={{
+                          paddingTop: 10,
+                          paddingBottom: 10,
+                        }}
                       >
-                        {showForgotPass ? (
-                          <>
-                            <a
-                              style={{ color: "#3a75bc", cursor: "pointer" }}
-                              onClick={() => showForgotPassword(false)}
-                            >
-                              Login?{" "}
-                            </a>
-                            <p>
-                              <Link to={`/signup`} style={{ color: "#3a75bc" }}>
-                                Sign Up
-                              </Link>
-                            </p>
-                          </>
-                        ) : (
-                          <>
-                            <p>
-                              Don't have an account?{" "}
-                              <Link to={`/signup`} style={{ color: "#3a75bc" }}>
-                                Sign Up
-                              </Link>
-                            </p>
-                            <a
-                              style={{ cursor: "pointer" }}
-                              onClick={() => showForgotPassword(true)}
-                            >
-                              <p style={{ color: "#3a75bc" }}>
-                                Forgot password?
-                              </p>
-                            </a>
-                          </>
-                        )}
+                        <div
+                          className={classes.textCenter}
+                          style={{
+                            paddingTop: 10,
+                            paddingBottom: 10,
+                          }}
+                        >
+                          {showForgotPass ? (
+                            <></>
+                          ) : (
+                            <>
+                              <div className="text-center forgotpass">
+                                <span onClick={() => showForgotPassword(true)}>
+                                  {" "}
+                                  Forgot Password ?{" "}
+                                </span>{" "}
+                              </div>{" "}
+                              <div className="login-or">
+                                <span className="or-line" />
+                                <span className="span-or"> or </span>{" "}
+                              </div>{" "}
+                              {/* Social Login */}{" "}
+                              <div className="social-login">
+                                <span> Login with </span>{" "}
+                                <a href="#" className="facebook">
+                                  <i className="fe fe-facebook" />
+                                </a>{" "}
+                                <a href="#" className="google">
+                                  <i className="fe fe-google" />
+                                </a>{" "}
+                              </div>{" "}
+                              {/* /Social Login */}{" "}
+                              <div className="text-center dont-have">
+                                Don’ t have an account ?{" "}
+                                <Link to="/signup"> Register </Link>{" "}
+                              </div>{" "}
+                            </>
+                          )}{" "}
+                        </div>{" "}
                       </div>
-                    </div>
-                  </form>
-                </Card>
-              </GridItem>
-            </GridContainer>
-          </div>
-        </div>
-        <br />
-      </div>
+                    </form>{" "}
+                    {/* /Form */}
+                  </div>{" "}
+                </div>{" "}
+              </div>{" "}
+            </div>{" "}
+          </div>{" "}
+        </div>{" "}
+      </Fragment>
     );
   }
 }
@@ -408,15 +387,12 @@ const mapStateToProps = ({ login }) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    displayLoginMessage,
-    loginUser,
-    setAuthenticated,
-    logOut,
-    sendVerificationEmail,
-    showForgotPassword,
-    sendForgotPassword,
-  }
-)(withStyles(loginPageStyle)(Login));
+export default connect(mapStateToProps, {
+  displayLoginMessage,
+  loginUser,
+  setAuthenticated,
+  logOut,
+  sendVerificationEmail,
+  showForgotPassword,
+  sendForgotPassword,
+})(withStyles(loginPageStyle)(Login));

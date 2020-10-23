@@ -17,7 +17,7 @@ import {
   createBlacklistFilter,
 } from "redux-persist-transform-filter";
 import "assets/scss/material-kit-pro-react.scss?v=1.8.0";
-// import Home from "./views/Home/Home";
+import Home from "./views/Home/Home";
 // import Locations from "./views/Locations/Locations";
 // import LocationsByCompany from "./views/Locations/LocationsByCompany";
 
@@ -29,6 +29,8 @@ import { applyMiddleware, compose, createStore } from "redux";
 import { Provider } from "react-redux";
 import { init } from "./firebase";
 import { Redirect } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 // import Blogs from "./views/Blogs/Blogs";
 // import Blog from "./views/Blogs/Blog";
 // import MediaPlanning from "./views/MediaPlanning/MediaPlanning";
@@ -77,7 +79,7 @@ ReactDOM.render(
     <PersistGate loading={null} persistor={persistor}>
       <Router history={hist}>
         <Switch>
-          {/*<Route exact path="/" component={Home} />*/}
+          <Route exact path="/" component={Home} />
           {/* <Route exact path="/" component={MediaPlanning} /> */}
           {/* <Route exact path="/branding" component={Branding} /> */}
           {/* <Route exact path="/profile" component={Profile} /> */}
