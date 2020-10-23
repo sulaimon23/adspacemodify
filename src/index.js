@@ -32,7 +32,7 @@ import { Redirect } from "react-router-dom";
 // import Blogs from "./views/Blogs/Blogs";
 // import Blog from "./views/Blogs/Blog";
 // import MediaPlanning from "./views/MediaPlanning/MediaPlanning";
-// import Login from "./views/Login/Login";
+import Login from "./views/Login/Login";
 import SignUp from "./views/SignUp/SignUp";
 // import Location from "./views/Locations/Location";
 // import Booking from "./views/Booking/Booking";
@@ -94,7 +94,7 @@ ReactDOM.render(
           {/* <Route exact path="/payment" component={PaymentPage} /> */}
           {/* <Route exact path="/blogs" component={Blogs} /> */}
           {/* <Route exact path="/blog/:id" component={Blog} /> */}
-          {/* <Route exact path="/login" component={Login} /> */}
+          <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           {/* <Route exact path="/:id" component={LocationsByCompany} /> */}
           <Redirect to="/" />

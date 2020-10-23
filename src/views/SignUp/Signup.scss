@@ -21,13 +21,16 @@ display: flex;
   border-radius: 6px;
   box-shadow: 0 0 10px rgb(0, 0, 0);
 display: flex;
-  margin: 1.875rem auto;
+  margin:auto auto;
   max-width: 800px;
   min-height: 500px;
   width: 100%;
 }
 .use i{
   font-size: 70px !important;
+}
+.use {
+  margin: 0 !important;
 }
 
 .login-wrapper .loginbox .login-left {
@@ -74,7 +77,7 @@ text-decoration: none;
 }
 .login-wrapper .loginbox .login-right .dont-have {
 color: #a0a0a0;
-margin-top: 1.875rem;
+margin-top: 5px;
 }
 .login-wrapper .loginbox .login-right .dont-have a {
   color: #333;
@@ -95,7 +98,7 @@ color: #a0a0a0;
 .social-login > a {
 /* background-color: #ccc; */
 border-radius: 4px;
-color: #fff;
+// color: #fff;
 display: inline-block;
 font-size: 18px;
 height: 32px;

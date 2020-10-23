@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import "./Signup.scss"
 
-// import signupPageStyle from "../../assets/jss/material-kit-pro-react/views/signupPageStyle.js";
+import signupPageStyle from "../../assets/jss/material-kit-pro-react/views/signupPageStyle.js";
 import { withStyles } from "@material-ui/core";
 // import HeaderLinks from "../../components/Header/HeaderLinks";
 // import Header from "../../components/Header/Header";
@@ -29,11 +29,12 @@ import { Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 // import OwlCarousel from 'react-owl-carousel';
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
-
+import headertext from '../../images/Asset 6.png'
 // import MyItems from "../Home/Item";
 import {formatCurrency, numberWithCommas} from "../../utils";
 import Redirect from "react-router-dom/es/Redirect";
@@ -152,30 +153,32 @@ class SignUp extends Component {
 
 
     return (
-      <div>
-        {/* <Header
-          absolute
-          color="transparent"
-          brand="AD SPACE"
-          links={
-            <HeaderLinks
-              dropdownHoverColor="info"
-              isAuthenticated={isAuthenticated}
-              user={user}
-              logOutUser={() => logOut()}
-            />
-          }
-        /> */}
-        <div
-          className={classes.pageHeader}
-          style={{
-            backgroundImage: "url(" + image + ")",
-            backgroundSize: "cover",
-            backgroundPosition: "top center",
-          }}
-        >
-                        <form className={classes.form}>
-                          <TextField
+      <Fragment>
+      <div className="login-body">
+        <div className="login-wrapper">
+            <div className="loginbox">
+              <div className="login-left">
+                <Link to="/">
+                  <img
+                    className="img-fluid"
+                    src={headertext}
+                    alt="Logo"
+                    width={250}
+                    height={50}
+                    style={{ display: "inline" }}
+                  />
+                </Link>
+              </div>
+              <div className="login-right">
+                <div className="login-right-wrap">
+                  <h1 style={{ marginBottom: "30px" }} className="use">
+                    <span>
+                      <i className="fe fe-user"></i>
+                    </span>
+                  </h1>
+                  <form>
+                    <div className="form-grou">
+                    <TextField
                             style={{
                               paddingBottom: "1rem",
                               width: "100%",
@@ -206,7 +209,10 @@ class SignUp extends Component {
                               placeholder: "Email...",
                             }}
                           />
-                          <TextField
+                    </div>
+                    <div className="form-grou">
+                      
+                    <TextField
                             style={{
                               paddingBottom: "1rem",
                               width: "100%",
@@ -237,7 +243,9 @@ class SignUp extends Component {
                               placeholder: "Full Name...",
                             }}
                           />
-                          <TextField
+                    </div>
+                    <div className="form-grou">
+                    <TextField
                             style={{
                               paddingBottom: "1rem",
                               width: "100%",
@@ -269,7 +277,9 @@ class SignUp extends Component {
                               placeholder: "Company Name... (optional)",
                             }}
                           />
-                          <TextField
+                    </div>
+                    <div className="form-grou">
+                    <TextField
                             style={{
                               paddingBottom: "1rem",
                               width: "100%",
@@ -300,8 +310,9 @@ class SignUp extends Component {
                               placeholder: "Phone Number... (required)",
                             }}
                           />
-
-                          <TextField
+                    </div>
+                    <div className="form-grou">
+                    <TextField
                             style={{
                               paddingBottom: "1rem",
                               width: "100%",
@@ -332,7 +343,9 @@ class SignUp extends Component {
                               placeholder: "Password...",
                             }}
                           />
-                          <TextField
+                    </div>
+                    <div className="form-grou">
+                    <TextField
                             style={{
                               paddingBottom: "1rem",
                               width: "100%",
@@ -365,7 +378,8 @@ class SignUp extends Component {
                               placeholder: "Confirm Password...",
                             }}
                           />
-                          <FormControlLabel
+                    </div>
+                    {/* <FormControlLabel
                             control={
                               <Checkbox
                                 tabIndex={-1}
@@ -389,10 +403,10 @@ class SignUp extends Component {
                               root: classes.labelRoot,
                             }}
                             label="Subscribe to receive updates and new blog posts in email?"
-                          />
-                          <h6 className={classes.successMessage}>
+                          /> */}
+                          {/* <h6 className={classes.successMessage}>
                             {`** Get Free ${formatCurrency(1000, 1, 'NGN')} to your AdWallet when you sign up **`}
-                          </h6>
+                          </h6> */}
                           {loading && (
                             <div className={classes.textCenter}>
                               <CircularProgress />
@@ -408,34 +422,42 @@ class SignUp extends Component {
                               {message || ""}
                             </h6>
                           )}
-                          <div className={classes.textCenter}>
-                            <button
-                              // round
-                              style={{
-                                width: "100%",
-                                backgroundColor: "#3a75bc",
-                              }}
-                              // color="primary"
-                              onClick={() => this.handleSignUp()}
-                            >
-                              SIGN UP
-                            </button>
-                          </div>
-                          <div
-                            className={classes.textCenter}
-                            style={{ paddingTop: 10, paddingBottom: 10 }}
-                          >
-                            <p>
-                              Already have an account?{" "}
-                              <Link to={`/login`} style={{ color: "#3a75bc" }}>
-                                Sign In
-                              </Link>
-                            </p>
-                          </div>
-                        </form>
+                    <div className="form-grou">
+                      <button
+                        className="btn btn-primary btn-block"
+                        type="submit"
+                        onClick={() => this.handleSignUp()}
+                      >
+                        Register
+                      </button>
+                    </div>
+                  </form>
+                  {/* /Form */}
+                  <div className="login-or">
+                    <span className="or-line" />
+                    <span className="span-or">or</span>
+                  </div>
+                  {/* Social Login */}
+                  <div className="social-login">
+                    <span>Register with</span>
+                    <a href="#" className="facebook">
+                      <i className="fe fe-facebook" />
+                    </a>
+                    <a href="#" className="google">
+                      <i className="fe fe-google" />
+                    </a>
+                  </div>
+                  {/* /Social Login */}
+                  <div className="text-center dont-have">
+                    Already have an account? <Link to="/login">Login</Link>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
-        <br />
       </div>
+    
+      </Fragment>
     );
   }
 }
