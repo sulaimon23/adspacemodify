@@ -1,0 +1,16 @@
+.margin-body{
+    margin-right: 25px !important;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .margin-body{
+        margin-right: 0 !important;
+    }
+}
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .margin-body{
+        margin-right: 0 !important;
+    }
+}

@@ -1,0 +1,5 @@
+{
+  "cloud_api" : "https://us-central1-adspaceprod-11ddc.cloudfunctions.net",
+  "pageSize": 12,
+  "mdPageSize": 12
+}

@@ -1,0 +1,123 @@
+.doctor {
+//   position: -webkit-sticky;
+//   position: sticky;
+//   top: 1rem;
+//   align-self: flex-end;
+position: -webkit-sticky;
+  position: sticky;
+//   top: 4rem;
+}
+
+
+.con {
+  display: flex;
+  justify-content: space-around;
+//   align-items: flex-start;
+
+//   border: 2px dashed rgba(114, 186, 94, 0.35);
+//   height: 400px;
+//   background: rgba(114, 186, 94, 0.05);
+}
+
+
+.makeStyles-expansionPanelSummaryContent-393 {
+    margin: 0 !important;
+    // border: 1px solid gray !important;
+    padding: 10px !important;
+}
+
+
+.makeStyles-roseExpansionPanelSummaryExpaned-336 {
+    color: #2a87d0;
+}
+
+.MuiButton-label {
+    width: 100%;
+    display: inherit;
+    align-items: inherit;
+    justify-content: inherit;
+    font-size: 15px !important;
+}
+.try-wrapper{
+  margin-bottom:35px;
+  display:flex;
+  justify-content:space-between;
+  width: 100%;
+}
+.try{
+  position: fixed !important;
+  z-index: 2 !important;
+  right: 5.5% !important;
+  padding: 0px !important;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .try{
+    // position: relative !important;
+    z-index: 666660 !important;
+    right: 0 !important;
+    padding: 0px !important;
+    margin: 0 auto;
+    width: 85%;
+    margin-top: 30px;
+  }
+}
+
+
+.MediaPlanning-section-61 {
+  padding: 70px 0px;
+  background-size: cover;
+  background-position: 50%;
+  background: #eee;
+}
+
+
+
+.makeStyles-expansionPanelSummaryContent-236 {
+  margin: 0 !important;
+  background: #eee;
+  height: 40px;
+  justify-content: initial;
+  align-items: center;
+  width: 100%;
+  padding: 0 10px;
+  margin: 0;
+  color: #000 !important;
+}
+
+.makeStyles-title-239 {
+  color: inherit;
+  font-size: 18px !important;
+  margin-top: 0;
+  font-weight: bolder;
+  margin-bottom: 0;
+}
+
+
+.makeStyles-roseExpansionPanelSummaryExpaned-235 {
+  color: #000 !important;
+}
+
+.makeStyles-roseExpansionPanelSummary-227:hover {
+  color: #000 !important;
+}
+
+.makeStyles-expansionPanelSummary-220 {
+  color: #3C4858;
+  padding: 25px 0px 5px 0px !important;
+  min-height: auto !important;
+  border-bottom: 0px solid #fff;
+  background-color: transparent;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+input:-ms-input-placeholder {
+  color: #000 !important;
+}
+
+
+.makeStyles-primary-162 {
+  box-shadow: 0 2px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
+  background-color: #029aad !important;
+}
