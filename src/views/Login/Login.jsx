@@ -1,24 +1,22 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-// import Header from "../../components/Header/Header";
-// import HeaderLinks from "../../components/Header/HeaderLinks";
-// import image from "../../assets/img/dg1.jpg";
+import Header from "../../components/Header/Header";
+import HeaderLinks from "../../components/Header/HeaderLinks";
+import image from "../../assets/img/dg1.jpg";
 import loginPageStyle from "../../assets/jss/material-kit-pro-react/views/loginPageStyle.js";
 import { withStyles } from "@material-ui/core";
-// import GridContainer from "../../components/Grid/GridContainer";
-// import GridItem from "../../components/Grid/GridItem";
-// import Card from "../../components/Card/Card";
-// import Button from "../../components/CustomButtons/Button";
-// import CardBody from "../../components/Card/CardBody";
-// import CustomInput from "../../components/CustomInput/CustomInput";
+import GridContainer from "../../components/Grid/GridContainer";
+import GridItem from "../../components/Grid/GridItem";
+import Card from "../../components/Card/Card";
+import Button from "../../components/CustomButtons/Button";
+import CardBody from "../../components/Card/CardBody";
+import CustomInput from "../../components/CustomInput/CustomInput";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
-import { Email } from "@material-ui/icons";
+import headerlogo from "../../assets/images/Asset 6.png";
 import Icon from "@material-ui/core/Icon";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, Redirect } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import headerlogo from "../../images/Asset 6.png";
 import {
   displayLoginMessage,
   loginUser,
@@ -57,12 +55,16 @@ class Login extends Component {
   }
 
   loginClicked() {
-    const { email, password } = this.state;
-    const { displayLoginMessage, loginUser } = this.props;
-    if (!this.verifyEmail(email))
-      displayLoginMessage("PLEASE PROVIDE A VALID EMAIL");
-    else if (password === "") displayLoginMessage("PLEASE PROVIDE A PASSWORD");
-    else loginUser(email, password);
+    return (e) => {
+      e.preventDefault();
+      const { email, password } = this.state;
+      const { displayLoginMessage, loginUser } = this.props;
+      if (!this.verifyEmail(email))
+        displayLoginMessage("PLEASE PROVIDE A VALID EMAIL");
+      else if (password === "")
+        displayLoginMessage("PLEASE PROVIDE A PASSWORD");
+      else loginUser(email, password);
+    };
   }
 
   forgotPasswordClicked() {
@@ -82,21 +84,22 @@ class Login extends Component {
       return (
         <button
           // color="success"
-          // size="md"
+          size="md"
           className="btn btn-primary btn-block"
           onClick={() => this.forgotPasswordClicked()}
         >
-          Reset Password{" "}
+          SUBMIT
         </button>
       );
     } else {
       return (
         <button
           className="btn btn-primary btn-block"
-          type="submit"
-          onClick={() => this.loginClicked()}
+          // color="primary"
+          size="md"
+          onClick={this.loginClicked()}
         >
-          Login{" "}
+          LOGIN
         </button>
       );
     }
@@ -130,14 +133,14 @@ class Login extends Component {
       : "/";
 
     if (isAuthenticated === undefined) {
-      return <div> </div>;
+      return <div></div>;
     }
 
     if (isAuthenticated) {
       return <Redirect to={routeTo} />;
     }
     return (
-      <Fragment>
+      <div className="log">
         <div className="main-wrapper login-body">
           <div className="login-wrapper">
             <div className="container">
@@ -150,84 +153,46 @@ class Login extends Component {
                       alt="Logo"
                       width={250}
                       height={70}
-                      style={{
-                        display: "inline",
-                      }}
-                    />{" "}
-                  </Link>{" "}
-                </div>{" "}
+                      style={{ display: "inline" }}
+                    />
+                  </Link>
+                </div>
                 <div className="login-right">
                   <div className="login-right-wrap">
-                    <h1
-                      style={{
-                        marginBottom: "30px",
-                      }}
-                      className="use"
-                    >
+                    <h1 style={{ marginBottom: "30px" }} className="use">
                       <span>
-                        <i
-                          className="fe fe-user"
-                          style={{
-                            color: "blue",
-                            marginBottom: "20px",
-                          }}
-                        >
-                          {" "}
-                        </i>{" "}
-                      </span>{" "}
-                    </h1>{" "}
+                        <i className="fe fe-user"></i>
+                      </span>
+                    </h1>
                     <form>
-                      <TextField
-                        style={{
-                          paddingBottom: "1rem",
-                          width: "100%",
-                          marginBottom: "10px",
-                        }}
-                        id="login_email"
-                        value={email}
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        size="small"
-                        startAdornment={
-                          <InputAdornment position="start"> $ </InputAdornment>
-                        }
-                        inputProps={{
-                          onChange: (e) => {
-                            this.setState({
-                              email: e.target.value,
-                            });
-                          },
-                          autoFocus: true,
-                          placeholder: "Email...",
-                          type: "email",
-                        }}
-                        label="Email"
-                        variant="outlined"
-                      />{" "}
+                      <div>
+                        <TextField
+                          style={{
+                            paddingBottom: "1rem",
+                            width: "100%",
+                          }}
+                          id="login_email"
+                          value={email}
+                          formControlProps={{
+                            fullWidth: true,
+                          }}
+                          size="small"
+                          startAdornment={
+                            <InputAdornment position="start">$</InputAdornment>
+                          }
+                          inputProps={{
+                            onChange: (e) => {
+                              this.setState({ email: e.target.value });
+                            },
+                            autoFocus: true,
+                            placeholder: "Email...",
+                            type: "email",
+                          }}
+                          label="Email"
+                          variant="outlined"
+                        />
+                      </div>
                       {!showForgotPass && (
-                        // <CustomInput
-                        //   id="login_pass"
-                        //   formControlProps={{
-                        //     fullWidth: true,
-                        //   }}
-                        //   value={password}
-                        //   inputProps={{
-                        //     onChange: (e) => {
-                        //       this.setState({ password: e.target.value });
-                        //     },
-                        //     placeholder: "Password",
-                        //     type: "password",
-                        //     startAdornment: (
-                        //       <InputAdornment position="start">
-                        //         <Icon className={classes.inputIconsColor}>
-                        //           lock_utline
-                        //         </Icon>
-                        //       </InputAdornment>
-                        //     ),
-                        //     autoComplete: "off",
-                        //   }}
-                        // />
                         <TextField
                           style={{
                             paddingBottom: "1rem",
@@ -241,17 +206,15 @@ class Login extends Component {
                           value={password}
                           inputProps={{
                             onChange: (e) => {
-                              this.setState({
-                                password: e.target.value,
-                              });
+                              this.setState({ password: e.target.value });
                             },
                             placeholder: "Password",
                             type: "password",
                             startAdornment: (
                               <InputAdornment position="start">
                                 <Icon className={classes.inputIconsColor}>
-                                  lock_utline{" "}
-                                </Icon>{" "}
+                                  lock_utline
+                                </Icon>
                               </InputAdornment>
                             ),
                             autoComplete: "off",
@@ -259,12 +222,11 @@ class Login extends Component {
                           variant="outlined"
                           label="Password"
                         />
-                      )}{" "}
+                      )}
                       {showForgotPass && (
                         <>
-                          <br />
                           <h6
-                            className={classes.textCenter}
+                            // className={classes.textCenter}
                             style={{
                               color: forgotPasswordEmailSent
                                 ? successColor[0]
@@ -273,93 +235,84 @@ class Login extends Component {
                           >
                             {forgotPasswordEmailSent
                               ? "An Email has been sent to your email inbox."
-                              : ""}{" "}
-                          </h6>{" "}
+                              : ""}
+                          </h6>
                         </>
-                      )}{" "}
+                      )}
                       {loading && (
                         <div className={classes.textCenter}>
                           <CircularProgress />
                         </div>
-                      )}{" "}
+                      )}
                       {error && (
                         <h6 className={classes.errorMessage}>
-                          {" "}
-                          {message || ""}{" "}
+                          {message || ""}
                         </h6>
-                      )}{" "}
+                      )}
                       <div className={classes.textCenter}>
-                        {" "}
-                        {this.renderButtons()}{" "}
-                      </div>{" "}
+                        {this.renderButtons()}
+                      </div>
                       {!emailVerified && (
                         <div className={classes.textCenter}>
-                          <button
+                          <Button
                             round
                             color="success"
                             size="lg"
                             onClick={() => sendVerificationEmail()}
                           >
-                            VERIFY{" "}
-                          </button>{" "}
+                            VERIFY
+                          </Button>
                         </div>
-                      )}{" "}
-                      <div
-                        className={classes.textCenter}
-                        style={{
-                          paddingTop: 10,
-                          paddingBottom: 10,
-                        }}
-                      >
-                        <div
-                          className={classes.textCenter}
-                          style={{
-                            paddingTop: 10,
-                            paddingBottom: 10,
-                          }}
-                        >
-                          {showForgotPass ? (
-                            <></>
-                          ) : (
-                            <>
-                              <div className="text-center forgotpass">
-                                <span onClick={() => showForgotPassword(true)}>
-                                  {" "}
-                                  Forgot Password ?{" "}
-                                </span>{" "}
-                              </div>{" "}
-                              <div className="login-or">
-                                <span className="or-line" />
-                                <span className="span-or"> or </span>{" "}
-                              </div>{" "}
-                              {/* Social Login */}{" "}
-                              <div className="social-login">
-                                <span> Login with </span>{" "}
-                                <a href="#" className="facebook">
-                                  <i className="fe fe-facebook" />
-                                </a>{" "}
-                                <a href="#" className="google">
-                                  <i className="fe fe-google" />
-                                </a>{" "}
-                              </div>{" "}
-                              {/* /Social Login */}{" "}
-                              <div className="text-center dont-have">
-                                Don’ t have an account ?{" "}
-                                <Link to="/signup"> Register </Link>{" "}
-                              </div>{" "}
-                            </>
-                          )}{" "}
-                        </div>{" "}
-                      </div>
-                    </form>{" "}
+                      )}
+                    </form>
                     {/* /Form */}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
-      </Fragment>
+                    <div className="text-center forgotpass">
+                      {showForgotPass ? (
+                        <>
+                          <a
+                            style={{ color: "#3a75bc", cursor: "pointer" }}
+                            onClick={() => showForgotPassword(false)}
+                          >
+                            Login?{" "}
+                          </a>
+                        </>
+                      ) : (
+                        <>
+                          <a
+                            style={{ cursor: "pointer" }}
+                            onClick={() => showForgotPassword(true)}
+                          >
+                            <p style={{ color: "#3a75bc" }}>Forgot password?</p>
+                          </a>
+                        </>
+                      )}
+                    </div>
+                    <div className="login-or">
+                      <span className="or-line" />
+                      <span className="span-or">or</span>
+                    </div>
+                    {/* Social Login */}
+                    <div className="social-login">
+                      <span>Login with</span>
+                      <a href="#" className="facebook">
+                        <i className="fe fe-facebook" />
+                      </a>
+                      <a href="#" className="google">
+                        <i className="fe fe-google" />
+                      </a>
+                    </div>
+                    {/* /Social Login */}
+                    <div className="text-center dont-have">
+                      Don’t have an account?
+                      <Link to="/signup"> Register</Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }
@@ -387,12 +340,15 @@ const mapStateToProps = ({ login }) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  displayLoginMessage,
-  loginUser,
-  setAuthenticated,
-  logOut,
-  sendVerificationEmail,
-  showForgotPassword,
-  sendForgotPassword,
-})(withStyles(loginPageStyle)(Login));
+export default connect(
+  mapStateToProps,
+  {
+    displayLoginMessage,
+    loginUser,
+    setAuthenticated,
+    logOut,
+    sendVerificationEmail,
+    showForgotPassword,
+    sendForgotPassword,
+  }
+)(withStyles(loginPageStyle)(Login));

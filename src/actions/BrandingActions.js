@@ -1,7 +1,7 @@
 import {
     BRANDING_FETCH,
     BRANDING_FETCH_FAILED,
-    BRANDING_FETCH_SUCCESS, BRANDING_SAVE, BRANDING_SAVE_BEFORE_SIGNUP, BRANDING_SAVE_SUCCESS
+    BRANDING_FETCH_SUCCESS, BRANDING_SAVE, BRANDING_SAVE_SUCCESS
 } from "./type";
 import {getAuth, getDb} from "../firebase";
 
@@ -39,38 +39,6 @@ export const getAgeGenderInterests = () => {
             return dispatch({ type: BRANDING_FETCH_FAILED, payload: 'OOPS SOMETHING WENT WRONG, PLEASE RELOAD THE PAGE'})
         }
     }
-};
-
-
-export const saveBrandsBeforeSignUp = (brands = [], branding, selectedIndex) => {
-    if (branding === 'single' || branding === ''){
-        selectedIndex = 0;
-        branding = 'single';
-    }
-
-    let currentBrand = brands[selectedIndex], bestMatchArray = [];
-    if (currentBrand){
-        if (currentBrand.ages){
-            currentBrand.ages.map(age => {
-                if (age.id) bestMatchArray.push(age.id);
-            })
-        }
-        if (currentBrand.gender){
-            if (currentBrand.gender.id) bestMatchArray.push(currentBrand.gender.id);
-        }
-        if (currentBrand.interests){
-            currentBrand.interests.map(interest => {
-                if (interest.id) bestMatchArray.push(interest.id);
-            })
-        }
-    }
-    let brandObject = {
-        branding, brands,
-        currentBrand: brands[selectedIndex],
-        bestMatch: bestMatchArray || []
-    };
-
-    return { type: BRANDING_SAVE_BEFORE_SIGNUP, payload: brandObject }
 };
 
 

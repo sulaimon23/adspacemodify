@@ -18,11 +18,11 @@ function Upload({ order }) {
   const handleImageAsFile = (e) => {
     const image = e.target.files[0];
     setImageAsFile((imageFile) => image);
-
+    console.log(image)
   };
   const handleFireBaseUpload = (e) => {
     e.preventDefault();
-
+    console.log("start of upload");
     setUploadStart(true)
     // async magic goes here...
     if (imageAsFile === "") {

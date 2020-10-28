@@ -67,11 +67,11 @@ const BookingDetails = ({
   showError, startDate, endDate,
   startDateChange, endDateChange,
   openRow, openRowChange, onFileInputChange,
-  savePlan, showSignInPage, brandingObject
+  savePlan
 }) => {
   const { exchange, currency } = useSelector((state) => state.paymentType);
-  let vat = (7.5 / 100) * totalPrice;
-  totalPrice = totalPrice + vat;
+  let vat = (7.5 / 100) * totalPrice
+  totalPrice = totalPrice + vat
   function bookingDetails() {
     if (locations && locations.length > 0) {
       return locations.map((location, index) => {
@@ -90,41 +90,40 @@ const BookingDetails = ({
           state: location.state ? location.state.name || "" : "",
           location: location,
           quantity: (
-              <span key={index}>
-                    {location.userAddedQuantity || 0}
-                {` `}
-                <div className={classes.buttonGroup}>
-                      <Button
-                          style={{ width: 10}}
-                          color="info"
-                          size="sm"
-                          round
-                          className={classes.firstButton}
-                          onClick={() =>
-                              location.userAddedQuantity > 0
-                                  ? qtyAddReduce(location.id, "reduce")
-                                  : ""
-                          }
-                      >
-                        <Remove />
-                      </Button>
-                      <Button
-                          color="info"
-                          size="sm"
-                          round
-                          className={classes.lastButton}
-                          onClick={() =>
-                              location.userAddedQuantity >= location.quantity
-                                  ? showError(
-                                  "Note: Quantity increment will stop when it reaches the maximum quantity for the selected location"
-                                  )
-                                  : qtyAddReduce(location.id, "add")
-                          }
-                      >
-                        <Add />
-                      </Button>
-                    </div>
-                  </span>
+            <span key={index}>
+              {location.userAddedQuantity || 0}
+              {` `}
+              <div className={classes.buttonGroup}>
+                <Button
+                  color="info"
+                  size="sm"
+                  round
+                  className={classes.firstButton}
+                  onClick={() =>
+                    location.userAddedQuantity > 0
+                      ? qtyAddReduce(location.id, "reduce")
+                      : ""
+                  }
+                >
+                  <Remove />
+                </Button>
+                <Button
+                  color="info"
+                  size="sm"
+                  round
+                  className={classes.lastButton}
+                  onClick={() =>
+                    location.userAddedQuantity >= location.quantity
+                      ? showError(
+                        "Note: Quantity increment will stop when it reaches the maximum quantity for the selected location"
+                      )
+                      : qtyAddReduce(location.id, "add")
+                  }
+                >
+                  <Add />
+                </Button>
+              </div>
+            </span>
           ),
           city: location.city ? location.city.name || "" : "",
           category: location.category ? location.category.name || "" : "",
@@ -213,137 +212,7 @@ const BookingDetails = ({
   function moreInfo(row) {
     let locationObject = row.original.location;
     return (
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={12}>
-            <GridContainer>
-              <GridItem xs={12} sm={12} md={3} />
-              <GridItem xs={12} sm={12} md={3}>
-                <div>
-                  <p style={{ color: "#000", fontSize: 14, }}>
-                    {`${locationObject.size
-                        ? "Location Size (sqm): " + locationObject.size
-                        : ""
-                    }`}
-                  </p>
-                  <p style={{ color: "#000", fontSize: 14, }}>
-                    {`${locationObject.dimension
-                        ? "Location Dimensions: " +
-                        (locationObject.dimension.length + " m" || "0 m") +
-                        " * " +
-                        (locationObject.dimension.breadth + " m" || "0 m")
-                        : ""
-                    }`}
-                  </p>
-                  <p style={{ color: "#000", fontSize: 14, }}>
-                    {`${locationObject.quantity
-                        ? "Quantity: " + locationObject.quantity
-                        : ""
-                    }`}
-                  </p>
-                </div>
-              </GridItem>
-              <GridItem xs={12} sm={12} md={3}>
-                <div>
-                  <p style={{ color: "#000", fontSize: 14, }}>
-                    {`${locationObject.category
-                        ? "Adtype: " + locationObject.category.name
-                        : ""
-                    }`}
-                  </p>
-                  <p style={{ color: "#000", fontSize: 14, }}>
-                    {`${locationObject.subCategory
-                        ? "Sub-Adtype: " + locationObject.subCategory ? (locationObject.subCategory.name ? locationObject.subCategory.name : '') : ''
-                        : ""
-                    }`}
-                  </p>
-                  <p style={{ color: "#000", fontSize: 14, }}>
-                    {`${locationObject.state ? "State: " + locationObject.state.name : ""
-                    }`}
-                  </p>
-                  <p style={{ color: "#000", fontSize: 14, }}>
-                    {`${locationObject.city ? "City: " + locationObject.city.name : ""
-                    }`}
-                  </p>
-                </div>
-              </GridItem>
-              <GridItem xs={12} sm={12} md={3} />
-            </GridContainer>
-            <GridContainer>
-              <GridItem xs={12} sm={12} md={3} />
-              <GridItem xs={12} sm={12} md={3}>
-                <Button color="info">
-                  <Link
-                      // to={`https://www.google.com/maps/search/?api=1&query=${locationObject.geolocation.latitude},${locationObject.geolocation.longitude}`}
-                      to={{ pathname: `/location/${locationObject.id}`, locationObject }}
-                      target="_blank"
-                      style={{ color: '#fff' }}
-                  >
-                    Click to see details
-                  </Link>
-                </Button>
-              </GridItem>
-              <GridItem xs={12} sm={12} md={3}>
-                <GridContainer>
-                  <GridItem xs={6} sm={6} md={6}>
-                    <FormControl variant="outlined" fullWidth>
-                      <Datetime
-                          style={{ borderWidth: 0, }}
-                          timeFormat={false}
-                          isValidDate={valid}
-                          value={locationObject.startDate || ''}
-                          inputProps={{
-                            placeholder: "Start Date",
-                          }}
-                          onChange={(e) => startDateChange(e, locationObject, row.index)}
-                      />
-                    </FormControl>
-                  </GridItem>
-                  <GridItem xs={6} sm={6} md={6}>
-                    <FormControl variant="outlined" fullWidth>
-                      <Datetime
-                          style={{ borderWidth: 0, }}
-                          timeFormat={false}
-                          isValidDate={valid}
-                          value={locationObject.endDate || ''}
-                          inputProps={{
-                            placeholder: "End Date",
-                          }}
-                          onChange={(e) => endDateChange(e, locationObject, row.index)}
-                      />
-                    </FormControl>
-                  </GridItem>
-                </GridContainer>
-              </GridItem>
-              <GridItem xs={12} sm={12} md={3} />
-            </GridContainer>
-            <GridContainer>
-              <GridItem xs={12} sm={12} md={3} />
-              <GridItem xs={6} sm={6} md={6}>
-                <CustomFileInput
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    value={locationObject.adContent ? (locationObject.adContent.file || undefined) : undefined}
-                    inputProps={{
-                      placeholder: `${locationObject.adContent ? (locationObject.adContent.name || 'Upload Ad Content...') : 'Upload Ad Content...'}`
-                    }}
-                    endButton={{
-                      buttonProps: {
-                        round: true,
-                        color: "primary",
-                        justIcon: true,
-                        fileButton: true
-                      },
-                      icon: <AttachFile />
-                    }}
-                    onChange={(inputFiles, inputFileNames) => onFileInputChange(inputFiles, inputFileNames, locationObject)}
-                />
-              </GridItem>
-              <GridItem xs={12} sm={12} md={3} />
-            </GridContainer>
-          </GridItem>
-        </GridContainer>
-      /*<div
+      <div
         style={{
           display: "flex",
           flexDirection: "row",
@@ -419,7 +288,7 @@ const BookingDetails = ({
             paddingLeft: 30,
           }}
         >
-          {/!* <Tooltip
+          {/* <Tooltip
             id="tooltip-top"
             title="Click to See location"
             placement="top"
@@ -431,7 +300,7 @@ const BookingDetails = ({
             >
               <Place fontSize="large" />
             </a>
-          </Tooltip> *!/}
+          </Tooltip> */}
           <Button color="info">
             <Link
               // to={`https://www.google.com/maps/search/?api=1&query=${locationObject.geolocation.latitude},${locationObject.geolocation.longitude}`}
@@ -516,44 +385,17 @@ const BookingDetails = ({
             </div>
           </div>
         </div>
-      </div>*/
+      </div>
     );
   }
 
   async function handleExport() {
     let currentUser = getAuth().currentUser;
-    if (currentUser){
-      let userDoc = await getDb().collection("users").doc(currentUser.email).get();
-      let userData = userDoc.data();
-      userData["id"] = userDoc.id;
+    let userDoc = await getDb().collection("users").doc(currentUser.email).get();
+    let userData = userDoc.data();
+    userData["id"] = userDoc.id;
 
-      if (brandingObject !== undefined){
-        await getDb().collection("users").doc(currentUser.email).set({
-          isMulti: brandingObject.branding === 'multi',
-          currentBrand: brandingObject.currentBrand,
-          bestMatch: brandingObject.bestMatch || [],
-          brands: brandingObject.brands || []
-        }, {merge: true});
-      }
-
-      download(locations, exchange, currency, startDate, userData);
-    }else {
-      showSignInPage()
-    }
-  }
-
-  async function handleSavePlan() {
-    let currentUser = getAuth().currentUser;
-    if (currentUser){
-      savePlan(brandingObject);
-    }else {
-      showSignInPage();
-    }
-  }
-
-  function showPayStackButton() {
-      let currentUser = getAuth().currentUser;
-      return !(currentUser && campaignTitle.length >= 1);
+    download(locations, exchange, currency, startDate, userData);
   }
 
   const object = {};
@@ -673,7 +515,7 @@ const BookingDetails = ({
             <Button color="info" onClick={() => handleExport()}>
               EXPORT YOUR PLAN
             </Button>
-            <Button color="info" onClick={() => handleSavePlan()}>
+            <Button color="info" onClick={() => savePlan()}>
               SAVE THIS PLAN
             </Button>
           </div>
@@ -687,8 +529,7 @@ const BookingDetails = ({
               bookingData={{
                 amount: totalPrice,
               }}
-              //disabled={campaignTitle.length < 1}
-              disabled={showPayStackButton()}
+              disabled={campaignTitle.length < 1 ? true : false}
             />
             {/* {currency === "NGN" ? (
               <CheckoutPaystack

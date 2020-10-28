@@ -70,8 +70,7 @@ export const sendVerificationEmail = () => {
         dispatch({type: LOGIN_SAVE});
         try {
             let actionCodeSettings = {
-                //url: `https://www.adspace.ng/branding`
-                url: `http://localhost:3000/?verified=true`
+                url: `https://www.adspace.ng/branding`
             };
             let user = getAuth().currentUser;
             await user.sendEmailVerification(actionCodeSettings);

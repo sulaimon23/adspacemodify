@@ -1288,7 +1288,7 @@ class Location2 extends Component {
             <DialogActions
               className={classes.modalFooter + " " + classes.modalFooterCenter}
             >
-              <Link to="/">
+              <Link to="/mediaplanning">
                 <Button round color="success">
                   Continue Browsing
                 </Button>
@@ -1733,9 +1733,9 @@ class Location2 extends Component {
                                     }`}
                                 </p>
                                 <p style={{ color: "#000", fontSize: 14 }}>
-                                  {`${locationObject.subCategory
+                                  {`${locationObject.category
                                       ? "Sub-Adtype: " +
-                                      (locationObject.subCategory.name ? locationObject.subCategory.name : '')
+                                      locationObject.subCategory.name
                                       : ""
                                     }`}
                                 </p>
@@ -1805,7 +1805,7 @@ class Location2 extends Component {
                       />
                       {!showBookingDetails && (
                         <GridContainer className={classes.pullRight}>
-                          <Link to="/">
+                          <Link to="/mediaplanning">
                             <Button
                               // round
                               // color="rose"

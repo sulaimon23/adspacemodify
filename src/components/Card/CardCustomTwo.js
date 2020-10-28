@@ -43,7 +43,7 @@ const CardCustomTwo = ({
           <h5 style={{color: '#000', fontSize: 18, fontWeight:  'Bold',}}>{location.category ? location.category.name || "" : ""}</h5>
         </Info>
 
-        <p
+        <p 
           style={{ color: "#000", fontSize: 18, marginTop: 15 }}
         >
           {location ? !location.traffic ? `Traffic: ${0}` : `Traffic: ${location.traffic.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}` :  0}
@@ -57,7 +57,7 @@ const CardCustomTwo = ({
               "" + " , Quantity: " + location.quantity ||
               ""}
             {/* {location.sizingoption} */}
-
+            {console.log(location, 'locationlocation')}
 
           {' '}{location.sizingOption.name}
         </p>
@@ -98,7 +98,7 @@ const CardCustomTwo = ({
               <p
                 style={{
                   textAlign: "left",
-                  fontSize: 15,
+                  fontSize: 15,                  
                   textDecoration: "line-through",
                   marginTop: "-15px",
                 }}

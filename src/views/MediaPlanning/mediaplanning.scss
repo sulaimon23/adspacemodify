@@ -47,8 +47,9 @@ position: -webkit-sticky;
 .try{
   position: fixed !important;
   z-index: 2 !important;
-  right: 5.5% !important;
-  padding: 0px !important;
+  right: 1% !important;
+  padding: 2px !important;
+  top: 5%;
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
@@ -63,6 +64,13 @@ position: -webkit-sticky;
   }
 }
 
+
+.makeStyles-cardBody-194 {
+  flex: 1 1 auto;
+  padding: 0.6rem 0.6rem !important;
+  -webkit-box-flex: 1;
+  width: auto;
+}
 
 .MediaPlanning-section-61 {
   padding: 70px 0px;

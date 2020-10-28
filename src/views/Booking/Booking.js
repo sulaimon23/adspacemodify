@@ -142,7 +142,7 @@ class Booking extends Component {
                                 : ""
                             } (${
                               locationObject.subCategory
-                                ? (locationObject.subCategory.name ? locationObject.subCategory.name || '' : '') 
+                                ? locationObject.subCategory.name || ""
                                 : ""
                             })`}
                           </p>

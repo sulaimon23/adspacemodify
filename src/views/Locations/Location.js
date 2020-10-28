@@ -828,7 +828,7 @@ class Location extends Component {
                     </span>
                     <span>
                       Sub Category: {"  "}{" "}
-                      {location.subCategory ? location.subCategory.name || '' : ""}
+                      {location.subCategory ? location.subCategory.name : ""}
                       <br />
                     </span>
                     <span>
@@ -1595,7 +1595,7 @@ class Location extends Component {
                         {locationObject ? !locationObject.traffic ? `Traffic: ${0}` : `Traffic: ${locationObject.traffic.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}` : 0}
                         {' '}{locationObject && locationObject.trafficOption ? locationObject.trafficOption.name : ''}
                       </p>
-
+                      {console.log(locationObject, 'vvvvvv')}
                       <div className={classes.price}>
                         <p style={{ fontWeight: "bold", marginTop: 15, fontSize: 18, color: "#0a2094",}}> <span style={{color: '#0a2094', fontWeight: 'bold'}}>Admatch: </span>{` ${
                           locationObject.count ? (locationObject.count / 5) * 100 : "0"
@@ -1638,9 +1638,9 @@ class Location extends Component {
                                     }`}
                                 </p>
                                 <p style={{ color: "#000", fontSize: 14 }}>
-                                  {`${locationObject.subCategory
+                                  {`${locationObject.category
                                       ? "Sub-Adtype: " +
-                                      (locationObject.subCategory ? locationObject.subCategory.name || '' : '')
+                                      locationObject.subCategory.name
                                       : ""
                                     }`}
                                 </p>

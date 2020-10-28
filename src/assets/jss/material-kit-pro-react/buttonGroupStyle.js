@@ -9,7 +9,6 @@ const buttonGroupStyle = {
     borderTopRightRadius: "0",
     borderBottomRightRadius: "0",
     margin: "0",
-    top: "10px",
     position: "relative",
     float: "left",
     "&:hover": {

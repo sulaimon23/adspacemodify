@@ -13,11 +13,9 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case SIGNUP_SAVE:
             return { ...INITIAL_STATE, loading: true };
-        // case SIGNUP_SAVE_SUCCESS:
-        //      return { ...INITIAL_STATE, success: true, email: action.payload.email, password: action.payload.password,
-        //      message: "USER ACCOUNT HAS BEEN CREATED, WE HAVE SENT YOU EMAIL, PLEASE CHECK YOUR INBOX TO VERIFY YOUR ACCOUNT"};
         case SIGNUP_SAVE_SUCCESS:
-            return { ...INITIAL_STATE, success: true,}
+            return { ...INITIAL_STATE, success: true, email: action.payload.email, password: action.payload.password,
+            message: "USER ACCOUNT HAS BEEN CREATED, WE HAVE SENT YOU EMAIL, PLEASE CHECK YOUR INBOX TO VERIFY YOUR ACCOUNT"};
         case SIGNUP_DISPLAY_MESSAGE:
             return { ...state, error: true, message: action.payload };
         case SIGNUP_SAVE_FAILED:

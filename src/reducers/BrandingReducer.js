@@ -1,8 +1,7 @@
 import {
     BRANDING_FETCH_FAILED,
     BRANDING_FETCH,
-    BRANDING_FETCH_SUCCESS, BRANDING_SAVE, BRANDING_SAVE_FAILED,
-    BRANDING_SAVE_SUCCESS, BRANDING_SAVE_BEFORE_SIGNUP, BRANDING_RESET_BRANDING
+    BRANDING_FETCH_SUCCESS, BRANDING_SAVE, BRANDING_SAVE_FAILED, BRANDING_SAVE_SUCCESS
 } from "../actions/type";
 
 const INITIAL_STATE = {
@@ -12,8 +11,7 @@ const INITIAL_STATE = {
     agesArray: [],
     gendersArray: [],
     interestsArray: [],
-    success: false,
-    brandingObject: {}
+    success: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -31,10 +29,6 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, success: false, loading: false, error: true, message: action.payload };
         case BRANDING_SAVE_SUCCESS:
             return { ...INITIAL_STATE, success: true };
-        case BRANDING_SAVE_BEFORE_SIGNUP:
-            return { ...state, brandingObject: action.payload, success: true };
-        case BRANDING_RESET_BRANDING:
-            return { ...state, brandingObject: undefined}
         default:
             return state;
     }

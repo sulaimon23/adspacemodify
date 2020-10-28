@@ -42,6 +42,7 @@ export default (state = INITIAL_STATE, action) => {
         disableLoad: false,
       };
     case LOCATIONS_FETCH_SUCCESS:
+      console.log(action.payload)
       let newLocations = [],
         paginatedLocations = [];
       if (

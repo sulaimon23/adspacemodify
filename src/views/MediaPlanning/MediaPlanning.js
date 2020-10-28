@@ -33,10 +33,7 @@ import {
   fileInputChange,
   loadSavedPlan,
   savePlanToUserObject,
-  savedPlanSelected,
-  showSignInPageCard,
-  showCurrentState,
-  addReduceQuantityByInput
+  savedPlanSelected
 } from "../../actions";
 import styles from "../../assets/jss/material-kit-pro-react/views/ecommerceSections/productsStyle.js";
 import GridContainer from "../../components/Grid/GridContainer";
@@ -73,7 +70,7 @@ import Popover from "@material-ui/core/Popover";
 import Badge from "../../components/Badge/Badge";
 import Radio from "@material-ui/core/Radio";
 import CustomInput from "../../components/CustomInput/CustomInput";
-import { numberWithCommas, substringText, formatCurrency , } from "../../utils";
+import { numberWithCommas, substringText, formatCurrency } from "../../utils";
 import BookingDetails from "./BookingDetails";
 import { element } from "prop-types";
 import Instruction from "../../components/Instruction/Instruction";
@@ -92,7 +89,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
-import NumericInput from 'react-numeric-input';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -156,12 +152,7 @@ class MediaPlanning extends Component {
 
   componentDidMount() {
     document.title = 'Adspace.ng – Media Planning | Advert Space | Billboards | Television |Newspaper | Radio | Influencer | Magazine';
-    const { brandingObject, showSignIn , getAllLocations, showCurrentState, location} = this.props;
-
-    if (showSignIn === true || showSignIn === undefined)
-      showCurrentState();
-    else
-      getAllLocations(brandingObject);
+    this.props.getAllLocations();
   }
 
   handleToggleTags(value) {
@@ -373,7 +364,7 @@ class MediaPlanning extends Component {
           )}
             {' '}{location.pricingOption.name}
         </span>
-
+        
         </>
       );
     }
@@ -385,7 +376,6 @@ class MediaPlanning extends Component {
       classes,
       addReduceQuantity,
       displayMDMessage,
-      addReduceQuantityByInput
     } = this.props;
     const { noticeModal, location, pageNumber } = this.state;
     let paginatedArray = [];
@@ -396,6 +386,7 @@ class MediaPlanning extends Component {
         (pageNumber + 1) * mdPageSize
       );
       return paginatedArray.map((location, index) => {
+        console.log(location, 'location')
         return (
           <GridItem md={6} sm={4} key={index}>
               <Card className="card" product>
@@ -426,62 +417,34 @@ class MediaPlanning extends Component {
                   // }
                 >
                   {/* <a href="#pablo"> */}
-                    {location.instagramObject ? (
-                        <>
-                          <a href={`/mediaplanning-details/${location.id}`} target="_blank">
-                            <h4 style={{
-                              textTransform: "capitalize",
-                              fontSize: 20,
-                              lineHeight: "30px",
-                              fontWeight: "Bold",
-                              color: "#0b28ba",
-                            }} className={classes.cardTitle}>
-                              {location.instagramObject.fullName ? (location.instagramObject.fullName || '') : location.name || ""}
-                            </h4>
-                          </a>
-                          <p className={classes.description} style={{ color: "#000", fontSize: 18, marginTop: 15 }}>
-                            {`${location.instagramObject ? '@' + location.instagramObject.username || '' : ""}`}
-                          </p>
-                          <br/>
-                          <p className={classes.description} style={{ color: "#000", fontSize: 18 }}>
-                            Followers: {location.instagramObject ? location.instagramObject.followers || "" : ""}
-                          </p>
-                          <br/>
-                          <p className={classes.description} style={{ color: "#000", fontSize: 18 }}>
-                            Average Likes: {location.instagramObject ? location.instagramObject.averageLikes || "" : ""}
-                          </p>
-                        </>
-                    ) : (
-                      <>
-                        <a href={`/mediaplanning-details/${location.id}`} target="_blank">
-                          <h4 style={{
-                            textTransform: "capitalize",
-                            fontSize: 20,
-                            lineHeight: "30px",
-                            fontWeight: "Bold",
-                            color: "#0b28ba",
-                          }} className={classes.cardTitle}>
-                            {location.name ? location.name : ""}
-                          </h4>
-                        </a>
-                          <p className={classes.description} style={{ color: "#000", fontSize: 18, marginTop: 15 }}>
-                              {`${location.category ? location.category.name : ""}`}
-                          </p>
-                          <p className={classes.description} style={{ color: "#000", fontSize: 18 }}>
-                              Available Quantity: {location.quantity || ""}
-                          </p>
-                          <p style={{ color: "#000", fontSize: 18}}>{location ? !location.traffic.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") ? `Traffic: ${0}` : `Traffic: ${location.traffic}` :  0} {' '}{location && location.trafficOption ? location.trafficOption.name : ''}</p>
-                          <p style={{ color: "#000", fontSize: 18, marginTop: 15 }}>
-                              {location.size
-                                  ? "Size: " + location.size || ""
-                                  : "Duration (seconds): " + location.duration ||
-                                  "" + " , Quantity: " + location.quantity ||
-                                  ""}
-                              {' '}{location && location.sizingOption ? location.sizingOption.name : ''}
-                          </p>
-                          {/* {this.renderTagsAdspace(location)} */}
-                      </>
-                    )}
+                  <a href={`/mediaplanning-details/${location.id}`} target="_blank">
+                    <h4 style={{
+                      textTransform: "capitalize",
+                      fontSize: 20,
+                      lineHeight: "30px",
+                      fontWeight: "Bold",
+                      color: "#0b28ba",
+                    }} className={classes.cardTitle}>
+                      {location.name ? location.name : ""}
+                    </h4>
+                  </a>
+                  {/* </a> */}
+                  <p className={classes.description} style={{ color: "#000", fontSize: 18, marginTop: 15 }}>
+                    {`${location.category ? location.category.name : ""}`}
+                  </p>
+                  <p className={classes.description} style={{ color: "#000", fontSize: 18 }}>
+                    Available Quantity: {location.quantity || ""}
+                  </p>
+                  <p style={{ color: "#000", fontSize: 18}}>{location ? !location.traffic.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") ? `Traffic: ${0}` : `Traffic: ${location.traffic}` :  0} {' '}{location && location.trafficOption ? location.trafficOption.name : ''}</p>
+                  <p style={{ color: "#000", fontSize: 18, marginTop: 15 }}>
+                    {location.size
+                      ? "Size: " + location.size || ""
+                      : "Duration (seconds): " + location.duration ||
+                        "" + " , Quantity: " + location.quantity ||
+                        ""}
+                      {' '}{location && location.sizingOption ? location.sizingOption.name : ''}
+                  </p>
+                  {/* {this.renderTagsAdspace(location)} */}
                 </CardBody>
                   <div style={{
                     flexDirection: "column",
@@ -494,176 +457,43 @@ class MediaPlanning extends Component {
                         {`${
                         location.count ? (location.count / 5) * 100 : "0"
                       }%`}
-
+                      
                       </p>
                     </div>
-                    <GridContainer justify>
-                      <GridItem xs={12} md={2} sm={12} />
-                      <GridItem xs={12} md={8} sm={12}>
-                        <GridContainer>
-                          <GridItem xs={12} md={4} sm={12}>
-                            <Button
-                                color="info"
-                                size="sm"
-                                round
-                                disabled={location.userAddedQuantity <= 0}
-                                //className={classes.firstButton}
-                                onClick={() =>
-                                    location.userAddedQuantity > 0
-                                        ? addReduceQuantity(location.id, "reduce")
-                                        : ""
-                                }
-                            >
-                              <Remove />
-                            </Button>
-                          </GridItem>
-                          <GridItem xs={12} md={4} sm={12}>
-                            {/*<CustomInput
-                                formControlProps={{
-                                  fullWidth: true,
-                                  className: classes.customFormControlClasses,
-                                  style: { paddingTop: 0},
-                                  variant: "filled"
-                                }}
-                                inputProps={{
-                                  disabled: true,
-                                  value: location.userAddedQuantity || 0,
-                                  onChange: (e) => {
-                                      addReduceQuantityByInput(location.id, location, e.target.value)
-                                  },
-                                }}
-                            />*/}
-                            <NumericInput
-                                className="form-control"
-                                value={location.userAddedQuantity || 0}
-                                min={0}
-                                max={location.quantity}
-                                strict={true}
-                                step={ 1 }
-                                precision={ 0 }
-                                size={ 5 }
-                                style={{
-                                  input: {
-                                    paddingRight: 0,
-                                    height: 36
-                                  }
-                                }}
-                                onChange={value =>
-                                    addReduceQuantityByInput(location.id, location, value)
-                                }
-                            />
-                            {/*<div className={classes.buttonGroup} style={{ paddingTop: 10}}>
-                              <Button
-                                  color="info"
-                                  size="sm"
-                                  round
-                                  className={classes.firstButton}
-                                  onClick={() =>
-                                      location.userAddedQuantity > 0
-                                          ? addReduceQuantity(location.id, "reduce")
-                                          : ""
-                                  }
-                              >
-                                <Remove />
-                              </Button>
-                              <Button
-                                  color="info"
-                                  size="sm"
-                                  round
-                                  className={classes.lastButton}
-                                  onClick={() =>
-                                      location.userAddedQuantity >= location.quantity
-                                          ? displayMDMessage(
-                                          "Note: Quantity increment will stop when it reaches the maximum quantity for the selected location"
-                                          )
-                                          : addReduceQuantity(location.id, "add")
-                                  }
-                              >
-                                <Add />
-                              </Button>
-                            </div>*/}
-                          </GridItem>
-                          <GridItem xs={12} md={4} sm={12}>
-                            <Button
-                                color="info"
-                                size="sm"
-                                round
-                                //className={classes.lastButton}
-                                onClick={() =>
-                                    location.userAddedQuantity >= location.quantity
-                                        ? displayMDMessage(
-                                        "Note: Quantity increment will stop when it reaches the maximum quantity for the selected location"
-                                        )
-                                        : addReduceQuantity(location.id, "add")
-                                }
-                            >
-                              <Add />
-                            </Button>
-                          </GridItem>
-                        </GridContainer>
-                      </GridItem>
-                      <GridItem xs={12} md={2} sm={12} />
-                      {/*<GridItem xs={12} md={2} sm={4} />
-                      <GridItem xs={12} md={} sm={4} >
-                        <GridContainer>
-                          <GridItem xs={12} md={2} >
-                            <CustomInput
-                                formControlProps={{
-                                  fullWidth: true,
-                                  className: classes.customFormControlClasses
-                                }}
-                                value={location.userAddedQuantity || 0}
-                                inputProps={{
-                                  type: "number",
-                                  onChange: (e) => {
-                                    //this.handleInputChange(e.target.value, index, brands, 'brandname')
-                                  },
-                                  placeholder: "Qty"
-                                }}
-                            />
-                          </GridItem>
-                          <GridItem xs={12} md={10}>
-                            <div className={classes.buttonGroup}>
-                              <Button
-                                  color="info"
-                                  size="sm"
-                                  round
-                                  className={classes.firstButton}
-                                  onClick={() =>
-                                      location.userAddedQuantity > 0
-                                          ? addReduceQuantity(location.id, "reduce")
-                                          : ""
-                                  }
-                              >
-                                <Remove />
-                              </Button>
-                              <Button
-                                  color="info"
-                                  size="sm"
-                                  round
-                                  className={classes.lastButton}
-                                  onClick={() =>
-                                      location.userAddedQuantity >= location.quantity
-                                          ? displayMDMessage(
-                                          "Note: Quantity increment will stop when it reaches the maximum quantity for the selected location"
-                                          )
-                                          : addReduceQuantity(location.id, "add")
-                                  }
-                              >
-                                <Add />
-                              </Button>
-                            </div>
-                          </GridItem>
-                        </GridContainer>
-                      </GridItem>
-                      <GridItem xs={12} md={2} sm={4} />*/}
-                    </GridContainer>
-                    <GridContainer>
-                    </GridContainer>
-                    {/*<span key={index} style={{ color: "#000", fontSize: "18px", fontWeight: 'bold' }}>
+                    <span key={index} style={{ color: "#000", fontSize: "18px", fontWeight: 'bold' }}>
                       {location.userAddedQuantity || 0}
                       {` `}
-                    </span>*/}
+                      <div className={classes.buttonGroup}>
+                        <Button
+                          color="info"
+                          size="sm"
+                          round
+                          className={classes.firstButton}
+                          onClick={() =>
+                            location.userAddedQuantity > 0
+                              ? addReduceQuantity(location.id, "reduce")
+                              : ""
+                          }
+                        >
+                          <Remove />
+                        </Button>
+                        <Button
+                          color="info"
+                          size="sm"
+                          round
+                          className={classes.lastButton}
+                          onClick={() =>
+                            location.userAddedQuantity >= location.quantity
+                              ? displayMDMessage(
+                                  "Note: Quantity increment will stop when it reaches the maximum quantity for the selected location"
+                                )
+                              : addReduceQuantity(location.id, "add")
+                          }
+                        >
+                          <Add />
+                        </Button>
+                      </div>
+                    </span>
                   </div>
 
                 <div className="card-footer">
@@ -739,7 +569,7 @@ class MediaPlanning extends Component {
     if (categoriesArray && categoriesArray.length > 0){
       return categoriesArray.map((cat, index) => {
         return (
-            <div key={index}>
+            <div>
               <FormControlLabel
                   key={index}
                   control={
@@ -822,7 +652,7 @@ class MediaPlanning extends Component {
     if (statesArray && statesArray.length > 0){
       return statesArray.map((state, index) => {
         return(
-            <div key={index}>
+            <div>
               <FormControlLabel
                   key={index}
                   control={
@@ -1203,22 +1033,18 @@ class MediaPlanning extends Component {
       savePlanToUserObject,
       savedPlan,
       savedPlanSelected,
-      savedPlans,
-      showSignInPageCard,
-      showSignIn,
-      brandingObject
+      savedPlans
     } = this.props;
 
-    if (showSignIn) {
+    if (!isAuthenticated) {
       return (
         <Redirect
-          to={{ pathname: "/login", state: { route: "/" } }}
+          to={{ pathname: "/login", state: { route: "/mediaplanning" } }}
         />
       );
     }
 
-    let vat = (7.5 / 100) * totalPrice;
-    // totalPrice = totalPrice + vat
+    let vat = (7.5 / 100) * totalPrice
     if (success) {
       return (
         <Redirect
@@ -1306,10 +1132,8 @@ class MediaPlanning extends Component {
                   openRow={openRow}
                   openRowChange={(row) => updateOpenRow(row)}
                   onFileInputChange={(file, name, location) => fileInputChange(file, name, location)}
-                  savePlan={(brandingObject) => savePlanToUserObject(originalLocationsArray.filter((element) => element.userAddedQuantity > 0), campaignTitle, totalPrice, brandingObject)}
+                  savePlan={() => savePlanToUserObject(originalLocationsArray.filter((element) => element.userAddedQuantity > 0), campaignTitle, totalPrice)}
                   startDate={startDate}
-                  showSignInPage={() => showSignInPageCard()}
-                  brandingObject={brandingObject}
                 />
               </div>
             </div>
@@ -1685,7 +1509,7 @@ class MediaPlanning extends Component {
 
 const selectStyles = { menu: (styles) => ({ ...styles, zIndex: 999 }) };
 
-const mapStateToProps = ({ mediaplanning, login, paymentType, branding }) => {
+const mapStateToProps = ({ mediaplanning, login, paymentType }) => {
   const {
     loading,
     error,
@@ -1707,13 +1531,11 @@ const mapStateToProps = ({ mediaplanning, login, paymentType, branding }) => {
     citiesArray,
     openRow,
     savedPlans,
-    savedPlan,
-    showSignIn
+    savedPlan
   } = mediaplanning;
 
   const { isAuthenticated, user } = login;
   const { currency, exchange } = paymentType;
-  const { brandingObject } = branding;
   return {
     loading,
     error,
@@ -1739,9 +1561,7 @@ const mapStateToProps = ({ mediaplanning, login, paymentType, branding }) => {
     exchange,
     openRow,
     savedPlans,
-    savedPlan,
-    brandingObject,
-    showSignIn
+    savedPlan
   };
 };
 
@@ -1766,9 +1586,6 @@ export default connect(
     fileInputChange,
     loadSavedPlan,
     savePlanToUserObject,
-    savedPlanSelected,
-    showSignInPageCard,
-    showCurrentState,
-    addReduceQuantityByInput
+    savedPlanSelected
   }
 )(withStyles(styles)(MediaPlanning));

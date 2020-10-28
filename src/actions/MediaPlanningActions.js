@@ -1,5 +1,7 @@
 import {
-  BRANDING_RESET_BRANDING,
+  BOOKING_SAVE_FAILED,
+  BOOKING_SAVE_SUCCESS,
+  LOCATIONS_SORT,
   MEDIA_PLANNING_ADD_REDUCE,
   MEDIA_PLANNING_DATE,
   MEDIA_PLANNING_FETCH,
@@ -7,8 +9,7 @@ import {
   MEDIA_PLANNING_FETCH_SUCCESS,
   MEDIA_PLANNING_FILEUPLOAD,
   MEDIA_PLANNING_LOAD_SAVED_PLAN,
-  MEDIA_PLANNING_LOAD_SAVED_PLAN_FAILED,
-  MEDIA_PLANNING_LOAD_SAVED_PLAN_SUCCESS,
+  MEDIA_PLANNING_LOAD_SAVED_PLAN_FAILED, MEDIA_PLANNING_LOAD_SAVED_PLAN_SUCCESS,
   MEDIA_PLANNING_MESSAGE,
   MEDIA_PLANNING_NOT_APPLICABLE_CHANGE,
   MEDIA_PLANNING_OPENROW,
@@ -18,23 +19,17 @@ import {
   MEDIA_PLANNING_REFINING_FAILED,
   MEDIA_PLANNING_REFINING_SUCCESS,
   MEDIA_PLANNING_SAVE,
-  MEDIA_PLANNING_SAVE_FAILED,
-  MEDIA_PLANNING_SAVE_PLAN,
-  MEDIA_PLANNING_SAVE_SUCCESS,
-  MEDIA_PLANNING_SELECT_PLANS,
+  MEDIA_PLANNING_SAVE_FAILED, MEDIA_PLANNING_SAVE_PLAN,
+  MEDIA_PLANNING_SAVE_SUCCESS, MEDIA_PLANNING_SELECT_PLANS,
   MEDIA_PLANNING_SHOW_BOOKING,
   MEDIA_PLANNING_SORT,
-  MEDIA_PLANNING_SHOW_SIGN_IN,
-  MEDIA_PLANNING_SHOW_CURRENT_STATE,
-  MEDIA_PLANNING_AFTER_SIGNUP,
-  MEDIA_PLANNING_AFTER_SIGNUP_FAILED, LOGIN_SET_AUTHENTICATED, MEDIA_PLANNING_DO_NOTHING
 } from "./type";
-import { getAuth, getDb, getTimestamp, firebaseObject, } from "../firebase";
+import { getAuth, getDb, getTimestamp, firebaseObject } from "../firebase";
 import _ from "underscore";
-import { isUserLoggedIn } from "../utils";
+import { element } from "prop-types";
 const { cloud_api } = require("../config");
 
-export const getAllLocations = (brandingObject) => {
+export const getAllLocations = () => {
   return async (dispatch) => {
     dispatch({ type: MEDIA_PLANNING_FETCH });
     try {
@@ -108,26 +103,18 @@ export const getAllLocations = (brandingObject) => {
         city["state_id"] = doc.ref.parent.parent.id;
         cities.push(city);
       });
-
-      let user = getAuth().currentUser, userInfo;
-      if (user){
-        let userDoc = await getDb().collection("users").doc(user.email).get();
-        if (userDoc.exists) {
-          userInfo = userDoc.data();
-          let savedPlans = userInfo.savedPlans;
-          dispatch({ type: MEDIA_PLANNING_SELECT_PLANS, payload: savedPlans });
-        }
-      }
-
-      if (userInfo){
-        dispatch({ type: BRANDING_RESET_BRANDING })
-      }
-
-      return dispatch({
+      dispatch({
         type: MEDIA_PLANNING_FETCH_SUCCESS,
-        payload: { locations, tags, categories, subCategories, states, cities, brandingObject, user: userInfo },
+        payload: { locations, tags, categories, subCategories, states, cities },
       });
 
+      let user = getAuth().currentUser;
+      let userDoc = await getDb().collection("users").doc(user.email).get();
+      if (userDoc.exists) {
+        let userInfo = userDoc.data();
+        let savedPlans = userInfo.savedPlans;
+        return dispatch({ type: MEDIA_PLANNING_SELECT_PLANS, payload: savedPlans });
+      }
 
     } catch (e) {
       console.log(e);
@@ -300,9 +287,7 @@ export const querySearch = (
           });
 
           let nationWideLocations = locations.filter((f) => f.state.id === 'nationwide');
-          let stateWideLocations = locations.filter(f => states.includes(f.city ? f.city.id : ''));
           fullLocations = fullLocations.concat(nationWideLocations);
-          fullLocations = fullLocations.concat(stateWideLocations);
 
         } else if (
           states &&
@@ -320,10 +305,9 @@ export const querySearch = (
             fullLocations.push(doc);
           });
 
-          let nationWideLocations = locations.filter((f) => f.state.id === 'nationwide' && categories.includes(f.category ? f.category.id : ""));
-          let stateWideLocations = locations.filter(f => states.includes(f.city ? f.city.id : ''));
+          let nationWideLocations = locations.filter((f) => f.state.id === 'nationwide');
           fullLocations = fullLocations.concat(nationWideLocations);
-          fullLocations = fullLocations.concat(stateWideLocations);
+
         } else if (
           states &&
           states.length > 0 &&
@@ -340,11 +324,9 @@ export const querySearch = (
             fullLocations.push(doc);
           });
 
-          let nationWideLocations = locations.filter((f) => f.state.id === 'nationwide' &&
-              subCategories.includes(f.subCategory ? f.subCategory : ""));
-          let stateWideLocations = locations.filter(f => states.includes(f.city ? f.city.id : ''));
+          let nationWideLocations = locations.filter((f) => f.state.id === 'nationwide');
           fullLocations = fullLocations.concat(nationWideLocations);
-          fullLocations = fullLocations.concat(stateWideLocations);
+
         } else if (
           states &&
           states.length > 0 &&
@@ -361,7 +343,7 @@ export const querySearch = (
             fullLocations.push(doc);
           });
 
-          let nationWideLocations = locations.filter((f) => f.state.id === 'nationwide' && categories.includes(f.category ? f.category.id : ""));
+          let nationWideLocations = locations.filter((f) => f.state.id === 'nationwide');
           fullLocations = fullLocations.concat(nationWideLocations);
 
         } else if (
@@ -379,11 +361,6 @@ export const querySearch = (
           newLocations.forEach((doc) => {
             fullLocations.push(doc);
           });
-
-            let nationWideLocations = locations.filter((f) => f.state.id === 'nationwide' &&
-                subCategories.includes(f.subCategory ? f.subCategory : ""));
-            fullLocations = fullLocations.concat(nationWideLocations);
-
         } else if (
           states &&
           states.length === 0 &&
@@ -398,8 +375,8 @@ export const querySearch = (
             fullLocations.push(doc);
           });
 
-          //let nationWideLocations = locations.filter((f) => f.state.id === 'nationwide');
-          //fullLocations = fullLocations.concat(nationWideLocations);
+          let nationWideLocations = locations.filter((f) => f.state.id === 'nationwide');
+          fullLocations = fullLocations.concat(nationWideLocations);
 
         } else if (
           states &&
@@ -450,16 +427,7 @@ export const querySearch = (
 export const addReduceQuantity = (locationId, action) => {
   return {
     type: MEDIA_PLANNING_ADD_REDUCE,
-    payload: { id: locationId, action, quantity: 1 },
-  };
-};
-
-
-export const addReduceQuantityByInput = (locationId, location, quantity) => {
-
-  return {
-    type: MEDIA_PLANNING_ADD_REDUCE,
-    payload: { id: locationId, action: 'none', quantity: quantity },
+    payload: { id: locationId, action },
   };
 };
 
@@ -766,7 +734,7 @@ export const loadSavedPlan = () => {
   }
 };
 
-export const savePlanToUserObject = (locations, campaignTitle, totalPrice, brandingObject) => {
+export const savePlanToUserObject = (locations, campaignTitle, totalPrice) => {
   return async (dispatch) => {
     dispatch({ type: MEDIA_PLANNING_SAVE });
 
@@ -778,11 +746,9 @@ export const savePlanToUserObject = (locations, campaignTitle, totalPrice, brand
         brandName = data.currentBrand ? data.currentBrand.brandName || '' : '';
       }
 
-      if (brandName === '' && brandingObject === undefined) {
+      if (brandName === '') {
         return dispatch({ type: MEDIA_PLANNING_SAVE_FAILED, payload: "YOU DO NOT HAVE A CURRENT ACTIVE BRAND" });
       }
-      else if (brandName === '' && brandingObject !== undefined)
-        brandName = brandingObject.currentBrand.brandName || '';
 
       let exists = false;
 
@@ -805,17 +771,8 @@ export const savePlanToUserObject = (locations, campaignTitle, totalPrice, brand
         savedPlans.push({ campaignTitle, locations, totalPrice, brandName });
       }
 
-      let dataToSave = {
-        savedPlans
-      };
 
-      if (brandingObject !== undefined){
-        dataToSave['isMulti'] = brandingObject.branding === 'multi';
-        dataToSave['currentBrand'] = brandingObject.currentBrand;
-        dataToSave['bestMatch'] = brandingObject.bestMatch || [];
-        dataToSave['brands'] = brandingObject.brands;
-      }
-      await getDb().collection("users").doc(user.email).set(dataToSave, { merge: true });
+      await getDb().collection("users").doc(user.email).set({ savedPlans }, { merge: true });
 
       return dispatch({ type: MEDIA_PLANNING_SAVE_PLAN, payload: savedPlans })
     }
@@ -833,14 +790,3 @@ export const savedPlanSelected = (selectedBrand, savedPlans) => {
   let plan = _.findWhere(savedPlans, { brandName: selectedBrand });
   return { type: MEDIA_PLANNING_LOAD_SAVED_PLAN_SUCCESS, payload: { plan, selectedBrand } }
 };
-
-
-export const showSignInPageCard = () => {
-  return { type: MEDIA_PLANNING_SHOW_SIGN_IN }
-};
-
-
-export const showCurrentState = () => {
-  return { type: MEDIA_PLANNING_SHOW_CURRENT_STATE, payload: {set: undefined} }
-};
-

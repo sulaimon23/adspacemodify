@@ -214,14 +214,14 @@ export const deleteAccount = (email, password) => {
         dispatch({ type: PROFILE_DELETE_ACCOUNT });
         try{
             //sigin in first
-
+            console.log(email, password)
             await getAuth().signInWithEmailAndPassword(email, password);
 
             let user = getAuth().currentUser;
             let email_ = user.email;
-
+            console.log(email_)
             let res = await getDb().collection("users").doc(email_).delete();
-
+            console.log(res)
             await user.delete();
             dispatch({ type: LOGOUT });
             return dispatch({ type: PROFILE_DELETE_ACCOUNT_SUCCESS })

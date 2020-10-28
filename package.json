@@ -12,6 +12,7 @@
     "firebase": "^7.24.0",
     "history": "^4.9.0",
     "json2xls": "^0.1.2",
+    "material-ui": "^0.20.2",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "nouislider": "14.0.2",

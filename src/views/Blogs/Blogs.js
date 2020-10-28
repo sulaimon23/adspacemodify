@@ -43,7 +43,6 @@ class Blogs extends Component {
 
     if (blogsArray && blogsArray.length > 0) {
       return blogsArray.map((blog, index) => {
-
         return (
           <Card plain blog className={classes.card} key={index}>
             <Link to={{ pathname: `/blog/${blog.id}`, blog, blogsArray }}>
@@ -56,7 +55,7 @@ class Blogs extends Component {
                     </p>
                     <p className={classes.author}>
                       by <b>{blog.author || ""}</b> ,{" "}
-                      {/*{blog.created_at ? moment(blog.created_at.toDate()).format('YYYY-MM-DD hh:mm:ss') : ''}*/}
+                      {moment(blog.created_at.toDate()).fromNow()}
                     </p>
                     {this.formatTags(blog.tags || [])}
                   </GridItem>
@@ -95,7 +94,7 @@ class Blogs extends Component {
                     </p>
                     <p className={classes.author}>
                       by <b>{blog.author || ""}</b> ,{" "}
-                      {/*{blog.created_at ? moment(blog.created_at.toDate()).format('YYYY-MM-DD hh:mm:ss') : ''}*/}
+                      {moment(blog.created_at.toDate()).fromNow()}
                     </p>
                     {this.formatTags(blog.tags || [])}
                   </GridItem>

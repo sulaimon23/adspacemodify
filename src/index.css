@@ -7,13 +7,12 @@ h5,
 h6 {
   font-family: "Montserrat", sans-serif !important;
 }
-/* 
-body, h1, h2, h3, h4, h5, h6 {
 
-} */
-body{
-  width: 100%;
+body {
+  height: 100vh;
+  overflow: hidden;
 }
+
 
 .makeStyles-expansionPanelSummaryContent-236 {
   margin: 0 !important;

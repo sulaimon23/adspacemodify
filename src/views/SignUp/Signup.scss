@@ -16,21 +16,18 @@ display: flex;
   z-index: 99999;
   background: white;
 }
-.login-wrapper .loginbox {
+.yep .loginbox {
   background-color: #fff;
   border-radius: 6px;
   box-shadow: 0 0 10px rgb(0, 0, 0);
 display: flex;
-  margin:auto auto;
-  max-width: 800px;
+  margin: 1.875rem auto;
+  // max-width: 800px;
   min-height: 500px;
   width: 100%;
 }
 .use i{
-  font-size: 70px !important;
-}
-.use {
-  margin: 0 !important;
+  font-size: 80px !important;
 }
 
 .login-wrapper .loginbox .login-left {
@@ -41,15 +38,15 @@ display: flex;
   flex-direction: row;
   justify-content: space-around;
   padding: 80px;
-  width: 400px;
+  width: 500px;
   display: flex;
 }
 .login-wrapper .loginbox .login-right {
   align-items: center;
   display: flex;
   justify-content: center;
-  padding: 40px;
-  width: 400px;
+  padding: 10px 30px;
+  width: 500px;
 }
 .login-wrapper .loginbox .login-right .login-right-wrap {
   max-width: 100%;
@@ -77,7 +74,7 @@ text-decoration: none;
 }
 .login-wrapper .loginbox .login-right .dont-have {
 color: #a0a0a0;
-margin-top: 5px;
+// margin-top: 1.875rem;
 }
 .login-wrapper .loginbox .login-right .dont-have a {
   color: #333;
@@ -98,7 +95,7 @@ color: #a0a0a0;
 .social-login > a {
 /* background-color: #ccc; */
 border-radius: 4px;
-// color: #fff;
+color: #fff;
 display: inline-block;
 font-size: 18px;
 height: 32px;
@@ -113,8 +110,8 @@ margin-right: 0;
 
 .login-or {
 color: #a0a0a0;
-margin-bottom: 20px;
-margin-top: 20px;
+// margin-bottom: 20px;
+// margin-top: 20px;
 padding-bottom: 10px;
 padding-top: 10px;
 position: relative;

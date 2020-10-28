@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {connect} from "react-redux";
 import Header from "../../components/Header/Header";
 import HeaderLinks from "../../components/Header/HeaderLinks";
-import { logOut, getAgeGenderInterests, saveBrands, saveBrandsBeforeSignUp } from "../../actions";
+import { logOut, getAgeGenderInterests, saveBrands } from "../../actions";
 import image from "../../assets/img/dg1.jpg";
 import {withStyles} from "@material-ui/core";
 import basicsStyle from "../../assets/jss/material-kit-pro-react/views/signupPageStyle";
@@ -274,7 +274,7 @@ class Branding extends Component{
     }
 
     handleSaveBrands(brands, branding){
-        const { interestsArray, agesArray, gendersArray, saveBrands, saveBrandsBeforeSignUp } = this.props;
+        const { interestsArray, agesArray, gendersArray, saveBrands } = this.props;
         const { selectedEnabled } = this.state;
         const newArray = brands.map((brand => {
             return {
@@ -288,8 +288,7 @@ class Branding extends Component{
                 gender: this.findItem(gendersArray, brand.gender),
             }
         }));
-        saveBrandsBeforeSignUp(newArray, branding, selectedEnabled)
-        //saveBrands(newArray, branding, selectedEnabled);
+        saveBrands(newArray, branding, selectedEnabled);
     }
 
     findItem(array = [], item){
@@ -429,5 +428,5 @@ const mapStateToProps = ({ login, branding }) => {
 
 
 export default connect(mapStateToProps, {
-    logOut, getAgeGenderInterests, saveBrands, saveBrandsBeforeSignUp
+    logOut, getAgeGenderInterests, saveBrands
 })(withStyles(basicsStyle)(Branding));

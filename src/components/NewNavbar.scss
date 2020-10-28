@@ -1,0 +1,244 @@
+.header {
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.26);
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    align-items: center;
+    display: flex;
+    z-index: 999999;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.top-nav-search {
+    float: left;
+    margin-left: 15px;
+}
+// .navbar-nav a{
+//     padding: 0 !important;
+// }
+.top-nav-search form {
+    margin: 10px;
+    position: relative;
+    width: 230px;
+}
+
+.top-nav-search .form-control {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid blue;
+    color: black;
+    border-radius: 50px;
+    height: 40px;
+    padding: 10px 50px 10px 15px;
+    box-sizing: border-box;
+}
+
+i{
+    color: blue;
+    font-size:25px !important;
+}
+input[type=text],
+input[type=password] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+a,
+area,
+button,
+[role='button'],
+input:not([type='range']),
+label,
+select,
+summary,
+textarea {
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
+
+input[type='text'],
+input[type='password'],
+input[type='number'],
+textarea {
+    -webkit-appearance: none;
+}
+
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #ffffff;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.form-control::placeholder{
+    color: blue;
+}
+input,
+input:focus,
+button,
+button:focus {
+    outline: none;
+}
+
+input,
+button,
+a {
+    transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+button,
+input {
+    overflow: visible;
+}
+
+input,
+button,
+select,
+optgroup,
+textarea {
+    margin: 0;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+}
+
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+
+.top-nav-search .btn {
+    background-color: transparent;
+    border-color: transparent;
+    color: #fff;
+    min-height: 40px;
+    // padding: 7px 15px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+[type=button]:not(:disabled),
+[type=reset]:not(:disabled),
+[type=submit]:not(:disabled),
+button:not(:disabled) {
+    cursor: pointer;
+}
+
+.mobile_btn {
+    display: none;
+    float: left;
+}
+
+.mobile_btn {
+    display: none;
+    float: left;
+}
+
+.user-menu {
+    float: right;
+    margin: 0;
+    position: relative;
+    z-index: 99;
+}
+
+.nav {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 0;
+    margin-bottom: 0;
+    list-style: none;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+.header .btn-primary {
+    color: inherit !important;
+    background-color: inherit !important;
+    border-color:none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.dropdown-toggle::after {
+    display: none !important;
+}
+.btn-primary:hover{
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.dropdown,
+.dropleft,
+.dropright,
+.dropup {
+    position: relative;
+}
+#main > ul > li.nav-item.dropdown.app-dropdown > div > div{
+    left: -128px !important;
+}
+.user-menu.nav>li>a {
+    color: #fff;
+    font-size: 14px;
+    line-height: 58px;
+    padding: 0 10px;
+    height: 50px;
+}
+.nav-item{
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav-item:hover{
+    background: rgb(185, 183, 183);
+}
+.nav-link {
+    display: block;
+    padding: .5rem 1rem;
+}
+#toggle_btn{
+    margin:5px 20px;
+    display: inline-block;
+    float: left;
+}
+#toggle_btn i{
+    font-size:40px !important;
+}
+
+

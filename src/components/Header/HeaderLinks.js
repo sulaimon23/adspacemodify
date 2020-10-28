@@ -287,7 +287,7 @@ export default function HeaderLinks(props) {
       )}
 
       <ListItem className={classes.listItem} style={{ paddingLeft: 15 }}>
-        <Link to={`/`}>
+        <Link to={`/mediaplanning`}>
           <div
             className="other-btn"
             style={{
