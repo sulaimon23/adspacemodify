@@ -1,0 +1,142 @@
+
+.login-body {
+  display: table;
+  height: 100vh;
+  min-height: 100vh;
+  width: 100%;
+}
+.login-wrapper {
+width: 100%;
+height: 100vh;
+display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-left img{
+  z-index: 99999;
+  background: white;
+}
+.yep .loginbox {
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgb(0, 0, 0);
+display: flex;
+  margin: 1.875rem auto;
+  // max-width: 800px;
+  min-height: 500px;
+  width: 100%;
+}
+.use i{
+  font-size: 80px !important;
+}
+
+.login-wrapper .loginbox .login-left {
+  align-items: center;
+  background:#0b28ba;
+  /* background: radial-gradient(#fff, #3949ab); */
+  border-radius: 6px 0 0 6px;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 80px;
+  width: 500px;
+  display: flex;
+}
+.login-wrapper .loginbox .login-right {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 10px 30px;
+  width: 500px;
+}
+.login-wrapper .loginbox .login-right .login-right-wrap {
+  max-width: 100%;
+  flex: 0 0 100%;
+}
+.login-wrapper .loginbox .login-right h1 {
+  font-size: 26px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.account-subtitle {
+  color: #4c4c4c;
+  font-size: 17px;
+  margin-bottom: 1.875rem;
+  text-align: center;
+}
+.login-wrapper .loginbox .login-right .forgotpass a {
+  color: #a0a0a0;
+  font-weight: 600;
+}
+.login-wrapper .loginbox .login-right .forgotpass a:hover {
+text-decoration: none;
+  color: blue;
+}
+.login-wrapper .loginbox .login-right .dont-have {
+color: #a0a0a0;
+// margin-top: 1.875rem;
+}
+.login-wrapper .loginbox .login-right .dont-have a {
+  color: #333;
+  font-weight: 600;
+}
+.login-wrapper .loginbox .login-right .dont-have a:hover {
+  text-decoration: none;
+  color: blue;
+}
+.social-login {
+  text-align: center;
+  
+}
+.social-login > span {
+color: #a0a0a0;
+  margin-right: 8px;
+}
+.social-login > a {
+/* background-color: #ccc; */
+border-radius: 4px;
+color: #fff;
+display: inline-block;
+font-size: 18px;
+height: 32px;
+line-height: 32px;
+margin-right: 6px;
+text-align: center;
+width: 32px;
+}
+.social-login > a:last-child {
+margin-right: 0;
+}
+
+.login-or {
+color: #a0a0a0;
+// margin-bottom: 20px;
+// margin-top: 20px;
+padding-bottom: 10px;
+padding-top: 10px;
+position: relative;
+}
+.or-line {
+background-color: #e5e5e5;
+height: 1px;
+margin-bottom: 0;
+margin-top: 0;
+display: block;
+}
+.span-or {
+background-color: #fff;
+display: block;
+left: 50%;
+margin-left: -20px;
+position: absolute;
+text-align: center;
+text-transform: uppercase;
+top: 0;
+width: 42px;
+}
+.social-login i{
+  transition: all 0.5s;
+}
+.social-login i:hover{
+  color: red;
+}

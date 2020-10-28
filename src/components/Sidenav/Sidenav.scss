@@ -1,0 +1,152 @@
+.sidenav {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+.side-nav {
+  padding-left:10px;
+}
+.side-nav li h3{
+  font-size:15px;
+}
+.side-nav li{
+  list-style:  none;
+  cursor:pointer;
+  margin-top:0px;
+  padding:1px;
+  padding-left:10px;
+}
+// .side-nav li:hover, li:focus
+// {
+//   background:white;
+//   color:black;
+//   border-top-left-radius:25px;
+//   border-bottom-left-radius:25px;
+// }
+
+
+// .side-nav li:hover {
+//   background:white;
+//   color: blue;
+// }
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.scroll {
+    overflow: scroll;
+    background-color: red;
+}
+
+.sidebar-li{
+  // height: 60px;
+  display: flex;
+  // justify-items: center;
+  // justify-content: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  // background-color: red;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.sidebar-li i{
+  color: #000;
+  font-size: 15px;
+}
+
+.sidebar-li span{
+  color: #000;
+  font-size: 13px;
+  margin-left: 15px;
+  font-weight: 800;
+}
+
+.Profile-uncheckedIcon-8 {
+  width: 0px;
+  border: 1px solid rgba(0, 0, 0, .54);
+  height: 0px;
+  padding: 8px;
+  border-radius: 3px;
+}
+
+
+.sidenav-side {
+  background: #fff;
+  color: #0d25d3;
+  height: 100vh;
+  padding-top: 0px;
+    box-shadow: 5px 8px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out 0s;
+    // z-index: 999999;
+	overflow: auto;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .sidenav-side {
+    background: #fff;
+    color: #0d25d3;
+    height: 100%;
+    text-align: center;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .sidenav-side {
+    background: #fff;
+    color: #0d25d3;
+    height: 100%;
+    // padding-top: 65px;
+    // display: flex;
+    // justify-content: space-between;
+    // align-items: center;
+    text-align: center;
+  }
+}
+
+
+.card-body-scroll {
+  flex: 1 1 auto;
+  min-height: 1px;
+  // padding: 1.25rem;
+  overflow: scroll;
+}
+
+.card:hover {
+  background-color: #fff !important;
+}
