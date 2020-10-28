@@ -29,7 +29,7 @@ function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser}) {
     let categories = categoriesArray || [];
 
     return (
-        <div className="hea"> 
+        <div className="header"> 
             <nav class=" navbar navbar-expand-lg header">
                 <div className="col-md-2 p-0">
                 <div className="logo">
