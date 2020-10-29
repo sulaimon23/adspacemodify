@@ -1039,7 +1039,7 @@ class MediaPlanning extends Component {
     if (!isAuthenticated) {
       return (
         <Redirect
-          to={{ pathname: "/login", state: { route: "/mediaplanning" } }}
+          to={{ pathname: "/login" }}
         />
       );
     }
@@ -1200,35 +1200,7 @@ class MediaPlanning extends Component {
                   </Card>
                 </GridItem>
               </div>
-              {/* <div className="try-wrapper">
-                <GridItem xs={12} md={3} sm={12}>
-                  <FormControl fullWidth className={classes.selectFormControl}>
-                    <InputLabel
-                        htmlFor="simple-select"
-                        className={classes.selectLabel}
-                    >
-                      Load Saved Media Plans
-                    </InputLabel>
-                    <Select
-                        MenuProps={{
-                          className: classes.selectMenu
-                        }}
-                        classes={{
-                          select: classes.select
-                        }}
-                        value={savedPlan}
-                        onChange={(e) => savedPlanSelected(e.target.value, savedPlans)}
-                        inputProps={{
-                          name: "simpleSelect",
-                          id: "simple-select"
-                        }}
-                    >
-                      {this.renderLoadedPlans()}
-                    </Select>
-                  </FormControl>
-                </GridItem>
-
-              </div> */}
+             
               <div style={{marginTop: 50, marginBottom: 50}}></div>
 
               {error && (

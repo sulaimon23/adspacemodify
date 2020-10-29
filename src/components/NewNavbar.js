@@ -5,10 +5,12 @@ import logotext from '../assets/images/logotext.png'
 import { useDispatch, useSelector } from "react-redux";
 import Avatar_01 from '../assets/img/new-img/user.jpg'
 import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
+
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { numberWithCommas, substringText, formatCurrency } from "../utils"
 
-function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser}) {
-
+function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser, totalPrice, exchange, currency: totalCurrency}) {
     const dispatch = useDispatch();
     const currency = useSelector((state) => state.paymentType.currency);
     const changeCurrency = (curr) => {
@@ -74,11 +76,28 @@ function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser}) {
           </div>
 
                     <ul class="navbar-nav  ml-auto">
+                  
+                    <li class="nav-ite pd-top">
+                     <div className="nav_conn" style={{paddingTop:"5px", fontSize:"20px", marginRight:"30px"}}>
+                     <Link to="/blogs"  >
+                            BLOG POST
+                        </Link>
+                        </div>
+                        </li>
+                    <li class="nav-ite pd-top">
+                     <div className="nav_con" style={{paddingTop: "10px"}}>
+                          {''}                                                    
+                          {formatCurrency(
+                                                    totalPrice || 0,
+                                                    exchange,
+                                                    totalCurrency
+                                                    )}</div>
+                        </li>
                         <li class="nav-item avatar dropdown pd-top">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+                            <a class="nav-link dropdown-toggle currency" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                                 <span className="currency-font-size">
-                                    {`(${currency})`}
+                                    {`${currency}`}
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
@@ -129,4 +148,24 @@ function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser}) {
     )
 }
 
-export default NewNavbar
+
+
+const mapStateToProps = ({ mediaplanning, paymentType }) => {
+    const { currency, exchange } = paymentType;
+    const {
+        totalPrice,
+      } = mediaplanning;
+
+    return {
+        totalPrice,
+        exchange,
+        currency,
+        
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    {
+       
+})(NewNavbar);

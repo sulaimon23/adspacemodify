@@ -109,21 +109,25 @@ hr.solid {
     background-color: #fff;
     box-shadow: 0px 6px 5px rgb(0, 0, 0);
     transition: all 0.2s ease-in-out 0s;
-    // width: 240px;
-    // position: relative;
     padding-top: 10px;
+    margin-right: 30px;
     top: 50;
     height: 100vh;
     margin-top: 50px;
     overflow: auto;
     padding-bottom: 10px;
-    // z-index: 999999;
 }
 .sidebar-li{
     align-items: center;
 }
 .sidebar-li span{
     color: rgb(53, 50, 50);
+    font-size: 16px;
+}
+.card_med{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 a{
     text-decoration: none !important;
@@ -151,4 +155,12 @@ a{
     opacity: 1;
     padding: 5px 15px;
     white-space: nowrap;
+}
+.acct_i{
+    font-size: 70px !important;
+}
+.acct_btn{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

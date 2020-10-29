@@ -81,6 +81,11 @@ class Booking extends Component {
   }
 
   render() {
+    if (!isAuthenticated) {
+      return (
+          <Redirect to={{ pathname: '/login' }} />
+      )
+  }
     const {
       classes,
       isAuthenticated,

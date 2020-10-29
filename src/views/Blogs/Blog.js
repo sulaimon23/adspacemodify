@@ -15,7 +15,8 @@ import Parallax from "../../components/Parallax/Parallax";
 import GridContainer from "../../components/Grid/GridContainer";
 import GridItem from "../../components/Grid/GridItem";
 import { Favorite, FormatAlignLeft } from "@material-ui/icons";
-import PlaceHolder from "../../assets/img/bg5.jpg";
+import { Redirect } from "react-router-dom";
+
 import Button from "../../components/CustomButtons/Button";
 import SectionText from "../Home/Sections/SectionText";
 import SectionBlogInfo from "../Home/Sections/SectionBlogInfo";
@@ -99,7 +100,13 @@ class Blog extends Component {
       user,
       logOut,
     } = this.props;
+    if (!isAuthenticated) {
+      return (
+          <Redirect to={{ pathname: '/login' }} />
+      )
+  }
     return (
+      
       <div>
         <Header
           brand="ADSPACE"
@@ -118,7 +125,7 @@ class Blog extends Component {
           //   color: "info",
           // }}
         />
-        <Parallax image={blogObject.coverImage || PlaceHolder} filter="dark">
+        <Parallax image={blogObject.coverImage } filter="dark">
           <div className={classes.container}>
             <GridContainer justify="center">
               <GridItem md={8} className={classes.textCenter}>

@@ -5,12 +5,39 @@
     width: 100%;
     height: 60px;
     align-items: center;
+    top: 0;
     display: flex;
     z-index: 999999;
     text-align: center;
     justify-content: space-between;
 }
+.currency{
+    border:  none;
+    color: white;
+    background: blue;
+    border-radius: 10px;
+    font-weight: 600;
+}
+.currency:hover{
+    color: white;
+}
+.nav_con{
+    font-weight: 600;
+    color: blue;
+    margin: 10px;
+    margin-right: 15px;
+}
+.nav_conn{
+    color: blue;
+    margin: 10px;
 
+    margin-right: 45px;
+}
+.nav_conn a{
+    font-weight: 800 !important;
+    color: blue !important;
+
+}
 .top-nav-search {
     float: left;
     margin-left: 15px;

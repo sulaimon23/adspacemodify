@@ -71,6 +71,7 @@ function CheckoutPaystack({
       handlePayment({ ...bookingData, amount: res.amount });
     }
   };
+  
   return (
     <div>
       {/* <header className="App-header">

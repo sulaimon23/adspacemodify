@@ -460,7 +460,6 @@ class Profile extends Component {
                       style={{ textAlign: "center" , height: '100%'}}
                       plain
                     >
-                      {/* <a href="#pablo"> */}
                       <a href={`/mediaplanning-details/${location.id}`} target="_blank">
                         <h4 style={{
                           textTransform: "capitalize",
@@ -472,15 +471,18 @@ class Profile extends Component {
                           {location.name ? substringText(location.name, 60) : ""}
                         </h4>
                       </a>
+                      <div className="card_med">
                       {/* </a> */}
-                      <p className={classes.description} style={{ color: "#000", fontSize: 15, marginTop: 15 }}>
+                      <p className="alert alert-primary">
                         {`${location.category ? location.category.name : ""}`}
                       </p>
-                      <p className={classes.description} style={{ color: "#000", fontSize: 15 }}>
+                      <p className="alert alert-success">
                         Available Quantity: {location.quantity || ""}
                       </p>
-                      <p style={{ color: "#000", fontSize: 15}}>{location ? !location.traffic.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") ? `Traffic: ${0}` : `Traffic: ${location.traffic}` :  0} {' '}{location && location.trafficOption ? location.trafficOption.name : ''}</p>
-                      <p style={{ color: "#000", fontSize: 15, marginTop: 15 }}>
+                      </div>
+                     <div className="card_med">
+                     <p className="alert alert-dark">{location ? !location.traffic.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") ? `Traffic: ${0}` : `Traffic: ${location.traffic}` :  0} {' '}{location && location.trafficOption ? location.trafficOption.name : ''}</p>
+                      <p className="alert alert-danger">
                         {location.size
                           ? "Size: " + location.size || ""
                           : "Duration (seconds): " + location.duration ||
@@ -488,6 +490,8 @@ class Profile extends Component {
                             ""}
                           {' '}{location && location.sizingOption ? location.sizingOption.name : ''}
                       </p>
+                     </div>
+                      
                     </CardBody>
                       <div style={{
                         flexDirection: "column",
@@ -504,9 +508,10 @@ class Profile extends Component {
                           </p>
                         </div>
                         <div>
-                            <spa style={{ color: "#000", fontSize: "15px", fontWeight: 'bold' }}>
-                                {location.userAddedQuantity || 0}
-                            </spa>
+                            <span  style={{ color: "#000", fontSize: "15px", fontWeight: 'bold' }} >
+                            {location.userAddedQuantity || 0} 
+                            </span>
+                            
                         </div>
                         <span key={index} style={{ color: "#000", fontSize: "18px", fontWeight: 'bold' }}>
                           {` `}
@@ -1692,7 +1697,7 @@ class Profile extends Component {
                 <div>
                     <GridContainer justify="center" style={{ marginTop: 70 }}>
                         <GridItem md={6}>
-                            <h4 className={classes.title} style={{ textAlign: 'center', color: grayColor[1] }}>Manage my Account </h4>
+                            <h4 className={classes.title} style={{ textAlign: 'center', color: grayColor[1] }}><i className="fe fe-user"></i></h4>
                         </GridItem>
                     </GridContainer>
                     <GridContainer justify="center">
@@ -2109,7 +2114,6 @@ class Profile extends Component {
             querySearch,
             locationsArray,
             originalLocationsArray,
-            totalPrice,
             showMDDetails,
             showMDbooking,
             periodChange,
@@ -2134,7 +2138,10 @@ class Profile extends Component {
             savePlanToUserObject,
             savedPlan,
             savedPlanSelected,
-            savedPlans
+            savedPlans,
+            totalPrice,
+            exchange,
+            currency
           } = this.props;
 
           const { editProfile, isEdit, displayName, profileNameChange, profileSubscribeChange,
@@ -2169,18 +2176,7 @@ class Profile extends Component {
         if (showMDDetails) {
             return (
               <div>
-                {/* <Header */}
-                  // brand="ADSPACE"
-                  links={
-                    // <HeaderLinksTwo
-                    //   dropdownHoverColor="rose"
-                    //   isAuthenticated={isAuthenticated}
-                    //   user={user}
-                    //   logOutUser={() => logOut()}
-                    // />
-                  }
-                {/* /> */}
-                <NewNavbar isAuthenticated={isAuthenticated} authUser={user} logOutUser={() => logOut()} />
+                <NewNavbar  isAuthenticated={isAuthenticated} authUser={user} logOutUser={() => logOut()} />
                 {loading && <LinearProgress />}
                 <div className={classes.main}>
                   <div className={classes.section}>
@@ -2264,24 +2260,10 @@ class Profile extends Component {
 
                 <div>
                     <div className="row">
-                        <div className="col-md-2">
-                            {/* <SideNav 
-                                basicState={this.state.stage} 
-                                addOne={() => this.setState({ stage: 1 })} 
-                                addTwo={() => this.setState({ stage: 2 })} 
-                                addZero={() => this.setState({ stage: 0 })}
-                                addMedia={() => this.setState({ stage: 3 })}
-                            /> */}
+                        <div className="col-md-3 pr-5">
+                           
                             <div className="sidebar">
-                                {/* <div className="side-nav" style={{backgroundColor: stage === 0 ?  'blue' : null, color: stage === 0 ? '#fff' : null,}} onClick={this.addZero}>
-                                    <li><h3>ORDERS</h3></li>
-                                </div>
-                                <div style={{backgroundColor: stage === 1 ?  'blue' : null, color: stage === 1 ? '#fff' : null,}}  className="side-nav" onClick={this.addOne}>
-                                    <li><h3>BRANDING</h3></li>
-                                </div>
-                                <div style={{backgroundColor: stage === 2 ?  'blue' : null, color: stage === 2 ? '#fff' : null,}} className="side-nav" onClick={this.addTwo}>
-                                    <li><h3>ACCOUNT</h3></li>
-                                </div> */}
+                              
                                     <span className="menu-title">main</span>
 
                                 <div className="sidebar-li">
@@ -2291,14 +2273,7 @@ class Profile extends Component {
                                     <span>Dashboard</span>
                                 </div>
 
-                                {/* <div 
-                                    className="sidebar-li" 
-                                    onClick={this.addZero}                                    
-                                >
-                                    <div>
-                                        <i style={{color: stage === 0 ? 'blue' : null}} class="fas fa-shuttle-van"></i>
-                                    </div>
-                                </div> */}
+                                
                                     <span className="menu-title">orders</span>
 
                                 <div className="sidebar-li" onClick={this.addTwo}>
@@ -2314,9 +2289,7 @@ class Profile extends Component {
                                     </div>
                                     <span style={{color: stage === 1 ? 'blue' : null}}>Branding</span>
                                 </div>
-                                {/* <div style={{backgroundColor: stage === 3 ?  'blue' : null, color: stage === 3 ? '#fff' : null,}} className="side-nav" onClick={this.addMedia}>
-                                    <li><h3>Media Planning</h3></li>
-                                </div> */}
+                                
                                 <div>
                                 <p>
                                     <a onClick={this.addMedia} data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -2334,103 +2307,10 @@ class Profile extends Component {
                                     <div style={{marginTop: '-30px'}}>
                                     {showMediaLinks && (
                                         <div style={{background: '#fff', marginTop: '0' }}>
-                                            {/* <div className="try-wrapper">
-                                            <GridItem xs={12} md={12} sm={12}>
-                                            <FormControl fullWidth className={classes.selectFormControl}>
-                                                <InputLabel
-                                                    htmlFor="simple-select"
-                                                    className={classes.selectLabel}
-                                                >
-                                                Load Saved Media Plans
-                                                </InputLabel>
-                                                <Select
-                                                    MenuProps={{
-                                                    className: classes.selectMenu
-                                                    }}
-                                                    classes={{
-                                                    select: classes.select
-                                                    }}
-                                                    value={savedPlan}
-                                                    onChange={(e) => savedPlanSelected(e.target.value, savedPlans)}
-                                                    inputProps={{
-                                                    name: "simpleSelect",
-                                                    id: "simple-select"
-                                                    }}
-                                                >
-                                                {this.renderLoadedPlans()}
-                                                </Select>
-                                            </FormControl>
-                                            </GridItem>
-                                        </div> */}
+                                          
                                     <div className={classes.cardBodyRefine}>
-{/*         
-                                    <div
-                                        className={classes.cardTitle + " " + classes.textLeft}
-                                        style={{ marginBottom: 50, overflow: 'hidden', paddingLeft: 22, paddingRight: 18 }}
-                                    >
-                                        <Tooltip
-                                            id="tooltip-top"
-                                            title="Refresh Results"
-                                            placement="top"
-                                            classes={{ tooltip: classes.tooltip }}
-                                        >
-                                        <Button
-                                            link
-                                            justIcon
-                                            size="sm"
-                                            className={
-                                            classes.pullLeft + " " + classes.refineButton
-                                            }
-                                            onClick={() => this.props.getAllLocations()}
-                                        >
-                                            <RefreshOutlined />
-                                            Refresh
-                                        </Button>
-                                        </Tooltip>
-                                        <Tooltip
-                                        id="tooltip-top"
-                                        title="Reset Filter"
-                                        placement="top"
-                                        classes={{ tooltip: classes.tooltip }}
-                                        >
-                                        <Button
-                                            link
-                                            justIcon
-                                            size="sm"
-                                            className={
-                                            classes.pullRight + " " + classes.refineButton
-                                            }
-                                            onClick={() =>
-                                            this.setState({
-                                                checkedStates: [],
-                                                checkedCategories: [],
-                                                checkedTags: [],
-                                                checkedCities: [],
-                                                checkedSubCategories: [],
-                                                reset: true
-                                            })
-                                            }
-                                        >
-                                            <FormatColorResetOutlined />
-                                            reset
-                                        </Button>
-                                        </Tooltip>
-                                        <Clearfix />
-                                    </div> */}
-                                    {/* <div style={{marginTop: '20px'}}>
-                                    <FormControl variant="outlined" fullWidth>
-                                        <Datetime
-                                        style={{ borderWidth: 0 }}
-                                        timeFormat={false}
-                                        isValidDate={valid}
-                                        value={startDate}
-                                        inputProps={{
-                                            placeholder: "Start Date",
-                                        }}
-                                        onChange={(e) => this.setState({ startDate: e })}
-                                        />
-                                    </FormControl>
-                                    </div> */}
+
+                                   
                                     <Accordion
                                         active={[0, 1, 2, 3, 4]}
                                         activeColor="rose"
@@ -2515,7 +2395,7 @@ class Profile extends Component {
                             </div>
                             
                         </div>
-                        <div className="col-md-10" style={{ height: '100vh', overflow: 'scroll' }}>
+                        <div className="col-md-9" style={{ height: '100vh', overflow: 'scroll' }}>
                             <div justify="center">
                                 {/* {this.renderViews()} */}
                                 {this.state.stage === 0 && (
@@ -2546,16 +2426,16 @@ class Profile extends Component {
                                     <div>
                                     <GridContainer justify="center" style={{ marginTop: 70 }}>
                                         <GridItem md={6}>
-                                            <h4 className={classes.title} style={{ textAlign: 'center', color: grayColor[1] }}>Manage my Account </h4>
                                         </GridItem>
                                     </GridContainer>
                                     <GridContainer justify="center">
-                                        <GridItem md={6}>
+                                        <GridItem md={10}>
                                             <Card>
+                                            <h4 className={classes.title} style={{ textAlign: 'center', color: grayColor[1] }}><i className="fe fe-user  acct_i" ></i></h4>
                                                 <CardBody>
                                                     <GridContainer>
                                                         <GridItem sm={12} xs={12} md={4}>
-                                                            <h6 style={{ paddingTop: 25 }}>User Name</h6>
+                                                            <h6 className="alert alert-info" style={{ paddingTop: 25 , fontWeight: 700 }}>User Name</h6>
                                                         </GridItem>
                                                         <GridItem xs={12} sm={12} md={8}>
                                                             <CustomInput
@@ -2579,7 +2459,7 @@ class Profile extends Component {
                                                     </GridContainer>
                                                     <GridContainer>
                                                         <GridItem sm={12} xs={12} md={4}>
-                                                            <h6 style={{ paddingTop: 25 }}>Email</h6>
+                                                            <h6 className="alert alert-info" style={{ paddingTop: 25 , fontWeight: 700 }}>Email</h6>
                                                         </GridItem>
                                                         <GridItem xs={12} sm={12} md={8}>
                                                             <CustomInput
@@ -2597,7 +2477,7 @@ class Profile extends Component {
                                                     </GridContainer>
                                                     <GridContainer>
                                                         <GridItem sm={12} xs={12} md={4}>
-                                                            <h6 style={{ paddingTop: 25 }}>ADWALLET BALANCE</h6>
+                                                            <h6 className="alert alert-info" style={{ paddingTop: 25 , fontWeight: 700 }}>ADWALLET BALANCE</h6>
                                                         </GridItem>
                                                         <GridItem xs={12} sm={12} md={8}>
                                                             <CustomInput
@@ -2635,19 +2515,18 @@ class Profile extends Component {
                                                             />
                                                         </GridItem>
                                                     </GridContainer>
-                                                    {error &&
-                                                        <GridContainer justify="center">
+                                                   <div className="acct_btn">
+                                                   {error &&
+                                                        <GridContainer >
                                                             <GridItem xs={12} sm={12} md={6}>
                                                                 <p style={{ color: "#ef5350", fontWeight: "bold" }}>{message || ''}</p>
                                                             </GridItem>
                                                         </GridContainer>
                                                     }
-                                                    <GridContainer justify="center">
-                                                        <GridItem xs={12} sm={12} md={4}>
-                                                            <Button color={isEdit ? "success" : "info"} onClick={() => !isEdit ? editProfile(true) : this.handleSave()}>
+                                                    <GridContainer>
+                                                            <button className="btn btn-primary" color={isEdit ? "success" : "info"} onClick={() => !isEdit ? editProfile(true) : this.handleSave()}>
                                                                 {isEdit ? 'SAVE PROFILE' : 'EDIT PROFILE'}
-                                                            </Button>
-                                                        </GridItem>
+                                                            </button>
                                                         {isEdit &&
                                                             <GridItem xs={12} sm={12} md={4}>
                                                                 <Button color="danger" onClick={() => editProfile(false)}>
@@ -2656,20 +2535,17 @@ class Profile extends Component {
                                                             </GridItem>
                                                         }
                                                     </GridContainer>
-                                                    <GridContainer justify="center">
-                                                        <GridItem xs={12} sm={12} md={4}>
-                                                            <Button color="warning" size="sm" simple={true} onClick={() => this.setState({changePasswordCard: true})}>
-                                                                <p style={{ fontSize: 13,}}>Change Password</p>
-                                                            </Button>
-                                                        </GridItem>
+                                                    <GridContainer>
+                                                            <button className="btn btn-success" simple={true} onClick={() => this.setState({changePasswordCard: true})}>
+                                                                Change Password
+                                                            </button>
                                                     </GridContainer>
-                                                    <GridContainer justify="center">
-                                                        <GridItem xs={12} sm={12} md={4}>
-                                                            <Button color="danger" size="sm" simple={true} onClick={() => this.setState({deleteAccountModal: true})}>
-                                                                <p style={{ fontSize: 13, textAlign: 'center'}}>{`Delete Account`}</p>
-                                                            </Button>
-                                                        </GridItem>
+                                                    <GridContainer >
+                                                            <button className="btn btn-danger"  simple={true} onClick={() => this.setState({deleteAccountModal: true})}>
+                                                                {`Delete Account`}
+                                                            </button>
                                                     </GridContainer>
+                                                   </div>
                                                 </CardBody>
                                             </Card>
                                         </GridItem>
@@ -2791,37 +2667,7 @@ class Profile extends Component {
                                     <div className={classes.main} className="margin-body" style={{ marginTop: 70 }}>
                                     <div className={classes.section}>
                                         <div style={{position: 'relative'}}>
-                                        <div className="try-wrapper">
-                                            <div className="try">
-                                            <Card style={{ backgroundColor: "rgb(13, 37, 211)" }}>
-                                                <CardBody
-                                                    onClick={() => this.handleBookClick()}
-                                                    color
-                                                    style={{
-                                                        flexDirection: "row",
-                                                        display: "flex",
-                                                        justifyContent: "center",
-                                                    }}
-                                                >
-                                                <h4
-                                                    style={{
-                                                        fontSize: 14,
-                                                        fontWeight: "bold",
-                                                        cursor: "pointer",
-                                                        color: "#fff"
-                                                    }}
-                                                >
-                                                    Continue: {' '}
-                                                    {formatCurrency(
-                                                    totalPrice || 0,
-                                                    this.props.exchange,
-                                                    this.props.currency
-                                                    )}
-                                                </h4>
-                                                </CardBody>
-                                            </Card>
-                                            </div>
-                                        </div>
+                                        
                                         <div style={{marginTop: 50, marginBottom: 50}}></div>
     
                                         {error && (
@@ -2834,146 +2680,7 @@ class Profile extends Component {
                                             </GridContainer>
                                         )}
                                         <GridContainer>
-                                            {/* <GridItem md={3} sm={3}>
-                                                <div style={{background: '#fff', height: 'auto', marginTop: 70}}>
-                                                    <div className="try-wrapper">
-                                                        <GridItem xs={12} md={12} sm={12}>
-                                                        <FormControl fullWidth className={classes.selectFormControl}>
-                                                            <InputLabel
-                                                                htmlFor="simple-select"
-                                                                className={classes.selectLabel}
-                                                            >
-                                                            Load Saved Media Plans
-                                                            </InputLabel>
-                                                            <Select
-                                                                MenuProps={{
-                                                                className: classes.selectMenu
-                                                                }}
-                                                                classes={{
-                                                                select: classes.select
-                                                                }}
-                                                                value={savedPlan}
-                                                                onChange={(e) => savedPlanSelected(e.target.value, savedPlans)}
-                                                                inputProps={{
-                                                                name: "simpleSelect",
-                                                                id: "simple-select"
-                                                                }}
-                                                            >
-                                                            {this.renderLoadedPlans()}
-                                                            </Select>
-                                                        </FormControl>
-                                                        </GridItem>
-                                                    </div>
-                                                <CardBody className={classes.cardBodyRefine}>
-    
-                                                <div
-                                                    className={classes.cardTitle + " " + classes.textLeft}
-                                                    style={{ marginBottom: 50, overflow: 'hidden', paddingLeft: 22, paddingRight: 18 }}
-                                                >
-                                                    <Tooltip
-                                                        id="tooltip-top"
-                                                        title="Refresh Results"
-                                                        placement="top"
-                                                        classes={{ tooltip: classes.tooltip }}
-                                                    >
-                                                    <Button
-                                                        link
-                                                        justIcon
-                                                        size="sm"
-                                                        className={
-                                                        classes.pullLeft + " " + classes.refineButton
-                                                        }
-                                                        onClick={() => this.props.getAllLocations()}
-                                                    >
-                                                        <RefreshOutlined />
-                                                        Refresh
-                                                    </Button>
-                                                    </Tooltip>
-                                                    <Tooltip
-                                                    id="tooltip-top"
-                                                    title="Reset Filter"
-                                                    placement="top"
-                                                    classes={{ tooltip: classes.tooltip }}
-                                                    >
-                                                    <Button
-                                                        link
-                                                        justIcon
-                                                        size="sm"
-                                                        className={
-                                                        classes.pullRight + " " + classes.refineButton
-                                                        }
-                                                        onClick={() =>
-                                                        this.setState({
-                                                            checkedStates: [],
-                                                            checkedCategories: [],
-                                                            checkedTags: [],
-                                                            checkedCities: [],
-                                                            checkedSubCategories: [],
-                                                            reset: true
-                                                        })
-                                                        }
-                                                    >
-                                                        <FormatColorResetOutlined />
-                                                        reset
-                                                    </Button>
-                                                    </Tooltip>
-                                                    <Clearfix />
-                                                </div>
-                                                <div style={{marginTop: '20px'}}>
-                                                <FormControl variant="outlined" fullWidth>
-                                                    <Datetime
-                                                    style={{ borderWidth: 0 }}
-                                                    timeFormat={false}
-                                                    isValidDate={valid}
-                                                    value={startDate}
-                                                    inputProps={{
-                                                        placeholder: "Start Date",
-                                                    }}
-                                                    onChange={(e) => this.setState({ startDate: e })}
-                                                    />
-                                                </FormControl>
-                                                </div>
-                                                <Accordion
-                                                    active={[0, 1, 2, 3, 4]}
-                                                    activeColor="rose"
-                                                    collapses={[
-                                                    {
-                                                        title: "States",
-                                                        content: (
-                                                        <div className={classes.customExpandPanel}>
-                                                            <div
-                                                            className={
-                                                                classes.checkboxAndRadio +
-                                                                " " +
-                                                                classes.checkboxAndRadioHorizontal
-                                                            }
-                                                            >
-                                                            {this.renderStatesMD()}
-                                                            </div>
-                                                        </div>
-                                                        ),
-                                                    },
-                                                    {
-                                                        title: "Adtype",
-                                                        content: (
-                                                        <div className={classes.customExpandPanel}>
-                                                            <div
-                                                            className={
-                                                                classes.checkboxAndRadio +
-                                                                " " +
-                                                                classes.checkboxAndRadioHorizontal
-                                                            }
-                                                            >
-                                                            {this.renderCategoriesMD()}
-                                                            </div>
-                                                        </div>
-                                                        ),
-                                                    },
-                                                    ]}
-                                                />
-                                                </CardBody>
-                                            </div>
-                                            </GridItem> */}
+                                          
                                             <GridItem md={12} sm={12}>
                                             {checkedTags.length === 0 &&
                                             checkedCategories.length === 0 &&
@@ -3010,7 +2717,7 @@ class Profile extends Component {
                                                                     fontWeight: "bold",
                                                                 }}
                                                                 >{`${
-                                                                locationsArray ? locationsArray.length : 0
+                                                                locationsArray ? locationsArray.length : 0  
                                                                 } Available Ad spaces.`}</h4>
                                                             </div>
                                                             <div>
@@ -3024,22 +2731,16 @@ class Profile extends Component {
                                                                         // styles={selectStyles}
                                                                         className="select-style"
                                                                     />
-                                                                    {/* <strong style={{marginRight: '8px', fontWeight: '900'}}>Sort By {' '}: {' '}</strong> */}
-                                                                    {/* <select className="select-style" onChange={(e) => sortMDLocations(e.value)}>
-                                                                        {sortOptions.map((c, i) => (
-                                                                            <option key={i} value={c.value}>
-                                                                                {c.label}
-                                                                            </option>
-                                                                        ))}
-                                                                    </select> */}
+                                                               
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </GridItem>
                                                     <GridItem
-                                                        md={12}
-                                                        sm={12}
-                                                        xs={12}
+                                                        md={9}
+                                                        sm={9}
+                                                        xs={9}
+                                                        style={{margin: "auto"}}
                                                     >
                                                         <GridContainer>{this.renderMDAdSpaces()}</GridContainer>
                                                     </GridItem>

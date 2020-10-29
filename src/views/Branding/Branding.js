@@ -37,6 +37,7 @@ class Branding extends Component{
             }]
         }
     }
+    
 
     componentDidMount() {
         this.props.getAgeGenderInterests();
@@ -306,6 +307,12 @@ class Branding extends Component{
         const { isAuthenticated, user , logOut, classes, loading, success, saveBrands } = this.props;
         const { branding , brands} = this.state;
 
+        if (!isAuthenticated) {
+            return (
+                <Redirect to={{ pathname: '/login' }} />
+            )
+        }
+
         if (success){
             return (
                 <Redirect to="/" />
@@ -314,6 +321,7 @@ class Branding extends Component{
 
 
         return(
+
             <div>
                 <Header
                     absolute

@@ -72,11 +72,15 @@ const persistor = persistStore(store, {
 var hist = createBrowserHistory();
 init();
 
+
+
+
 ReactDOM.render(
+  
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <Router history={hist}>
-<Redirect to="/" />
+        
         <Switch>
           <Route exact path="/" component={Profiled} />
           {/* <Route exact path="/profile" component={Profile} /> */}
@@ -98,6 +102,8 @@ ReactDOM.render(
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/branding" component={Branding} />
           <Route exact path="/:id" component={LocationsByCompany} />
+<Redirect to="/" />
+
         </Switch>
         {/* <PageFooter /> */}
       </Router>
