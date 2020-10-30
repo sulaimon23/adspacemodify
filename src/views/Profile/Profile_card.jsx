@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import NumericInput from 'react-numeric-input';
+import NumericInput from "react-numeric-input";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import {
   logOut,
@@ -34,7 +34,7 @@ import {
   loadSavedPlan,
   savePlanToUserObject,
   savedPlanSelected,
-  addReduceQuantityByInput
+  addReduceQuantityByInput,
 } from "../../actions";
 // import shoppingCartStyle from "../../assets/jss/material-kit-pro-react/views/shoppingCartStyle.js";
 import {
@@ -604,7 +604,7 @@ class Profile extends Component {
       classes,
       addReduceQuantity,
       displayMDMessage,
-      addReduceQuantityByInput
+      addReduceQuantityByInput,
     } = this.props;
     const { noticeModal, location, pageNumber } = this.state;
     let paginatedArray = [];
@@ -669,7 +669,12 @@ class Profile extends Component {
                 <div className=" card_med">
                   {/* </a> */}
 
-                  <p className="alerts alert-danger" style={{padding: 5, borderRadius: 5}}>Qty: {location.quantity || ""}</p> 
+                  <p
+                    className="alerts alert-danger"
+                    style={{ padding: 5, borderRadius: 5 }}
+                  >
+                    Qty: {location.quantity || ""}
+                  </p>
 
                   <p>
                     {location
@@ -681,8 +686,9 @@ class Profile extends Component {
                       : 0}{" "}
                     {location && location.trafficOption
                       ? location.trafficOption.name
-                      : ""} |
-                  </p> 
+                      : ""}{" "}
+                    |
+                  </p>
                   <p>
                     {location.size
                       ? "Size: " + location.size || ""
@@ -740,24 +746,25 @@ class Profile extends Component {
                       <Remove />
                     </Button>
                     <NumericInput
-                                // className="form-control"
-                                value={location.userAddedQuantity || 0}
-                                min={0}
-                                max={location.quantity}
-                                strict={true}
-                                step={ 1 }
-                                precision={ 0 }
-                                size={ 1 }
-                                style={{
-                                  input: {
-                                    paddingRight: 0,
-                                    height: 36
-                                  }
-                                }}
-                                onChange={value =>
-                                    addReduceQuantityByInput(location.id, location, value)
-                                }
-                            />
+                      // className="form-control"
+                      value={location.userAddedQuantity || 0}
+                      min={0}
+                      max={location.quantity}
+                      strict={true}
+                      step={1}
+                      precision={0}
+                      size={1}
+                      style={{
+                        input: {
+                          paddingRight: 0,
+                          height: 30,
+                          padding: 0,
+                        },
+                      }}
+                      onChange={(value) =>
+                        addReduceQuantityByInput(location.id, location, value)
+                      }
+                    />
                     {/* <div>
                       <span
                         style={{
@@ -3654,6 +3661,6 @@ export default connect(
     loadSavedPlan,
     savePlanToUserObject,
     savedPlanSelected,
-    addReduceQuantityByInput
+    addReduceQuantityByInput,
   }
 )(withStyles(styles)(Profile));
