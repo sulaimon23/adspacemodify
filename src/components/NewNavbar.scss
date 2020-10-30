@@ -17,6 +17,9 @@
     background: blue;
     border-radius: 10px;
     font-weight: 600;
+    margin:5px 8px;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 .currency:hover{
     color: white;
@@ -24,19 +27,11 @@
 .nav_con{
     font-weight: 600;
     color: blue;
-    margin: 10px;
+    margin-top: 5px;
     margin-right: 15px;
 }
-.nav_conn{
-    color: blue;
-    margin: 10px;
-
-    margin-right: 45px;
-}
-.nav_conn a{
-    font-weight: 800 !important;
-    color: blue !important;
-
+.ast a{
+    cursor: pointer;
 }
 .top-nav-search {
     float: left;

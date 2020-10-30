@@ -120,6 +120,12 @@ export const MEDIA_PLANNING_LOAD_SAVED_PLAN_FAILED = 'media_planning_load_saved_
 export const MEDIA_PLANNING_SAVE_PLAN = 'media_planning_save_plan';
 export const MEDIA_PLANNING_SELECT_PLANS = 'media_planning_select_plans';
 export const MEDIA_PLANNING_REMOVED_BRAND = 'media_planning_removed_brand';
+export const MEDIA_PLANNING_SHOW_SIGN_IN = 'media_planning_show_sign_in';
+export const MEDIA_PLANNING_SHOW_CURRENT_STATE = 'media_planning_show_current_state';
+export const MEDIA_PLANNING_AFTER_SIGNUP = 'media_planning_after_signup';
+export const MEDIA_PLANNING_AFTER_SIGNUP_SUCCESS = 'media_planning_after_signup_success';
+export const MEDIA_PLANNING_AFTER_SIGNUP_FAILED = 'media_planning_after_signup_failed';
+export const MEDIA_PLANNING_DO_NOTHING = 'media_planning_do_nothing';
 
 export const BRANDING_FETCH = 'branding_fetch';
 export const BRANDING_FETCH_SUCCESS = 'branding_fetch_success';
@@ -127,13 +133,8 @@ export const BRANDING_FETCH_FAILED = 'branding_fetch_failed';
 export const BRANDING_SAVE = 'branding_save';
 export const BRANDING_SAVE_SUCCESS = 'branding_save_success';
 export const BRANDING_SAVE_FAILED = 'branding_save_failed';
+export const BRANDING_SAVE_BEFORE_SIGNUP = 'branding_save_before_signup';
+export const BRANDING_RESET_BRANDING = 'branding_reset_branding';
 
 export const CURRENCY = 'currency';
 export const CURRENCY_FAILED = 'currency_failed';
-
-
-// export const Ngn = 'Ngn';
-// export const Usd = 'Usd';
-// export const Pounds = 'Pounds';
-// export const Euro = 'Euro';
-// export const Ringit = 'Ringit';

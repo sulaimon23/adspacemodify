@@ -18,6 +18,7 @@ import { formatCurrency, numberWithCommas } from "../../utils";
 import moment from "moment";
 import image from "../../assets/img/Background 2.jpg";
 import "./ordersummary.scss";
+import NewNavbar from "components/NewNavbar";
 
 class OrderSummary extends Component {
   render() {
@@ -50,22 +51,9 @@ class OrderSummary extends Component {
     if (order) {
       return (
         <div>
-          <Header
-            brand="ADSPACE"
-            links={
-              <HeaderLinks
-                dropdownHoverColor="rose"
-                isAuthenticated={isAuthenticated}
-                user={user}
-                logOutUser={() => logOut()}
-              />
-            }
-          // color="dark"
-          // changeColorOnScroll={{
-          //     height: 300,
-          //     color: "info"
-          // }}
-          />
+          <NewNavbar  isAuthenticated={isAuthenticated}
+              user={user}
+              logOutUser={() => logOut()} />
           <div className="order-background">
             <GridContainer justify="center">
               {/* <GridItem xs={12} md={6} sm={12}>

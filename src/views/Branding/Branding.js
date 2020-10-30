@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {connect} from "react-redux";
-import Header from "../../components/Header/Header";
-import HeaderLinks from "../../components/Header/HeaderLinks";
+// import Header from "../../components/Header/Header";
+// import HeaderLinks from "../../components/Header/HeaderLinks";
 import { logOut, getAgeGenderInterests, saveBrands } from "../../actions";
 import image from "../../assets/img/dg1.jpg";
 import {withStyles} from "@material-ui/core";
@@ -22,6 +22,7 @@ import {Redirect} from "react-router-dom";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import {FiberManualRecord} from "@material-ui/icons";
 import Radio from "@material-ui/core/Radio";
+import NewNavbar from "components/NewNavbar";
 
 
 class Branding extends Component{
@@ -307,10 +308,10 @@ class Branding extends Component{
         const { isAuthenticated, user , logOut, classes, loading, success, saveBrands } = this.props;
         const { branding , brands} = this.state;
 
-        if (!isAuthenticated) {
+        if (!isAuthenticated ) {
             return (
                 <Redirect to={{ pathname: '/login' }} />
-            )
+            )   
         }
 
         if (success){
@@ -323,12 +324,7 @@ class Branding extends Component{
         return(
 
             <div>
-                <Header
-                    absolute
-                    color="transparent"
-                    brand="AD SPACE"
-                    links={<HeaderLinks dropdownHoverColor="info" isAuthenticated={isAuthenticated} user={user} logOutUser={() => logOut()} />}
-                />
+                <NewNavbar  isAuthenticated={isAuthenticated} user={user} logOutUser={() => logOut()} />
                 <div
                     className={classes.pageHeader}
                     style={{

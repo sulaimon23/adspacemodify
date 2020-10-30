@@ -53,7 +53,7 @@ const CardCustomTwo = ({
         <p style={{ color: "#000", fontSize: 18, marginTop: 15 }}>
           {location.size
             ? "Size: " + location.size || ""
-            : "Duration (seconds): " + location.duration ||
+            : "Duration (sec): " + location.duration ||
               "" + " , Quantity: " + location.quantity ||
               ""}
             {/* {location.sizingoption} */}

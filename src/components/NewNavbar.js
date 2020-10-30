@@ -58,7 +58,7 @@ function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser, tota
                     <a id="toggle_btn">
                         <i class="fe fe-text-align-left"></i>
                     </a>
-                    <div class="top-nav-search">
+                    {/* <div class="top-nav-search">
             <form action="">
               <input
                 type="text"
@@ -73,17 +73,11 @@ function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser, tota
                 <i class="fe fe-search"></i>
               </button>
             </form>
-          </div>
+          </div> */}
 
                     <ul class="navbar-nav  ml-auto">
                   
-                    <li class="nav-ite pd-top">
-                     <div className="nav_conn" style={{paddingTop:"5px", fontSize:"20px", marginRight:"30px"}}>
-                     <Link to="/blogs"  >
-                            BLOG POST
-                        </Link>
-                        </div>
-                        </li>
+                   
                     <li class="nav-ite pd-top">
                      <div className="nav_con" style={{paddingTop: "10px"}}>
                           {''}                                                    
@@ -93,14 +87,15 @@ function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser, tota
                                                     totalCurrency
                                                     )}</div>
                         </li>
-                        <li class="nav-item avatar dropdown pd-top">
+                        <li class="nav-it avatar dropdown ">
                             <a class="nav-link dropdown-toggle currency" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
-                                <span className="currency-font-size">
-                                    {`${currency}`}
-                                </span>
+                               
+                                <div >
+                                {`${currency}`}
+                                </div>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                            <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary ast"
                             aria-labelledby="navbarDropdownMenuLink-55">
                             <a class="dropdown-item" onClick={() => changeCurrency("USD")}>USD ($)</a>
                             <a class="dropdown-item" onClick={() => changeCurrency("GBP")}>Pounds (£)</a>

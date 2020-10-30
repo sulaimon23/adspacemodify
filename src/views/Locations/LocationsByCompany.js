@@ -28,6 +28,7 @@ import Datetime from "react-datetime";
 import Button from "../../components/CustomButtons/Button";
 import CardCustom from "./../../components/Card/CardCustom";
 import { numberWithCommas, substringText } from "../../utils";
+import NewNavbar from 'components/NewNavbar';
 
 
 let yesterday = Datetime.moment().subtract( 1, 'day' );
@@ -251,15 +252,9 @@ class LocationsByCompany extends Component{
         const { startDate, state, city , category}= this.state;
         return(
             <div>
-                <Header
-                    brand="ADSPACE"
-                    links={<HeaderLinks dropdownHoverColor="rose" isAuthenticated={isAuthenticated} user={user} logOutUser={() => logOut()} />}
-                    // color="dark"
-                    // changeColorOnScroll={{
-                    //     height: 300,
-                    //     color: "info"
-                    // }}
-                />
+               <NewNavbar  isAuthenticated={isAuthenticated}
+              user={user}
+              logOutUser={() => logOut()} />
                 <div className={classes.main} style={{ marginBottom: 30}}>
                     <div className={classes.sectionTestimonials}>
                         {loading &&

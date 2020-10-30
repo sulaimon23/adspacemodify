@@ -77,6 +77,7 @@ import CardCustom from "./../../components/Card/CardCustom";
 import { numberWithCommas, substringText, formatCurrency } from "../../utils";
 import CheckoutStripe from "../Stripe/stripe";
 import CheckoutPaystack from "views/Paystack";
+import NewNavbar from "components/NewNavbar";
 
 let yesterday = Datetime.moment().subtract(1, "day");
 let valid = function(current) {
@@ -1455,7 +1456,7 @@ class Location2 extends Component {
                 <p style={{ color: "#000", fontSize: 18, marginTop: 15 }}>
                   {location.size
                     ? "Size: " + location.size || ""
-                    : "Duration (seconds): " + location.duration ||
+                    : "Duration (sec): " + location.duration ||
                       "" + " , Quantity: " + location.quantity ||
                       ""}
                     {' '}{location && location.sizingOption ? location.sizingOption.name : ''}
@@ -1617,23 +1618,9 @@ class Location2 extends Component {
 
     return (
       <div className={classes.productPage}>
-        <Header
-          brand="ADSPACE"
-          links={
-            <HeaderLinks
-              dropdownHoverColor="rose"
-              isAuthenticated={isAuthenticated}
+        <NewNavbar  isAuthenticated={isAuthenticated}
               user={user}
-              logOutUser={() => logOut()}
-            />
-          }
-          // fixed
-          // color="white"
-          // changeColorOnScroll={{
-          //     height: 300,
-          //     color: "white"
-          // }}
-        />
+              logOutUser={() => logOut()} />
         <Parallax
           image={locationObject.resizedImages ? (locationObject.resizedImages || []) : locationObject.images || []}
           //filter="rose"
@@ -1709,7 +1696,7 @@ class Location2 extends Component {
                                     ? "Location Size (sqm): " +
                                     locationObject.size &&
                                     locationObject.size !== "undefined"
-                                    : "Duration (seconds): " +
+                                    : "Duration (sec): " +
                                     locationObject.duration || ""}
                                 </p>
                                 <p style={{ color: "#000", fontSize: 14 }}>

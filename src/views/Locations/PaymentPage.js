@@ -15,6 +15,7 @@ import CheckoutStripe from "views/Stripe/stripe";
 import CheckoutPaystack from "views/Paystack";
 import "./paymentPage.scss";
 import AlertDialog from "views/Modal";
+import NewNavbar from "components/NewNavbar";
 
 const PaymentPage = (props) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -113,23 +114,9 @@ const PaymentPage = (props) => {
         opacity: "1",
       }}
     >
-      <Header
-        brand="ADSPACE"
-        links={
-          <HeaderLinks
-            dropdownHoverColor="rose"
-            isAuthenticated={isAuthenticated}
-            user={user}
-            logOutUser={() => logOut()}
-          />
-        }
-      // fixed
-      // color="white"
-      // changeColorOnScroll={{
-      //     height: 300,
-      //     color: "white"
-      // }}
-      />
+      <NewNavbar  isAuthenticated={isAuthenticated}
+              user={user}
+              logOutUser={() => logOut()} />
       <GridContainer >
         <GridItem xs={12} sm={6} md={6} lg={6} className="mx-auto" 
           style={{backgroundColor: '#fff', padding: 25, borderRadius: 10}}

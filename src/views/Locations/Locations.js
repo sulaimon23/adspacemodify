@@ -45,6 +45,7 @@ import moment from "moment";
 import Tooltip from "@material-ui/core/Tooltip";
 import { pageSize } from "../../config";
 import { CURRENCY } from "actions/type";
+import NewNavbar from "components/NewNavbar";
 
 let yesterday = Datetime.moment().subtract(1, "day");
 let valid = function(current) {
@@ -359,22 +360,9 @@ class Locations extends Component {
 
     return (
       <div style={{ minHeight: "100vh", backgroundColor: "red" }}>
-        <Header
-          brand="ADSPACE"
-          links={
-            <HeaderLinks
-              dropdownHoverColor="rose"
-              isAuthenticated={isAuthenticated}
+        <NewNavbar  isAuthenticated={isAuthenticated}
               user={user}
-              logOutUser={() => logOut()}
-            />
-          }
-          // color="dark"
-          changeColorOnScroll={{
-            height: 300,
-            // color: "White",
-          }}
-        />
+              logOutUser={() => logOut()} />
 
         <div
           className={classes.main}

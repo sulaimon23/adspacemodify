@@ -29,15 +29,15 @@ import { applyMiddleware, compose, createStore } from "redux";
 import { Provider } from "react-redux";
 import { init } from "./firebase";
 import { Redirect } from "react-router-dom";
-import Blogs from "./views/Blogs/Blogs";
-import Blog from "./views/Blogs/Blog";
-import MediaPlanning from "./views/MediaPlanning/MediaPlanning";
+// import Blogs from "./views/Blogs/Blogs";
+// import Blog from "./views/Blogs/Blog";
+import MediaPlanning from "./views/MediaPlanning/MediaPlanning.jsx";
 import Login from "./views/Login/Login";
 import SignUp from "./views/SignUp/SignUp";
 import Location from "./views/Locations/Location";
 import Booking from "./views/Booking/Booking";
 import ContactUs from "./views/ContactUs/ContactUs";
-import Profiled from "./views/Profile/Profiled";
+import Profiled from "./views/Profile/Profile_card.js";
 import OrderSummary from "./views/Locations/OrderSummary";
 import Branding from "./views/Branding/Branding";
 import "./index.css";
@@ -95,8 +95,8 @@ ReactDOM.render(
             component={Location2}
           />
           <Route exact path="/payment" component={PaymentPage} />
-          <Route exact path="/blogs" component={Blogs} />
-          <Route exact path="/blog/:id" component={Blog} />
+          {/* <Route exact path="/blogs" component={Blogs} /> */}
+          {/* <Route exact path="/blog/:id" component={Blog} /> */}
           <Route exact path="/mediaplanning" component={MediaPlanning} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />

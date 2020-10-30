@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Header from "../../components/Header/Header";
-import HeaderLinks from "../../components/Header/HeaderLinks";
+// import Header from "../../components/Header/Header";
+// import HeaderLinks from "../../components/Header/HeaderLinks";
 import { logOut, setAuthenticated } from "../../actions";
 import { getAuth } from "../../firebase";
 import contactsStyle from "../../assets/jss/material-kit-pro-react/views/sectionsSections/contactsStyle.js";
@@ -24,6 +24,7 @@ import { sendEmail } from "../../actions";
 import { Redirect } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./Contactus.scss";
+import NewNavbar from "components/NewNavbar";
 
 class ContactUs extends Component {
   constructor(props) {
@@ -89,22 +90,9 @@ class ContactUs extends Component {
 
     return (
       <div style={{ height: "100%" }}>
-        <Header
-          brand="ADSPACE"
-          links={
-            <HeaderLinks
-              dropdownHoverColor="rose"
-              isAuthenticated={isAuthenticated}
+        <NewNavbar isAuthenticated={isAuthenticated}
               user={user}
-              logOutUser={() => logOut()}
-            />
-          }
-          color="transparent"
-          changeColorOnScroll={{
-            height: 300,
-            color: "info",
-          }}
-        />
+              logOutUser={() => logOut()} />
         <div className="cd-section">
           {/* Contact us 1 START */}
           <div

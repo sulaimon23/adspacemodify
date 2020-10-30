@@ -75,6 +75,14 @@ div.crumb{
 }
 hr.solid {
     border-top: 1px solid #e7e7e7 ;
+    margin-top: 0;
+}
+.matcher{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 70%;
+    margin: auto;
 }
 .billFooter{
     display: flex;
@@ -128,6 +136,12 @@ hr.solid {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 10px;
+    font-size: 10px;
+}
+.card_med p{
+    font-size: 10px;
+    font-weight: 600;
 }
 a{
     text-decoration: none !important;
@@ -158,6 +172,12 @@ a{
 }
 .acct_i{
     font-size: 70px !important;
+}
+.prof  .alert{
+    padding: 5px;
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 5px;
 }
 .acct_btn{
     display: flex;

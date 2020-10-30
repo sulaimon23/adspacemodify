@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import blogPostPageStyle from "../../assets/jss/material-kit-pro-react/views/blogPostPageStyle.js";
-import Header from "../../components/Header/Header";
-import HeaderLinks from "../../components/Header/HeaderLinks";
+// import Header from "../../components/Header/Header";
+// import HeaderLinks from "../../components/Header/HeaderLinks";
 import { logOut } from "../../actions";
 import GridContainer from "../../components/Grid/GridContainer";
 import GridItem from "../../components/Grid/GridItem";
@@ -32,6 +32,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import ImageUpload from "../../components/CustomUpload/ImageUpload";
 import Button from "../../components/CustomButtons/Button";
+import NewNavbar from "components/NewNavbar.js";
 
 class Booking extends Component {
   constructor(props) {
@@ -103,22 +104,9 @@ class Booking extends Component {
 
     return (
       <div>
-        <Header
-          brand="ADSPACE"
-          links={
-            <HeaderLinks
-              dropdownHoverColor="rose"
-              isAuthenticated={isAuthenticated}
+       <NewNavbar isAuthenticated={isAuthenticated}
               user={user}
-              logOutUser={() => logOut()}
-            />
-          }
-          color="dark"
-          changeColorOnScroll={{
-            height: 300,
-            color: "info",
-          }}
-        />
+              logOutUser={() => logOut()} />
         <div className={classes.main} style={{ marginBottom: 30 }}>
           <div className={classes.sectionTestimonials}>
             <div className={classes.container}>

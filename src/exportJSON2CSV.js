@@ -154,7 +154,7 @@ function getPrice(price = {}) {
 function getAdUnit(location) {
     if (location.hasOwnProperty("duration")){
        if (location.duration !== 0)
-           return `${location.duration || ''} seconds`;
+           return `${location.duration || ''} sec`;
     }
 
     if (location.hasOwnProperty("size")){
@@ -164,7 +164,7 @@ function getAdUnit(location) {
 
     if (location.hasOwnProperty("dimension")){
         if (location.dimension.hasOwnProperty("breadth") && location.dimension.hasOwnProperty("length"))
-            return `${location.dimension.breadth} X ${location.dimension.length} meters`;
+            return `${location.dimension.breadth} X ${location.dimension.length} m`;
     }
 
     return '';

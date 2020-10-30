@@ -15,15 +15,21 @@ const CardCustom = ({
 }) => {
   return (
     <div className="card" style={{ marginBottom: "2rem" }}>
-      <div style={{position: 'relative'}}>
+      <div style={{ position: "relative" }}>
         <img
-          style={{ margin: 0, height: "250px", padding: 0, width: '100%' }}
-          src={location.resizedImages ? (location.resizedImages[0] || '') : (location.images ? (location.images[0] || '') : '')}
-          alt={location.name ? substringText(location.name, 53).toLowerCase() : ""}
+          style={{ margin: 0, height: "250px", padding: 0, width: "100%" }}
+          src={
+            location.resizedImages
+              ? location.resizedImages[0] || ""
+              : location.images
+              ? location.images[0] || ""
+              : ""
+          }
+          alt={
+            location.name ? substringText(location.name, 53).toLowerCase() : ""
+          }
         />
-        <div className="view-more">
-            Click to see details
-        </div>
+        <div className="view-more">Click to see details</div>
       </div>
       <div className="card-body">
         <h1
@@ -43,26 +49,42 @@ const CardCustom = ({
           </h5>
         </Info>
 
-        <p 
-          style={{ color: "#000", fontSize: 18, marginTop: 15 }}
-        >
-          {location ? !location.traffic ? `Traffic: ${0}` : `Traffic: ${location.traffic.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}` :  0} {' '}{location && location.trafficOption ? location.trafficOption.name : ''}
+        <p style={{ color: "#000", fontSize: 18, marginTop: 15 }}>
+          {location
+            ? !location.traffic
+              ? `Traffic: ${0}`
+              : `Traffic: ${location.traffic
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+            : 0}{" "}
+          {location && location.trafficOption
+            ? location.trafficOption.name
+            : ""}
         </p>
 
         <p style={{ color: "#000", fontSize: 18, marginTop: 15 }}>
           {location.size
             ? "Size: " + location.size || ""
-            : "Duration (seconds): " + location.duration ||
+            : "Duration (sec): " + location.duration ||
               "" + " , Quantity: " + location.quantity ||
-              ""}
-            {' '}{location && location.sizingOption ? location.sizingOption.name : ''}
+              ""}{" "}
+          {location && location.sizingOption ? location.sizingOption.name : ""}
         </p>
 
         <div className={classes.price}>
-            <p style={{ fontWeight: "bold", marginTop: 15, fontSize: 18, color: '#0a24a7'}}> <span style={{color: '#0a24a7'}}>Admatch: </span>{` ${
-              location.count ? (location.count / 5) * 100 : "0"
-            }%`}</p>
-          </div>
+          <p
+            style={{
+              fontWeight: "bold",
+              marginTop: 15,
+              fontSize: 18,
+              color: "#0a24a7",
+            }}
+          >
+            {" "}
+            <span style={{ color: "#0a24a7" }}>Admatch: </span>
+            {` ${location.count ? (location.count / 5) * 100 : "0"}%`}
+          </p>
+        </div>
       </div>
       <div className="card-footer">
         <div
@@ -77,7 +99,8 @@ const CardCustom = ({
           <div>
             {renderPrice(location.discountedPrice, location)}
 
-            {location.discountedPrice && location.discountedPrice.value !== 0 ? (
+            {location.discountedPrice &&
+            location.discountedPrice.value !== 0 ? (
               <p
                 style={{
                   textAlign: "left",
@@ -91,7 +114,6 @@ const CardCustom = ({
               ""
             )}
           </div>
-
 
           <div style={{ color: "#000", fontSize: "13px" }}>
             <Place style={{ fontSize: "20px" }} />
