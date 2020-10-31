@@ -709,7 +709,7 @@ class Profile extends Component {
                   textAlign: "center",
                 }}
               >
-                <p
+                <div
                   style={{
                     fontWeight: "bold",
                     marginTop: 30,
@@ -720,7 +720,7 @@ class Profile extends Component {
                 >
                   <span style={{ color: "#0a24a7" }}>Admatch: </span>
                   {`${location.count ? (location.count / 5) * 100 : "0"}%`}
-                </p>
+                </div>
 
                 <span
                   key={index}
@@ -2916,17 +2916,22 @@ class Profile extends Component {
 
                   <div class="collapse" id="collapseExample">
                     <div style={{ marginTop: "-30px" }}>
-                          <div
+                      <div
                         className={classes.cardTitle + " " + classes.textLeft}
-                        style={{ marginTop: 30, overflow: 'hidden', paddingLeft: 32, paddingRight: 32 }}
+                        style={{
+                          marginTop: 30,
+                          overflow: "hidden",
+                          paddingLeft: 32,
+                          paddingRight: 32,
+                        }}
                       >
                         <Tooltip
-                            id="tooltip-top"
-                            title="Refresh Results"
-                            placement="top"
-                            classes={{ tooltip: classes.tooltip }}
+                          id="tooltip-top"
+                          title="Refresh Results"
+                          placement="top"
+                          classes={{ tooltip: classes.tooltip }}
                         >
-                        <Button
+                          <Button
                             link
                             justIcon
                             size="sm"
@@ -2934,10 +2939,10 @@ class Profile extends Component {
                               classes.pullLeft + " " + classes.refineButton
                             }
                             onClick={() => this.props.getAllLocations()}
-                        >
-                          <RefreshOutlined />
-                          Refresh
-                        </Button>
+                          >
+                            <RefreshOutlined />
+                            Refresh
+                          </Button>
                         </Tooltip>
                         <Tooltip
                           id="tooltip-top"
@@ -2959,7 +2964,7 @@ class Profile extends Component {
                                 checkedTags: [],
                                 checkedCities: [],
                                 checkedSubCategories: [],
-                                reset: true
+                                reset: true,
                               })
                             }
                           >
@@ -2969,19 +2974,19 @@ class Profile extends Component {
                         </Tooltip>
                         <Clearfix />
                       </div>
-                      <div style={{marginTop: '20px'}}>
-                      <FormControl variant="outlined" fullWidth>
-                        <Datetime
-                          style={{ borderWidth: 0 }}
-                          timeFormat={false}
-                          isValidDate={valid}
-                          value={startDate}
-                          inputProps={{
-                            placeholder: "Start Date",
-                          }}
-                          onChange={(e) => this.setState({ startDate: e })}
-                        />
-                      </FormControl>
+                      <div style={{ marginTop: "20px" }}>
+                        <FormControl variant="outlined" fullWidth>
+                          <Datetime
+                            style={{ borderWidth: 0 }}
+                            timeFormat={false}
+                            isValidDate={valid}
+                            value={startDate}
+                            inputProps={{
+                              placeholder: "Start Date",
+                            }}
+                            onChange={(e) => this.setState({ startDate: e })}
+                          />
+                        </FormControl>
                       </div>
                       {showMediaLinks && (
                         <div style={{ background: "#fff", marginTop: "0" }}>
@@ -3098,7 +3103,10 @@ class Profile extends Component {
                 </div>
               </div>
             </div>
-            <div className="col-md-10" style={{ height: "110vh", overflow: "auto" }}>
+            <div
+              className="col-md-10"
+              style={{ height: "110vh", overflow: "auto" }}
+            >
               <div>
                 {/* {this.renderViews()} */}
                 {this.state.stage === 0 && (
