@@ -78,7 +78,6 @@ import CardCustom from "./../../components/Card/CardCustom";
 import { numberWithCommas, substringText, formatCurrency } from "../../utils";
 import CheckoutStripe from "../Stripe/stripe";
 import CheckoutPaystack from "views/Paystack";
-import NewNavbar from "components/NewNavbar";
 
 let yesterday = Datetime.moment().subtract(1, "day");
 let valid = function (current) {
@@ -1532,9 +1531,17 @@ class Location extends Component {
 
     return (
       <div className={classes.productPage}>
-       <NewNavbar  isAuthenticated={isAuthenticated}
+        <Header
+          brand="ADSPACE"
+          links={
+            <HeaderLinks
+              dropdownHoverColor="rose"
+              isAuthenticated={isAuthenticated}
               user={user}
-              logOutUser={() => logOut()} />
+              logOutUser={() => logOut()}
+            />
+          }
+        />
         <Parallax
           image={locationObject.images ? locationObject.images[0] || '' : ''}
           //filter="rose"
@@ -1607,7 +1614,7 @@ class Location extends Component {
                                     ? "Location Size (sqm): " +
                                     locationObject.size &&
                                     locationObject.size !== "undefined"
-                                    : "Duration (sec): " +
+                                    : "Duration (seconds): " +
                                     locationObject.duration || ""}
                                 </p>
                                 <p style={{ color: "#000", fontSize: 14 }}>

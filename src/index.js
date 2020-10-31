@@ -31,19 +31,18 @@ import { init } from "./firebase";
 import { Redirect } from "react-router-dom";
 // import Blogs from "./views/Blogs/Blogs";
 // import Blog from "./views/Blogs/Blog";
-import MediaPlanning from "./views/MediaPlanning/MediaPlanning.jsx";
+import MediaPlanning from "./views/MediaPlanning/MediaPlanning.js";
 import Login from "./views/Login/Login";
 import SignUp from "./views/SignUp/SignUp";
-import Location from "./views/Locations/Location";
+import Location from "./views/Locations/Locations";
 import Booking from "./views/Booking/Booking";
 import ContactUs from "./views/ContactUs/ContactUs";
-import Profiled from "./views/Profile/Profile_card.jsx";
+import Profiled from "./views/Profiled/Card_s";
 import OrderSummary from "./views/Locations/OrderSummary";
 import Branding from "./views/Branding/Branding";
 import "./index.css";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-
 import { PersistGate } from "redux-persist/integration/react";
 import Location2 from "views/Locations/Location2";
 import PaymentPage from "views/Locations/PaymentPage";

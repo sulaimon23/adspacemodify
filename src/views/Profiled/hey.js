@@ -643,13 +643,14 @@ class Profile extends Component {
                 </a>
                 <div className="view-more">Click to see details</div>
               </div>
-              <CardBody style={{ textAlign: "center", height: "100px" }} plain>
+              <CardBody style={{ textAlign: "left", height: "160px" }} plain>
                 <a
                   href={`/mediaplanning-details/${location.id}`}
                   target="_blank"
                   style={{ marginBottom: 10 }}
                 >
                   <h4
+                    className={classes.cardTitle}
                     style={{
                       textTransform: "capitalize",
                       fontSize: 12,
@@ -657,26 +658,26 @@ class Profile extends Component {
                       fontWeight: "9000",
                       marginTop: 0,
                       color: "#0b28ba",
+                      textAlign: "left",
                     }}
-                    className={classes.cardTitle}
                   >
                     {location.name ? substringText(location.name, 60) : ""}
                   </h4>
                 </a>
-                <p className="alert alert-primary mt-2">
-                  {`${location.category ? location.category.name : ""}`}
-                </p>
                 <div className=" card_med">
                   {/* </a> */}
+                  <p className="alert alert-primary mt-2">
+                    {`${location.category ? location.category.name : ""}`}
+                  </p>
 
                   <p
-                    className="alerts alert-danger"
+                    className="alert alert-danger"
                     style={{ padding: 5, borderRadius: 5 }}
                   >
                     Qty: {location.quantity || ""}
                   </p>
 
-                  <p>
+                  <p className="alert alert-danger">
                     {location
                       ? !location.traffic
                           .toString()
@@ -689,7 +690,7 @@ class Profile extends Component {
                       : ""}{" "}
                     |
                   </p>
-                  <p>
+                  <p className="alert alert-danger">
                     {location.size
                       ? "Size: " + location.size || ""
                       : "Duration (sec): " + location.duration ||
@@ -2847,11 +2848,12 @@ class Profile extends Component {
           authUser={user}
           logOutUser={() => logOut()}
         />
+
         {loading && <LinearProgress />}
 
         <div>
           <div className="row">
-            <div className="col-md-3 pr-5">
+            <div className="col-md-2 pr-0 mr-0">
               <div className="sidebar">
                 <span className="menu-title">main</span>
 
@@ -2914,6 +2916,73 @@ class Profile extends Component {
 
                   <div class="collapse" id="collapseExample">
                     <div style={{ marginTop: "-30px" }}>
+                          <div
+                        className={classes.cardTitle + " " + classes.textLeft}
+                        style={{ marginTop: 30, overflow: 'hidden', paddingLeft: 32, paddingRight: 32 }}
+                      >
+                        <Tooltip
+                            id="tooltip-top"
+                            title="Refresh Results"
+                            placement="top"
+                            classes={{ tooltip: classes.tooltip }}
+                        >
+                        <Button
+                            link
+                            justIcon
+                            size="sm"
+                            className={
+                              classes.pullLeft + " " + classes.refineButton
+                            }
+                            onClick={() => this.props.getAllLocations()}
+                        >
+                          <RefreshOutlined />
+                          Refresh
+                        </Button>
+                        </Tooltip>
+                        <Tooltip
+                          id="tooltip-top"
+                          title="Reset Filter"
+                          placement="top"
+                          classes={{ tooltip: classes.tooltip }}
+                        >
+                          <Button
+                            link
+                            justIcon
+                            size="sm"
+                            className={
+                              classes.pullRight + " " + classes.refineButton
+                            }
+                            onClick={() =>
+                              this.setState({
+                                checkedStates: [],
+                                checkedCategories: [],
+                                checkedTags: [],
+                                checkedCities: [],
+                                checkedSubCategories: [],
+                                reset: true
+                              })
+                            }
+                          >
+                            <FormatColorResetOutlined />
+                            reset
+                          </Button>
+                        </Tooltip>
+                        <Clearfix />
+                      </div>
+                      <div style={{marginTop: '20px'}}>
+                      <FormControl variant="outlined" fullWidth>
+                        <Datetime
+                          style={{ borderWidth: 0 }}
+                          timeFormat={false}
+                          isValidDate={valid}
+                          value={startDate}
+                          inputProps={{
+                            placeholder: "Start Date",
+                          }}
+                          onChange={(e) => this.setState({ startDate: e })}
+                        />
+                      </FormControl>
+                      </div>
                       {showMediaLinks && (
                         <div style={{ background: "#fff", marginTop: "0" }}>
                           <div className={classes.cardBodyRefine}>
@@ -3029,10 +3098,7 @@ class Profile extends Component {
                 </div>
               </div>
             </div>
-            <div
-              className="col-md-9"
-              style={{ height: "110vh", overflow: "auto" }}
-            >
+            <div className="col-md-10" style={{ height: "110vh", overflow: "auto" }}>
               <div>
                 {/* {this.renderViews()} */}
                 {this.state.stage === 0 && (

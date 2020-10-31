@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Storage } from "./../../firebase";
+import { Storage } from "../../firebase";
 import firebase from "firebase/app";
 import { Button } from "@material-ui/core";
 import PropTypes from 'prop-types';

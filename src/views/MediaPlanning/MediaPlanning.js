@@ -33,7 +33,7 @@ import {
   fileInputChange,
   loadSavedPlan,
   savePlanToUserObject,
-  savedPlanSelected,
+  savedPlanSelected
 } from "../../actions";
 import styles from "../../assets/jss/material-kit-pro-react/views/ecommerceSections/productsStyle.js";
 import GridContainer from "../../components/Grid/GridContainer";
@@ -57,8 +57,7 @@ import {
   Close,
   FormatColorReset,
   FormatColorResetOutlined,
-  RefreshOutlined,
-  BorderColor,
+    RefreshOutlined, BorderColor
 } from "@material-ui/icons";
 import Accordion from "../../components/Accordion/Accordion";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -90,7 +89,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
-import NewNavbar from "components/NewNavbar";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -153,8 +151,7 @@ class MediaPlanning extends Component {
   }
 
   componentDidMount() {
-    document.title =
-      "Adspace.ng – Media Planning | Advert Space | Billboards | Television |Newspaper | Radio | Influencer | Magazine";
+    document.title = 'Adspace.ng – Media Planning | Advert Space | Billboards | Television |Newspaper | Radio | Influencer | Magazine';
     this.props.getAllLocations();
   }
 
@@ -202,214 +199,89 @@ class MediaPlanning extends Component {
     this.setState({ checkedTags: newCheckedTags, pageNumber: 0 });
   }
 
-  handleToggleCats(value) {
-    const {
-      checkedTags,
-      checkedCategories,
-      priceRangeV2,
-      selectedEnabled,
-      checkedSubCategories,
-      subCategoriesSelectedCategory,
-      checkedStates,
-      checkedCities,
-      citiesSelectedState,
-    } = this.state;
-    const {
-      tagsArray,
-      categoriesArray,
-      subCategoriesArray,
-      querySearch,
-      originalLocationsArray,
-      statesArray,
-      locationsArray,
-    } = this.props;
+  handleToggleCats(value){
+    const { checkedTags, checkedCategories, priceRangeV2 , selectedEnabled,checkedSubCategories, subCategoriesSelectedCategory
+      , checkedStates, checkedCities, citiesSelectedState } = this.state;
+    const { tagsArray, categoriesArray, subCategoriesArray, querySearch, originalLocationsArray, statesArray, locationsArray } = this.props;
     const currentIndex = checkedCategories.indexOf(value);
     const newChecked = [...checkedCategories];
-    let filteredSubCats = subCategoriesArray.filter(
-      (cat) => cat.cat_id === categoriesArray[value].id
-    );
+    let filteredSubCats = subCategoriesArray.filter(cat => cat.cat_id === categoriesArray[value].id);
     if (currentIndex === -1) {
       newChecked.push(value);
-      if (subCategoriesSelectedCategory.length === 0) {
-        filteredSubCats.map((cat) => {
+      if (subCategoriesSelectedCategory.length === 0){
+        filteredSubCats.map(cat => {
           subCategoriesSelectedCategory.push(cat);
-        });
-      } else {
-        filteredSubCats.map((flCat) => {
+        })
+      }else{
+        filteredSubCats.map(flCat => {
           if (!_.contains(subCategoriesSelectedCategory, flCat))
             subCategoriesSelectedCategory.push(flCat);
-        });
+        })
       }
-      querySearch(
-        checkedTags,
-        newChecked,
-        tagsArray,
-        categoriesArray,
-        originalLocationsArray,
-        priceRangeV2[selectedEnabled],
-        checkedSubCategories,
-        subCategoriesSelectedCategory,
-        checkedStates,
-        checkedCities,
-        citiesSelectedState,
-        statesArray,
-        locationsArray
-      );
+      querySearch(checkedTags, newChecked, tagsArray, categoriesArray, originalLocationsArray, priceRangeV2[selectedEnabled],
+          checkedSubCategories, subCategoriesSelectedCategory, checkedStates, checkedCities, citiesSelectedState, statesArray, locationsArray);
 
-      this.setState({
-        checkedCategories: newChecked,
-        subCategoriesSelectedCategory: subCategoriesSelectedCategory,
-        pageNumber: 0,
-        reset: false,
-      });
+      this.setState({checkedCategories: newChecked, subCategoriesSelectedCategory: subCategoriesSelectedCategory, pageNumber: 0, reset: false });
     } else {
       newChecked.splice(currentIndex, 1);
-      filteredSubCats.map((flCat) => {
+      filteredSubCats.map(flCat => {
         let ind = subCategoriesSelectedCategory.indexOf(flCat);
-        if (ind !== -1) subCategoriesSelectedCategory.splice(ind, 1);
+        if (ind !== -1)
+          subCategoriesSelectedCategory.splice(ind, 1);
       });
-      querySearch(
-        checkedTags,
-        newChecked,
-        tagsArray,
-        categoriesArray,
-        originalLocationsArray,
-        priceRangeV2[selectedEnabled],
-        [],
-        subCategoriesSelectedCategory,
-        checkedStates,
-        checkedCities,
-        citiesSelectedState,
-        statesArray,
-        locationsArray
-      );
+      querySearch(checkedTags, newChecked, tagsArray, categoriesArray, originalLocationsArray, priceRangeV2[selectedEnabled],
+          [], subCategoriesSelectedCategory, checkedStates, checkedCities, citiesSelectedState, statesArray, locationsArray);
 
-      this.setState({
-        checkedCategories: newChecked,
-        subCategoriesSelectedCategory: subCategoriesSelectedCategory,
-        pageNumber: 0,
-        reset: false,
-      });
+      this.setState({checkedCategories: newChecked, subCategoriesSelectedCategory: subCategoriesSelectedCategory, pageNumber: 0,
+        reset: false});
     }
-  }
 
-  handleToggleState(value) {
-    const {
-      checkedTags,
-      checkedCategories,
-      priceRangeV2,
-      selectedEnabled,
-      checkedSubCategories,
-      subCategoriesSelectedCategory,
-      checkedStates,
-      checkedCities,
-      citiesSelectedState,
-    } = this.state;
-    const {
-      tagsArray,
-      categoriesArray,
-      subCategoriesArray,
-      querySearch,
-      originalLocationsArray,
-      statesArray,
-      citiesArray,
-      locationsArray,
-    } = this.props;
+  };
+
+  handleToggleState(value){
+    const { checkedTags, checkedCategories, priceRangeV2 , selectedEnabled,checkedSubCategories, subCategoriesSelectedCategory
+      , checkedStates, checkedCities, citiesSelectedState } = this.state;
+    const { tagsArray, categoriesArray, subCategoriesArray, querySearch, originalLocationsArray, statesArray, citiesArray, locationsArray } = this.props;
     const currentIndex = checkedStates.indexOf(value);
     const newChecked = [...checkedStates];
-    let filteredCities = citiesArray.filter(
-      (city) => city.state_id === statesArray[value].id
-    );
+    let filteredCities = citiesArray.filter(city => city.state_id === statesArray[value].id);
 
     if (currentIndex === -1) {
       newChecked.push(value);
-      if (citiesSelectedState.length === 0) {
-        filteredCities.map((city) => {
+      if (citiesSelectedState.length === 0){
+        filteredCities.map(city => {
           citiesSelectedState.push(city);
-        });
-      } else {
-        filteredCities.map((flCity) => {
+        })
+      }else{
+        filteredCities.map(flCity => {
           if (!_.contains(citiesSelectedState, flCity))
             citiesSelectedState.push(flCity);
         });
       }
 
-      querySearch(
-        checkedTags,
-        checkedCategories,
-        tagsArray,
-        categoriesArray,
-        originalLocationsArray,
-        priceRangeV2[selectedEnabled],
-        checkedSubCategories,
-        subCategoriesSelectedCategory,
-        newChecked,
-        checkedCities,
-        citiesSelectedState,
-        statesArray,
-        locationsArray
-      );
+      querySearch(checkedTags, checkedCategories, tagsArray, categoriesArray, originalLocationsArray, priceRangeV2[selectedEnabled],
+          checkedSubCategories, subCategoriesSelectedCategory, newChecked, checkedCities, citiesSelectedState, statesArray, locationsArray);
 
-      this.setState({
-        checkedStates: newChecked,
-        citiesSelectedState: citiesSelectedState,
-        pageNumber: 0,
-        reset: false,
-      });
+      this.setState({checkedStates: newChecked, citiesSelectedState: citiesSelectedState, pageNumber: 0, reset: false });
     } else {
       newChecked.splice(currentIndex, 1);
-      filteredCities.map((flCity) => {
+      filteredCities.map(flCity => {
         let ind = citiesSelectedState.indexOf(flCity);
-        if (ind !== -1) citiesSelectedState.splice(ind, 1);
+        if (ind !== -1)
+          citiesSelectedState.splice(ind, 1);
       });
 
-      querySearch(
-        checkedTags,
-        checkedCategories,
-        tagsArray,
-        categoriesArray,
-        originalLocationsArray,
-        priceRangeV2[selectedEnabled],
-        checkedSubCategories,
-        subCategoriesSelectedCategory,
-        newChecked,
-        checkedCities,
-        citiesSelectedState,
-        statesArray,
-        locationsArray
-      );
+      querySearch(checkedTags, checkedCategories, tagsArray, categoriesArray, originalLocationsArray, priceRangeV2[selectedEnabled],
+          checkedSubCategories, subCategoriesSelectedCategory, newChecked, checkedCities, citiesSelectedState, statesArray, locationsArray);
 
-      this.setState({
-        checkedStates: newChecked,
-        citiesSelectedState: citiesSelectedState,
-        pageNumber: 0,
-        reset: false,
-      });
+      this.setState({checkedStates: newChecked,  citiesSelectedState: citiesSelectedState, pageNumber: 0, reset: false });
     }
   }
 
-  handleToggleSubCats(value) {
-    const {
-      checkedTags,
-      checkedCategories,
-      priceRangeV2,
-      selectedEnabled,
-      checkedSubCategories,
-      subCategoriesSelectedCategory,
-      checkedStates,
-      checkedCities,
-      citiesSelectedState,
-    } = this.state;
-    const {
-      tagsArray,
-      categoriesArray,
-      subCategoriesArray,
-      querySearch,
-      originalLocationsArray,
-      statesArray,
-      citiesArray,
-      locationsArray,
-    } = this.props;
+  handleToggleSubCats(value){
+    const { checkedTags, checkedCategories, priceRangeV2 , selectedEnabled,checkedSubCategories, subCategoriesSelectedCategory
+      , checkedStates, checkedCities, citiesSelectedState } = this.state;
+    const { tagsArray, categoriesArray, subCategoriesArray, querySearch, originalLocationsArray, statesArray, citiesArray , locationsArray} = this.props;
     const currentIndex = checkedSubCategories.indexOf(value);
     const newChecked = [...checkedSubCategories];
     if (currentIndex === -1) {
@@ -418,51 +290,16 @@ class MediaPlanning extends Component {
       newChecked.splice(currentIndex, 1);
     }
 
-    querySearch(
-      checkedTags,
-      checkedCategories,
-      tagsArray,
-      categoriesArray,
-      originalLocationsArray,
-      priceRangeV2[selectedEnabled],
-      newChecked,
-      subCategoriesSelectedCategory,
-      checkedStates,
-      checkedCities,
-      citiesSelectedState,
-      statesArray,
-      locationsArray
-    );
+    querySearch(checkedTags, checkedCategories, tagsArray, categoriesArray, originalLocationsArray, priceRangeV2[selectedEnabled],
+        newChecked, subCategoriesSelectedCategory, checkedStates, checkedCities, citiesSelectedState, statesArray, locationsArray);
 
-    this.setState({
-      checkedSubCategories: newChecked,
-      pageNumber: 0,
-      reset: false,
-    });
-  }
+    this.setState({checkedSubCategories: newChecked, pageNumber: 0, reset: false});
+  };
 
-  handleToggleCity(value) {
-    const {
-      checkedTags,
-      checkedCategories,
-      priceRangeV2,
-      selectedEnabled,
-      checkedSubCategories,
-      subCategoriesSelectedCategory,
-      checkedStates,
-      checkedCities,
-      citiesSelectedState,
-    } = this.state;
-    const {
-      tagsArray,
-      categoriesArray,
-      subCategoriesArray,
-      querySearch,
-      originalLocationsArray,
-      statesArray,
-      citiesArray,
-      locationsArray,
-    } = this.props;
+  handleToggleCity(value){
+    const { checkedTags, checkedCategories, priceRangeV2 , selectedEnabled,checkedSubCategories, subCategoriesSelectedCategory
+      , checkedStates, checkedCities, citiesSelectedState } = this.state;
+    const { tagsArray, categoriesArray, subCategoriesArray, querySearch, originalLocationsArray, statesArray, citiesArray , locationsArray} = this.props;
     const currentIndex = checkedCities.indexOf(value);
     const newChecked = [...checkedCities];
     if (currentIndex === -1) {
@@ -470,23 +307,10 @@ class MediaPlanning extends Component {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-    querySearch(
-      checkedTags,
-      checkedCategories,
-      tagsArray,
-      categoriesArray,
-      originalLocationsArray,
-      priceRangeV2[selectedEnabled],
-      checkedSubCategories,
-      subCategoriesSelectedCategory,
-      checkedStates,
-      newChecked,
-      citiesSelectedState,
-      statesArray,
-      locationsArray
-    );
+    querySearch(checkedTags, checkedCategories, tagsArray, categoriesArray, originalLocationsArray, priceRangeV2[selectedEnabled],
+        checkedSubCategories, subCategoriesSelectedCategory, checkedStates, newChecked, citiesSelectedState, statesArray, locationsArray);
 
-    this.setState({ checkedCities: newChecked, pageNumber: 0, reset: false });
+    this.setState({checkedCities: newChecked, pageNumber: 0, reset: false});
   }
 
   renderTagsAdspace(location) {
@@ -505,10 +329,7 @@ class MediaPlanning extends Component {
     if (location.discountedPrice && location.discountedPrice.checked) {
       return (
         <>
-          <span
-            className={classNames(classes.price, classes.priceOld)}
-            style={{ color: "#000", fontSize: "15px", fontWeight: "Bold" }}
-          >
+          <span className={classNames(classes.price, classes.priceOld)} style={{ color: "#000", fontSize: "15px", fontWeight: "Bold" }}>
             {numberWithCommas(
               formatCurrency(
                 location.price || "",
@@ -518,37 +339,32 @@ class MediaPlanning extends Component {
             )}
             : {location.pricingOption.name}
           </span>
-          <span
-            className={classNames(classes.price, classes.priceNew)}
-            style={{ color: "#000", fontSize: "15px", fontWeight: "Bold" }}
-          >
+          <span className={classNames(classes.price, classes.priceNew)} style={{ color: "#000", fontSize: "15px", fontWeight: "Bold" }}>
             {numberWithCommas(
               formatCurrency(
                 location.discountedPrice.value || 0,
                 this.props.exchange,
                 this.props.currency
               )
-            )}{" "}
-            {location.pricingOption.name}
+            )}
+             {' '}{location.pricingOption.name}
           </span>
         </>
       );
     } else {
       return (
         <>
-          <span
-            className={classNames(classes.price, classes.priceNew)}
-            style={{ color: "#000", fontSize: "15px", fontWeight: "Bold" }}
-          >
-            {numberWithCommas(
-              formatCurrency(
-                location.price || "",
-                this.props.exchange,
-                this.props.currency
-              )
-            )}{" "}
-            {location.pricingOption.name}
-          </span>
+        <span className={classNames(classes.price, classes.priceNew)} style={{ color: "#000", fontSize: "15px", fontWeight: "Bold" }}>
+          {numberWithCommas(
+            formatCurrency(
+              location.price || "",
+              this.props.exchange,
+              this.props.currency
+            )
+          )}
+            {' '}{location.pricingOption.name}
+        </span>
+        
         </>
       );
     }
@@ -570,178 +386,139 @@ class MediaPlanning extends Component {
         (pageNumber + 1) * mdPageSize
       );
       return paginatedArray.map((location, index) => {
-        console.log(location, "location");
+        console.log(location, 'location')
         return (
           <GridItem md={6} sm={4} key={index}>
-            <Card className="card" product>
-              {/* <CardHeader noShadow image onClick={() => this.setState({ noticeModal: !noticeModal, location: location})}> */}
-              <div style={{ position: "relative" }}>
-                <a
-                  href={`/mediaplanning-details/${location.id}`}
-                  target="_blank"
-                >
+              <Card className="card" product>
+                {/* <CardHeader noShadow image onClick={() => this.setState({ noticeModal: !noticeModal, location: location})}> */}
+                <div style={{position: 'relative'}}>
+                <a href={`/mediaplanning-details/${location.id}`} target="_blank">
                   <img
                     width="100%"
-                    src={
-                      location.resizedImages
-                        ? location.resizedImages[0] || ""
-                        : location.images
-                        ? location.images[0]
-                        : ""
-                    }
-                    alt={
-                      location.name
-                        ? substringText(location.name, 53).toLowerCase()
-                        : ""
-                    }
+                    src={location.resizedImages ? (location.resizedImages[0] || '') : (location.images ? (location.images[0]) : '')}
+                    alt={location.name ? substringText(location.name, 53).toLowerCase() : ""}
                     height="250"
                   />
                 </a>
 
-                <div className="view-more">Click to see details</div>
-              </div>
-              {/* </CardHeader> */}
-              <CardBody style={{ textAlign: "center", height: "100%" }} plain>
-                <a
-                  href={`/mediaplanning-details/${location.id}`}
-                  target="_blank"
+                  <div className="view-more">
+                    Click to see details
+                  </div>
+                </div>
+                {/* </CardHeader> */}
+                <CardBody
+                  style={{ textAlign: "center" , height: '100%'}}
+                  plain
+                  // onClick={() =>
+                  //   this.setState({
+                  //     noticeModal: !noticeModal,
+                  //     location: location,
+                  //   })
+                  // }
                 >
-                  <h4
-                    style={{
+                  {/* <a href="#pablo"> */}
+                  <a href={`/mediaplanning-details/${location.id}`} target="_blank">
+                    <h4 style={{
                       textTransform: "capitalize",
                       fontSize: 20,
                       lineHeight: "30px",
                       fontWeight: "Bold",
                       color: "#0b28ba",
-                    }}
-                    className={classes.cardTitle}
-                  >
-                    {location.name ? location.name : ""}
-                  </h4>
-                </a>
-                {/* </a> */}
-                <p
-                  className={classes.description}
-                  style={{ color: "#000", fontSize: 18, marginTop: 15 }}
-                >
-                  {`${location.category ? location.category.name : ""}`}
-                </p>
-                <p
-                  className={classes.description}
-                  style={{ color: "#000", fontSize: 18 }}
-                >
-                  No. Available: {location.quantity || ""}
-                </p>
-                <p style={{ color: "#000", fontSize: 18 }}>
-                  {location
-                    ? !location.traffic
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                      ? `Traffic: ${0}`
-                      : `Traffic: ${location.traffic}`
-                    : 0}{" "}
-                  {location && location.trafficOption
-                    ? location.trafficOption.name
-                    : ""}
-                </p>
-                <p style={{ color: "#000", fontSize: 18, marginTop: 15 }}>
-                  {location.size
-                    ? "Size: " + location.size || ""
-                    : "Duration (sec): " + location.duration ||
-                      "" + " , Quantity: " + location.quantity ||
-                      ""}{" "}
-                  {location && location.sizingOption
-                    ? location.sizingOption.name
-                    : ""}
-                </p>
-                {/* {this.renderTagsAdspace(location)} */}
-              </CardBody>
-              <div
-                style={{
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  textAlign: "center",
-                }}
-              >
-                <div className={classes.price} style={{ marginTop: 8 }}>
-                  <p
-                    style={{
-                      fontWeight: "bold",
-                      marginTop: 5,
-                      fontSize: 18,
-                      color: "#0a24a7",
-                    }}
-                  >
-                    <span style={{ color: "#0a24a7" }}>Admatch: </span>
-                    {`${location.count ? (location.count / 5) * 100 : "0"}%`}
+                    }} className={classes.cardTitle}>
+                      {location.name ? location.name : ""}
+                    </h4>
+                  </a>
+                  {/* </a> */}
+                  <p className={classes.description} style={{ color: "#000", fontSize: 18, marginTop: 15 }}>
+                    {`${location.category ? location.category.name : ""}`}
                   </p>
-                </div>
-                <span
-                  key={index}
-                  style={{
-                    color: "#000",
-                    fontSize: "18px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {location.userAddedQuantity || 0}
-                  {` `}
-                  <div className={classes.buttonGroup}>
-                    <Button
-                      color="info"
-                      size="sm"
-                      round
-                      className={classes.firstButton}
-                      onClick={() =>
-                        location.userAddedQuantity > 0
-                          ? addReduceQuantity(location.id, "reduce")
-                          : ""
-                      }
-                    >
-                      <Remove />
-                    </Button>
-                    <Button
-                      color="info"
-                      size="sm"
-                      round
-                      className={classes.lastButton}
-                      onClick={() =>
-                        location.userAddedQuantity >= location.quantity
-                          ? displayMDMessage(
-                              "Note: Quantity increment will stop when it reaches the maximum quantity for the selected location"
-                            )
-                          : addReduceQuantity(location.id, "add")
-                      }
-                    >
-                      <Add />
-                    </Button>
+                  <p className={classes.description} style={{ color: "#000", fontSize: 18 }}>
+                    Available Quantity: {location.quantity || ""}
+                  </p>
+                  <p style={{ color: "#000", fontSize: 18}}>{location ? !location.traffic.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") ? `Traffic: ${0}` : `Traffic: ${location.traffic}` :  0} {' '}{location && location.trafficOption ? location.trafficOption.name : ''}</p>
+                  <p style={{ color: "#000", fontSize: 18, marginTop: 15 }}>
+                    {location.size
+                      ? "Size: " + location.size || ""
+                      : "Duration (seconds): " + location.duration ||
+                        "" + " , Quantity: " + location.quantity ||
+                        ""}
+                      {' '}{location && location.sizingOption ? location.sizingOption.name : ''}
+                  </p>
+                  {/* {this.renderTagsAdspace(location)} */}
+                </CardBody>
+                  <div style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    textAlign: 'center'
+                  }}>
+                    <div className={classes.price} style={{ marginTop: 8 }}>
+                      <p style={{ fontWeight: "bold", marginTop: 5, fontSize: 18, color: '#0a24a7'}}>
+                        <span style={{color: '#0a24a7'}}>Admatch: </span>
+                        {`${
+                        location.count ? (location.count / 5) * 100 : "0"
+                      }%`}
+                      
+                      </p>
+                    </div>
+                    <span key={index} style={{ color: "#000", fontSize: "18px", fontWeight: 'bold' }}>
+                      {location.userAddedQuantity || 0}
+                      {` `}
+                      <div className={classes.buttonGroup}>
+                        <Button
+                          color="info"
+                          size="sm"
+                          round
+                          className={classes.firstButton}
+                          onClick={() =>
+                            location.userAddedQuantity > 0
+                              ? addReduceQuantity(location.id, "reduce")
+                              : ""
+                          }
+                        >
+                          <Remove />
+                        </Button>
+                        <Button
+                          color="info"
+                          size="sm"
+                          round
+                          className={classes.lastButton}
+                          onClick={() =>
+                            location.userAddedQuantity >= location.quantity
+                              ? displayMDMessage(
+                                  "Note: Quantity increment will stop when it reaches the maximum quantity for the selected location"
+                                )
+                              : addReduceQuantity(location.id, "add")
+                          }
+                        >
+                          <Add />
+                        </Button>
+                      </div>
+                    </span>
                   </div>
-                </span>
-              </div>
 
-              <div className="card-footer">
-                <div
-                  className={classes.price}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    height: "40px",
-                  }}
-                >
-                  <div>
-                    {this.renderDiscount(location.discountedPrice, location)}
-                  </div>
-                  <div style={{ color: "#000", fontSize: "13px" }}>
-                    <Place style={{ fontSize: "20px" }} />
+                <div className="card-footer">
+                  <div
+                    className={classes.price}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      height: "40px",
+                    }}
+                  >
+                    <div>
+                      {this.renderDiscount(location.discountedPrice, location)}
+                    </div>
+                    <div style={{ color: "#000", fontSize: "13px" }}>
+                      <Place style={{ fontSize: "20px" }} />
 
-                    {`${location.city ? location.city.name || "" : ""}, ${
-                      location.state ? location.state.name || "" : ""
-                    }`}
+                      {`${location.city ? location.city.name || "" : ""}, ${
+                        location.state ? location.state.name || "" : ""
+                      }`}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
           </GridItem>
         );
       });
@@ -786,172 +563,165 @@ class MediaPlanning extends Component {
     return null;
   }
 
-  renderCategoriesMD() {
+  renderCategoriesMD(){
     const { classes, categoriesArray } = this.props;
     const { checkedCategories, reset } = this.state;
-    if (categoriesArray && categoriesArray.length > 0) {
+    if (categoriesArray && categoriesArray.length > 0){
       return categoriesArray.map((cat, index) => {
         return (
-          <div>
-            <FormControlLabel
-              key={index}
-              control={
-                <Checkbox
-                  tabIndex={-1}
-                  onClick={() => this.handleToggleCats(index)}
-                  checked={checkedCategories.indexOf(index) !== -1}
-                  checkedIcon={<Check className={classes.checkedIcon} />}
-                  icon={<Check className={classes.uncheckedIcon} />}
-                  classes={{
-                    checked: classes.checked,
-                    root: classes.checkRoot,
-                  }}
-                />
-              }
-              classes={{ label: classes.label }}
-              label={
-                <Typography style={{ fontSize: 16 }}>
-                  {cat.name || ""}
-                </Typography>
-              }
-            />
-            {!reset && (
-              <div style={{ marginLeft: 10 }}>
+            <div>
+              <FormControlLabel
+                  key={index}
+                  control={
+                    <Checkbox
+                        tabIndex={-1}
+                        onClick={() => this.handleToggleCats(index)}
+                        checked={
+                          checkedCategories.indexOf(index) !== -1
+                        }
+                        checkedIcon={
+                          <Check className={classes.checkedIcon} />
+                        }
+                        icon={
+                          <Check className={classes.uncheckedIcon} />
+                        }
+                        classes={{
+                          checked: classes.checked,
+                          root: classes.checkRoot
+                        }}
+                    />
+                  }
+                  classes={{ label: classes.label }}
+                  label={<Typography style={{ fontSize: 16}}>{cat.name || ''}</Typography>}
+              />
+              {!reset &&
+              <div style={{ marginLeft: 10}}>
                 {this.renderUnderSubCategoriesMD(cat)}
               </div>
-            )}
-          </div>
-        );
+              }
+            </div>
+        )
       });
     }
 
     return null;
   }
 
-  renderUnderSubCategoriesMD(category) {
+  renderUnderSubCategoriesMD(category){
     const { classes, subCategoriesArray } = this.props;
     const { checkedSubCategories, subCategoriesSelectedCategory } = this.state;
-    if (
-      subCategoriesSelectedCategory &&
-      subCategoriesSelectedCategory.length > 0
-    ) {
+    if (subCategoriesSelectedCategory && subCategoriesSelectedCategory.length > 0){
       return subCategoriesSelectedCategory.map((subCat, index) => {
-        if (category.id === subCat.cat_id) {
+        if (category.id === subCat.cat_id){
           return (
-            <FormControlLabel
-              key={index}
-              control={
-                <Checkbox
-                  tabIndex={-1}
-                  onClick={() => this.handleToggleSubCats(index)}
-                  checked={checkedSubCategories.indexOf(index) !== -1}
-                  checkedIcon={<Check className={classes.checkedIcon} />}
-                  icon={<Check className={classes.uncheckedIcon} />}
-                  classes={{
-                    checked: classes.checked,
-                    root: classes.checkRoot,
-                  }}
-                />
-              }
-              classes={{ label: classes.label }}
-              label={
-                <Typography
-                  style={{
-                    fontSize: 15,
-                    wordWrap: "break-word",
-                    paddingLeft: 10,
-                  }}
-                >
-                  {subCat.name || ""}
-                </Typography>
-              }
-            />
-          );
-        } else return null;
+              <FormControlLabel
+                  key={index}
+                  control={
+                    <Checkbox
+                        tabIndex={-1}
+                        onClick={() => this.handleToggleSubCats(index)}
+                        checked={
+                          checkedSubCategories.indexOf(index) !== -1
+                        }
+                        checkedIcon={
+                          <Check className={classes.checkedIcon} />
+                        }
+                        icon={
+                          <Check className={classes.uncheckedIcon} />
+                        }
+                        classes={{
+                          checked: classes.checked,
+                          root: classes.checkRoot
+                        }}
+                    />
+                  }
+                  classes={{ label: classes.label }}
+                  label={<Typography style={{ fontSize: 15, wordWrap: "break-word", paddingLeft: 10}}>{subCat.name || ''}</Typography>}
+              />
+          )
+        }else return null
       });
     }
 
     return null;
   }
 
-  renderStatesMD() {
+  renderStatesMD(){
     const { classes, statesArray } = this.props;
     const { checkedStates, reset } = this.state;
-    if (statesArray && statesArray.length > 0) {
+    if (statesArray && statesArray.length > 0){
       return statesArray.map((state, index) => {
-        return (
-          <div>
-            <FormControlLabel
-              key={index}
-              control={
-                <Checkbox
-                  tabIndex={-1}
-                  onClick={() => this.handleToggleState(index)}
-                  checked={checkedStates.indexOf(index) !== -1}
-                  checkedIcon={<Check className={classes.checkedIcon} />}
-                  icon={<Check className={classes.uncheckedIcon} />}
-                  classes={{
-                    checked: classes.checked,
-                    root: classes.checkRoot,
-                  }}
-                />
-              }
-              classes={{ label: classes.label }}
-              label={
-                <Typography style={{ fontSize: 16 }}>
-                  {state.name || ""}
-                </Typography>
-              }
-            />
-            {!reset && (
-              <div style={{ marginLeft: 10 }}>
+        return(
+            <div>
+              <FormControlLabel
+                  key={index}
+                  control={
+                    <Checkbox
+                        tabIndex={-1}
+                        onClick={() => this.handleToggleState(index)}
+                        checked={
+                          checkedStates.indexOf(index) !== -1
+                        }
+                        checkedIcon={
+                          <Check className={classes.checkedIcon} />
+                        }
+                        icon={
+                          <Check className={classes.uncheckedIcon} />
+                        }
+                        classes={{
+                          checked: classes.checked,
+                          root: classes.checkRoot
+                        }}
+                    />
+                  }
+                  classes={{ label: classes.label }}
+                  label={<Typography style={{ fontSize: 16}}>{state.name || ''}</Typography>}
+              />
+              {!reset &&
+              <div style={{ marginLeft: 10}}>
                 {this.renderCitiesUnderStatesMD(state)}
               </div>
-            )}
-          </div>
-        );
-      });
+              }
+            </div>
+        )
+      })
     }
   }
 
-  renderCitiesUnderStatesMD(state) {
+  renderCitiesUnderStatesMD(state){
     const { classes } = this.props;
     const { checkedCities, citiesSelectedState } = this.state;
-    if (citiesSelectedState && citiesSelectedState.length > 0) {
+    if (citiesSelectedState && citiesSelectedState.length > 0){
       return citiesSelectedState.map((city, index) => {
-        if (city.state_id === state.id) {
+        if (city.state_id === state.id){
           return (
-            <FormControlLabel
-              key={index}
-              control={
-                <Checkbox
-                  tabIndex={-1}
-                  onClick={() => this.handleToggleCity(index)}
-                  checked={checkedCities.indexOf(index) !== -1}
-                  checkedIcon={<Check className={classes.checkedIcon} />}
-                  icon={<Check className={classes.uncheckedIcon} />}
-                  classes={{
-                    checked: classes.checked,
-                    root: classes.checkRoot,
-                  }}
-                />
-              }
-              classes={{ label: classes.label }}
-              label={
-                <Typography
-                  style={{
-                    fontSize: 15,
-                    wordWrap: "break-word",
-                    paddingLeft: 10,
-                  }}
-                >
-                  {city.name || ""}
-                </Typography>
-              }
-            />
-          );
-        } else return null;
-      });
+              <FormControlLabel
+                  key={index}
+                  control={
+                    <Checkbox
+                        tabIndex={-1}
+                        onClick={() => this.handleToggleCity(index)}
+                        checked={
+                          checkedCities.indexOf(index) !== -1
+                        }
+                        checkedIcon={
+                          <Check className={classes.checkedIcon} />
+                        }
+                        icon={
+                          <Check className={classes.uncheckedIcon} />
+                        }
+                        classes={{
+                          checked: classes.checked,
+                          root: classes.checkRoot
+                        }}
+                    />
+                  }
+                  classes={{ label: classes.label }}
+                  label={<Typography style={{ fontSize: 15, wordWrap: "break-word", paddingLeft: 10}}>{city.name || ''}</Typography>}
+              />
+          )
+        }else return null
+      })
     }
   }
 
@@ -1189,23 +959,22 @@ class MediaPlanning extends Component {
     this.setState({ pageNumber: value - 1 });
   }
 
-  renderLoadedPlans() {
+  renderLoadedPlans(){
     const { classes, savedPlans } = this.props;
-    if (savedPlans && savedPlans.length > 0) {
+    if (savedPlans && savedPlans.length > 0){
       return savedPlans.map((plan, index) => {
-        return (
-          <MenuItem
-            key={index}
-            classes={{
-              root: classes.selectMenuItem,
-              selected: classes.selectMenuItemSelected,
-            }}
-            value={plan.brandName || ""}
-          >
-            {plan.brandName || ""}
-          </MenuItem>
-        );
-      });
+        return(
+            <MenuItem key={index}
+                classes={{
+                  root: classes.selectMenuItem,
+                  selected: classes.selectMenuItemSelected
+                }}
+                value={plan.brandName || ''}
+            >
+              {plan.brandName || ''}
+            </MenuItem>
+        )
+      })
     }
   }
 
@@ -1258,21 +1027,24 @@ class MediaPlanning extends Component {
       statesArray,
       sortMDLocations,
       updateLocationWithStartEndDate,
-      openRow,
-      updateOpenRow,
+      openRow, updateOpenRow,
       fileInputChange,
       loadSavedPlan,
       savePlanToUserObject,
       savedPlan,
       savedPlanSelected,
-      savedPlans,
+      savedPlans
     } = this.props;
 
     if (!isAuthenticated) {
-      return <Redirect to={{ pathname: "/login" }} />;
+      return (
+        <Redirect
+          to={{ pathname: "/login", state: { route: "/mediaplanning" } }}
+        />
+      );
     }
 
-    let vat = (7.5 / 100) * totalPrice;
+    let vat = (7.5 / 100) * totalPrice
     if (success) {
       return (
         <Redirect
@@ -1292,10 +1064,16 @@ class MediaPlanning extends Component {
     if (showMDDetails) {
       return (
         <div>
-          <NewNavbar
-            isAuthenticated={isAuthenticated}
-            user={user}
-            logOutUser={() => logOut()}
+          <Header
+            // brand="ADSPACE"
+            links={
+              <HeaderLinks
+                dropdownHoverColor="rose"
+                isAuthenticated={isAuthenticated}
+                user={user}
+                logOutUser={() => logOut()}
+              />
+            }
           />
           {loading && <LinearProgress />}
           <div className={classes.main}>
@@ -1322,8 +1100,8 @@ class MediaPlanning extends Component {
                       totalPrice,
                       campaignTitle,
                       0,
-                      this.props.currency,
-                      this.props.exchange
+                this.props.currency,
+                this.props.exchange
                     )
                   }
                   submit={() =>
@@ -1335,8 +1113,8 @@ class MediaPlanning extends Component {
                       totalPrice + vat,
                       campaignTitle,
                       1,
-                      this.props.currency,
-                      this.props.exchange
+                this.props.currency,
+                this.props.exchange
                     )
                   }
                   saveLoader={saveLoader}
@@ -1349,26 +1127,12 @@ class MediaPlanning extends Component {
                   showError={(message) =>
                     displayMDMessageBookingDetails(message)
                   }
-                  startDateChange={(date, location, row) =>
-                    updateLocationWithStartEndDate("start", date, location, row)
-                  }
-                  endDateChange={(date, location, row) =>
-                    updateLocationWithStartEndDate("end", date, location, row)
-                  }
+                  startDateChange={(date, location, row) => updateLocationWithStartEndDate('start',date, location, row)}
+                  endDateChange={(date, location, row) => updateLocationWithStartEndDate('end', date, location, row)}
                   openRow={openRow}
                   openRowChange={(row) => updateOpenRow(row)}
-                  onFileInputChange={(file, name, location) =>
-                    fileInputChange(file, name, location)
-                  }
-                  savePlan={() =>
-                    savePlanToUserObject(
-                      originalLocationsArray.filter(
-                        (element) => element.userAddedQuantity > 0
-                      ),
-                      campaignTitle,
-                      totalPrice
-                    )
-                  }
+                  onFileInputChange={(file, name, location) => fileInputChange(file, name, location)}
+                  savePlan={() => savePlanToUserObject(originalLocationsArray.filter((element) => element.userAddedQuantity > 0), campaignTitle, totalPrice)}
                   startDate={startDate}
                 />
               </div>
@@ -1400,7 +1164,7 @@ class MediaPlanning extends Component {
 
         <div className={classes.main}>
           <div className={classes.section}>
-            <div className={classes.container} style={{ position: "relative" }}>
+            <div className={classes.container} style={{position: 'relative'}}>
               <div className="try-wrapper">
                 <GridItem xs={12} md={9} sm={12}>
                   <h2>Plan. Buy. Monitor.</h2>
@@ -1422,7 +1186,7 @@ class MediaPlanning extends Component {
                           fontSize: 20,
                           fontWeight: "bold",
                           cursor: "pointer",
-                          color: "#fff",
+                          color: "#fff"
                         }}
                       >
                         Continue:
@@ -1436,8 +1200,35 @@ class MediaPlanning extends Component {
                   </Card>
                 </GridItem>
               </div>
-
-              <div style={{ marginTop: 50, marginBottom: 50 }}></div>
+              {/* <div className="try-wrapper">
+                <GridItem xs={12} md={3} sm={12}>
+                  <FormControl fullWidth className={classes.selectFormControl}>
+                    <InputLabel
+                        htmlFor="simple-select"
+                        className={classes.selectLabel}
+                    >
+                      Load Saved Media Plans
+                    </InputLabel>
+                    <Select
+                        MenuProps={{
+                          className: classes.selectMenu
+                        }}
+                        classes={{
+                          select: classes.select
+                        }}
+                        value={savedPlan}
+                        onChange={(e) => savedPlanSelected(e.target.value, savedPlans)}
+                        inputProps={{
+                          name: "simpleSelect",
+                          id: "simple-select"
+                        }}
+                    >
+                      {this.renderLoadedPlans()}
+                    </Select>
+                  </FormControl>
+                </GridItem>
+              </div> */}
+              <div style={{marginTop: 50, marginBottom: 50}}></div>
 
               {error && (
                 <GridContainer justify="center">
@@ -1450,63 +1241,49 @@ class MediaPlanning extends Component {
               )}
               <GridContainer>
                 <GridItem md={3} sm={3}>
-                  <div
-                    style={{
-                      background: "#fff",
-                      height: "auto",
-                      marginTop: 70,
-                    }}
-                  >
-                    <div className="try-wrapper">
-                      <GridItem xs={12} md={12} sm={12}>
-                        <FormControl
-                          fullWidth
-                          className={classes.selectFormControl}
-                        >
-                          <InputLabel
+                  <div style={{background: '#fff', height: 'auto', marginTop: 70}}>
+
+                  <div className="try-wrapper">
+                    <GridItem xs={12} md={12} sm={12}>
+                      <FormControl fullWidth className={classes.selectFormControl}>
+                        <InputLabel
                             htmlFor="simple-select"
                             className={classes.selectLabel}
-                          >
-                            Load Saved Media Plans
-                          </InputLabel>
-                          <Select
+                        >
+                          Load Saved Media Plans
+                        </InputLabel>
+                        <Select
                             MenuProps={{
-                              className: classes.selectMenu,
+                              className: classes.selectMenu
                             }}
                             classes={{
-                              select: classes.select,
+                              select: classes.select
                             }}
                             value={savedPlan}
-                            onChange={(e) =>
-                              savedPlanSelected(e.target.value, savedPlans)
-                            }
+                            onChange={(e) => savedPlanSelected(e.target.value, savedPlans)}
                             inputProps={{
                               name: "simpleSelect",
-                              id: "simple-select",
+                              id: "simple-select"
                             }}
-                          >
-                            {this.renderLoadedPlans()}
-                          </Select>
-                        </FormControl>
-                      </GridItem>
-                    </div>
+                        >
+                          {this.renderLoadedPlans()}
+                        </Select>
+                      </FormControl>
+                    </GridItem>
+                  </div>
                     <CardBody className={classes.cardBodyRefine}>
+
                       <div
                         className={classes.cardTitle + " " + classes.textLeft}
-                        style={{
-                          marginBottom: 50,
-                          overflow: "hidden",
-                          paddingLeft: 22,
-                          paddingRight: 18,
-                        }}
+                        style={{ marginBottom: 50, overflow: 'hidden', paddingLeft: 22, paddingRight: 18 }}
                       >
                         <Tooltip
-                          id="tooltip-top"
-                          title="Refresh Results"
-                          placement="top"
-                          classes={{ tooltip: classes.tooltip }}
+                            id="tooltip-top"
+                            title="Refresh Results"
+                            placement="top"
+                            classes={{ tooltip: classes.tooltip }}
                         >
-                          <Button
+                        <Button
                             link
                             justIcon
                             size="sm"
@@ -1514,10 +1291,10 @@ class MediaPlanning extends Component {
                               classes.pullLeft + " " + classes.refineButton
                             }
                             onClick={() => this.props.getAllLocations()}
-                          >
-                            <RefreshOutlined />
-                            Refresh
-                          </Button>
+                        >
+                          <RefreshOutlined />
+                          Refresh
+                        </Button>
                         </Tooltip>
                         <Tooltip
                           id="tooltip-top"
@@ -1539,7 +1316,7 @@ class MediaPlanning extends Component {
                                 checkedTags: [],
                                 checkedCities: [],
                                 checkedSubCategories: [],
-                                reset: true,
+                                reset: true
                               })
                             }
                           >
@@ -1549,19 +1326,19 @@ class MediaPlanning extends Component {
                         </Tooltip>
                         <Clearfix />
                       </div>
-                      <div style={{ marginTop: "20px" }}>
-                        <FormControl variant="outlined" fullWidth>
-                          <Datetime
-                            style={{ borderWidth: 0 }}
-                            timeFormat={false}
-                            isValidDate={valid}
-                            value={startDate}
-                            inputProps={{
-                              placeholder: "Start Date",
-                            }}
-                            onChange={(e) => this.setState({ startDate: e })}
-                          />
-                        </FormControl>
+                      <div style={{marginTop: '20px'}}>
+                      <FormControl variant="outlined" fullWidth>
+                        <Datetime
+                          style={{ borderWidth: 0 }}
+                          timeFormat={false}
+                          isValidDate={valid}
+                          value={startDate}
+                          inputProps={{
+                            placeholder: "Start Date",
+                          }}
+                          onChange={(e) => this.setState({ startDate: e })}
+                        />
+                      </FormControl>
                       </div>
                       <Accordion
                         active={[0, 1, 2, 3, 4]}
@@ -1688,7 +1465,11 @@ class MediaPlanning extends Component {
                           </GridItem>
                         </GridContainer>
                       </GridItem>
-                      <GridItem md={12} sm={12} xs={12}>
+                      <GridItem
+                        md={12}
+                        sm={12}
+                        xs={12}
+                      >
                         <GridContainer>{this.renderMDAdSpaces()}</GridContainer>
                       </GridItem>
                       {locationsArray && locationsArray.length > 0 && (
@@ -1749,7 +1530,7 @@ const mapStateToProps = ({ mediaplanning, login, paymentType }) => {
     citiesArray,
     openRow,
     savedPlans,
-    savedPlan,
+    savedPlan
   } = mediaplanning;
 
   const { isAuthenticated, user } = login;
@@ -1779,7 +1560,7 @@ const mapStateToProps = ({ mediaplanning, login, paymentType }) => {
     exchange,
     openRow,
     savedPlans,
-    savedPlan,
+    savedPlan
   };
 };
 
@@ -1804,6 +1585,6 @@ export default connect(
     fileInputChange,
     loadSavedPlan,
     savePlanToUserObject,
-    savedPlanSelected,
+    savedPlanSelected
   }
 )(withStyles(styles)(MediaPlanning));

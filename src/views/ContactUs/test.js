@@ -24,7 +24,7 @@ import { sendEmail } from "../../actions";
 import { Redirect } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./Contactus.scss";
-import NewNavbar from "components/NewNavbar";
+import NewNavbar from "views/Profiles/node_modules/components/NewNavbar";
 
 class ContactUs extends Component {
   constructor(props) {
