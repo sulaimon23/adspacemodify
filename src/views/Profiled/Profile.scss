@@ -18,7 +18,7 @@
 
 .makeStyles-cardBody-209 {
     flex: 1 1 auto;
-    padding: 0.5rem 1rem !important;
+    // padding: 0.5rem 1rem !important;
     -webkit-box-flex: 1;
 }
 
@@ -140,16 +140,24 @@ hr.solid {
     margin-top: 10px;
     font-size: 10px;
 }
+.card_med  p{
+    margin:0 !important;
+    margin-top: 10px;
+    margin-bottom: 7px;
+    font-size: 12px;
+    font-weight: 600;
+}
     .rowl{
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
     .rowl .left{
-        width: 25%;
+        width: 20% !important;
     }
     .rowl .main{
-        width: 75%;
+        width: 80% !important;  
+        padding-right: 10px;
     }
 a{
     text-decoration: none !important;

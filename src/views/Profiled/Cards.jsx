@@ -664,20 +664,17 @@ class Profile extends Component {
                     {location.name ? substringText(location.name, 60) : ""}
                   </h4>
                 </a>
-                <div className=" card_med">
+                <div className="text-muted  card_med">
                   {/* </a> */}
-                  <p className="alert alert-primary mt-2">
+                  <p className="my-3">
                     {`${location.category ? location.category.name : ""}`}
                   </p>
 
-                  <p
-                    className="alert alert-danger"
-                    style={{ padding: 5, borderRadius: 5 }}
-                  >
+                  <p className="text-muted my-2">
                     Available Qty: {location.quantity || ""}
                   </p>
 
-                  <p className="alert alert-success">
+                  <p className="text-muted">
                     {location
                       ? !location.traffic
                           .toString()
@@ -688,9 +685,8 @@ class Profile extends Component {
                     {location && location.trafficOption
                       ? location.trafficOption.name
                       : ""}{" "}
-                    |
                   </p>
-                  <p className="alert alert-dark">
+                  <p className="text-muted">
                     {location.size
                       ? "Size: " + location.size || ""
                       : "Duration (sec): " + location.duration ||
@@ -712,7 +708,7 @@ class Profile extends Component {
                 <div
                   style={{
                     fontWeight: "bold",
-                    marginTop: 30,
+                    marginTop: 50,
                     fontSize: 15,
                     color: "#0a24a7",
                     marginBottom: 10,
@@ -2852,8 +2848,8 @@ class Profile extends Component {
         {loading && <LinearProgress />}
 
         <div>
-          <div className="row">
-            <div className="col-md-2 pr-0 mr-0">
+          <div className="rowl">
+            <div className="left">
               <div className="sidebar">
                 <span className="menu-title">main</span>
 
@@ -3103,10 +3099,7 @@ class Profile extends Component {
                 </div>
               </div>
             </div>
-            <div
-              className="col-md-10"
-              style={{ height: "110vh", overflow: "auto" }}
-            >
+            <div className="main" style={{ height: "110vh", overflow: "auto" }}>
               <div>
                 {/* {this.renderViews()} */}
                 {this.state.stage === 0 && (
