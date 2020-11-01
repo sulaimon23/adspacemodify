@@ -622,7 +622,7 @@ class Profile extends Component {
               <div style={{ position: "relative" }}>
                 <a
                   href={`/mediaplanning-details/${location.id}`}
-                  target="_blank"
+                  // target="_blank"
                 >
                   <img
                     width="100%"
@@ -647,18 +647,18 @@ class Profile extends Component {
                 <a
                   href={`/mediaplanning-details/${location.id}`}
                   target="_blank"
-                  style={{ marginBottom: 10 }}
                 >
                   <h4
                     className={classes.cardTitle}
                     style={{
                       textTransform: "capitalize",
-                      fontSize: 12,
+                      fontSize: 14,
                       // lineHeight: "30px",
-                      fontWeight: "9000",
+                      fontWeight: "900",
                       marginTop: 0,
                       color: "#0b28ba",
                       textAlign: "left",
+                      marginBottom: 50,
                     }}
                   >
                     {location.name ? substringText(location.name, 60) : ""}
@@ -708,7 +708,7 @@ class Profile extends Component {
                 <div
                   style={{
                     fontWeight: "bold",
-                    marginTop: 50,
+                    marginTop: 10,
                     fontSize: 15,
                     color: "#0a24a7",
                     marginBottom: 10,
@@ -2624,9 +2624,15 @@ class Profile extends Component {
       this.setState({ showMediaLinks: false })
     );
   };
-  addZero = () => {
+  addFour = () => {
     const { stage, showMediaLinks } = this.state;
     return this.setState({ stage: 0 }, () =>
+      this.setState({ showMediaLinks: false })
+    );
+  };
+  addFour = () => {
+    const { stage, showMediaLinks } = this.state;
+    return this.setState({ stage: 4 }, () =>
       this.setState({ showMediaLinks: false })
     );
   };
@@ -2860,7 +2866,7 @@ class Profile extends Component {
                   <span>Dashboard</span>
                 </div>
 
-                <span className="menu-title">orders</span>
+                {/* <span className="menu-title">orders</span> */}
 
                 <div className="sidebar-li" onClick={this.addTwo}>
                   <div>
@@ -3039,62 +3045,18 @@ class Profile extends Component {
                     ></i>
                   </div>
                   <span style={{ color: stage === 1 ? "blue" : null }}>
-                    Branding
+                    Ad Monitoring
                   </span>
                 </div>
-                <div className="sidebar-li" onClick={this.addOne}>
+                <div className="sidebar-li" onClick={this.addFour}>
                   <div>
                     <i
-                      style={{ color: stage === 1 ? "blue" : null }}
+                      style={{ color: stage === 4 ? "blue" : null }}
                       class="fe fe-tiled"
                     ></i>
                   </div>
-                  <span style={{ color: stage === 1 ? "blue" : null }}>
-                    Branding
-                  </span>
-                </div>
-                <div className="sidebar-li" onClick={this.addOne}>
-                  <div>
-                    <i
-                      style={{ color: stage === 1 ? "blue" : null }}
-                      class="fe fe-tiled"
-                    ></i>
-                  </div>
-                  <span style={{ color: stage === 1 ? "blue" : null }}>
-                    Branding
-                  </span>
-                </div>
-                <div className="sidebar-li" onClick={this.addOne}>
-                  <div>
-                    <i
-                      style={{ color: stage === 1 ? "blue" : null }}
-                      class="fe fe-tiled"
-                    ></i>
-                  </div>
-                  <span style={{ color: stage === 1 ? "blue" : null }}>
-                    Branding
-                  </span>
-                </div>
-                <div className="sidebar-li" onClick={this.addOne}>
-                  <div>
-                    <i
-                      style={{ color: stage === 1 ? "blue" : null }}
-                      class="fe fe-tiled"
-                    ></i>
-                  </div>
-                  <span style={{ color: stage === 1 ? "blue" : null }}>
-                    Branding
-                  </span>
-                </div>
-                <div className="sidebar-li" onClick={this.addOne}>
-                  <div>
-                    <i
-                      style={{ color: stage === 1 ? "blue" : null }}
-                      class="fe fe-tiled"
-                    ></i>
-                  </div>
-                  <span style={{ color: stage === 1 ? "blue" : null }}>
-                    Branding
+                  <span style={{ color: stage === 4 ? "blue" : null }}>
+                    Orders
                   </span>
                 </div>
               </div>

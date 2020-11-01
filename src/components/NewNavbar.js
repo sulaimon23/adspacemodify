@@ -128,7 +128,7 @@ function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser, tota
                                 <a class="dropdown-item" href
                                 ="#">
                                     <img className="rounded-circle" src={Avatar_01} width={50} alt="Ryan Taylor" />
-                                    <h4>{authUser.displayName || "ACCOUNT"}</h4>
+                                    <h4>{user.displayName || "ACCOUNT"}</h4>
                                 </a>
                                 {/* <Link to="/profile">
                                     MY ACCOUNT

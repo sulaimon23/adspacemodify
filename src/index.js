@@ -44,7 +44,7 @@ import "./index.css";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { PersistGate } from "redux-persist/integration/react";
-import Location2 from "views/Locations/Location2";
+import Location2 from "views/Locations/Location2.jsx";
 import PaymentPage from "views/Locations/PaymentPage";
 const persistConfig = {
   key: "root",

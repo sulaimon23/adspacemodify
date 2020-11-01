@@ -250,22 +250,9 @@ class OrderSummary extends Component {
     } else {
       return (
         <div>
-          <Header
-            brand="ADSPACE"
-            links={
-              <HeaderLinks
-                dropdownHoverColor="rose"
-                isAuthenticated={isAuthenticated}
-                user={user}
-                logOutUser={() => logOut()}
-              />
-            }
-          // color="dark"
-          // changeColorOnScroll={{
-          //     height: 300,
-          //     color: "info"
-          // }}
-          />
+          <NewNavbar  isAuthenticated={isAuthenticated}
+              user={user}
+              logOutUser={() => logOut()} />
           <div className={classes.container} style={{ marginTop: 50 }}>
             <GridContainer justify="center">
               <GridItem xs={12} md={6} sm={12}>

@@ -77,7 +77,7 @@ import CardCustom from "./../../components/Card/CardCustom";
 import { numberWithCommas, substringText, formatCurrency } from "../../utils";
 import CheckoutStripe from "../Stripe/stripe";
 import CheckoutPaystack from "views/Paystack";
-
+import NewNavbar from "components/NewNavbar";
 let yesterday = Datetime.moment().subtract(1, "day");
 let valid = function(current) {
   return current.isAfter(yesterday);
@@ -152,29 +152,27 @@ class Location2 extends Component {
         this.props.setAuthenticated(false, user);
       }
     });
-
   }
 
   getFrame = (locationObject) => {
     if (locationObject && locationObject.embeddedLink) {
       try {
         return (document.getElementById("iframeMap").innerHTML =
-            locationObject.embeddedLink);
-      }
-      catch (e) {
+          locationObject.embeddedLink);
+      } catch (e) {
         return null;
       }
-    }else return null;
+    } else return null;
   };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const { location , getLocation} = this.props;
+    const { location, getLocation } = this.props;
     const { location: prevLocation } = prevProps;
     let idArray = [];
-    if (location.pathname !== prevLocation.pathname){
-      idArray = location.pathname.split('/') || [];
-      window.scrollTo(0, 0)
-      getLocation(idArray[2] || '');
+    if (location.pathname !== prevLocation.pathname) {
+      idArray = location.pathname.split("/") || [];
+      window.scrollTo(0, 0);
+      getLocation(idArray[2] || "");
     }
   }
   cal(images, image) {
@@ -264,15 +262,17 @@ class Location2 extends Component {
   }
 
   checkLandmark(locationObject) {
-    if(
+    if (
       locationObject &&
       locationObject.category &&
       locationObject.category.length > 0
-      ) {
+    ) {
       return locationObject.landmarks.map((landmark, index) => {
         return (
           <div key={index}>
-            <span style={{ color: "#000", fontSize: 18, fontWeight: 'bold'}}>Landmark</span>
+            <span style={{ color: "#000", fontSize: 18, fontWeight: "bold" }}>
+              Landmark
+            </span>
             <span>{`${landmark}` || ""}</span>
           </div>
         );
@@ -381,7 +381,6 @@ class Location2 extends Component {
     voucher,
     vouch,
   }) {
-
     // submitBooking(
     //   campaignTitle,
     //   quantity,
@@ -933,7 +932,13 @@ class Location2 extends Component {
                     </span>
                   </>
                 }
-                image={location.resizedImages ? (location.resizedImages[0] || '') : (location.images ? location.images[0] || '' : '')}
+                image={
+                  location.resizedImages
+                    ? location.resizedImages[0] || ""
+                    : location.images
+                    ? location.images[0] || ""
+                    : ""
+                }
                 className={classes.instructionNoticeModal}
                 imageClassName={classes.imageNoticeModal}
               />
@@ -1305,9 +1310,7 @@ class Location2 extends Component {
     if (!discountedPrice.checked) {
       return (
         <div style={{ display: "flex", flexDirection: "row" }}>
-        <h4
-            style={{ color: "#000", fontSize: 15 }}
-          >{` ${numberWithCommas(
+          <h4 style={{ color: "#000", fontSize: 15 }}>{` ${numberWithCommas(
             formatCurrency(
               location.price || 0,
               this.props.exchange,
@@ -1315,10 +1318,11 @@ class Location2 extends Component {
             )
           )}`}</h4>
           {location.pricingOption && location.pricingOption.name && (
-            <h4 style={{ color: "#000", fontSize: 13 }}>{`${location.pricingOption
+            <h4 style={{ color: "#000", fontSize: 13 }}>{`${
+              location.pricingOption
                 ? " (per " + location.pricingOption.name
                 : ""
-              })`}</h4>
+            })`}</h4>
           )}
         </div>
       );
@@ -1336,9 +1340,10 @@ class Location2 extends Component {
             >
               Starting from
             </h4> */}
-            <h4 style={{ fontSize: 13 }}>{`${numberWithCommas(
-              formatCurrency(location.price || 0)
-            )}`} {location.pricingOption ? location.pricingOption.name : ''}</h4>
+            <h4 style={{ fontSize: 13 }}>
+              {`${numberWithCommas(formatCurrency(location.price || 0))}`}{" "}
+              {location.pricingOption ? location.pricingOption.name : ""}
+            </h4>
           </div>
 
           <h4
@@ -1414,8 +1419,12 @@ class Location2 extends Component {
             key={index}
           >
             <Link
-                style={{ display: "inline-block", width: "100%", height: "600px" }}
-                to={{ pathname: `/location/${location.id}` }}
+              style={{
+                display: "inline-block",
+                width: "100%",
+                height: "600px",
+              }}
+              to={{ pathname: `/location/${location.id}` }}
             >
               <Card
                 product
@@ -1423,13 +1432,23 @@ class Location2 extends Component {
                 style={{ height: "100%", textAlign: "center" }}
               >
                 <img
-                  src={location.resizedImages ? (location.resizedImages[0] || '') : (location.images ? location.images[0] || '' : '')}
-                  alt={location.name ? substringText(location.name, 53).toLowerCase() : ""}
+                  src={
+                    location.resizedImages
+                      ? location.resizedImages[0] || ""
+                      : location.images
+                      ? location.images[0] || ""
+                      : ""
+                  }
+                  alt={
+                    location.name
+                      ? substringText(location.name, 53).toLowerCase()
+                      : ""
+                  }
                   height="250px"
                 />
 
                 <CardBody>
-                <h1
+                  <h1
                     style={{
                       textTransform: "capitalize",
                       fontSize: 20,
@@ -1438,33 +1457,53 @@ class Location2 extends Component {
                       color: "#0b28ba",
                     }}
                   >
-                    {location.name ? substringText(location.name, 53).toLowerCase() : ""}
+                    {location.name
+                      ? substringText(location.name, 53).toLowerCase()
+                      : ""}
                   </h1>
-                <Info>
-                  <h5 style={{ color: "#000", fontSize: 18 }}>
-                    {location.category ? location.category.name || "" : ""}
-                  </h5>
-                </Info>
+                  <Info>
+                    <h5 style={{ color: "#000", fontSize: 18 }}>
+                      {location.category ? location.category.name || "" : ""}
+                    </h5>
+                  </Info>
 
-                <p
-                  style={{ color: "#000", fontSize: 18, marginTop: 15 }}
-                >
-                  {location ? !location.traffic ? `Traffic: ${0}` : `Traffic: ${location.traffic.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}` :  0} {' '}{location && location.trafficOption ? location.trafficOption.name : ''}
-                </p>
+                  <p style={{ color: "#000", fontSize: 18, marginTop: 15 }}>
+                    {location
+                      ? !location.traffic
+                        ? `Traffic: ${0}`
+                        : `Traffic: ${location.traffic
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+                      : 0}{" "}
+                    {location && location.trafficOption
+                      ? location.trafficOption.name
+                      : ""}
+                  </p>
 
-                <p style={{ color: "#000", fontSize: 18, marginTop: 15 }}>
-                  {location.size
-                    ? "Size: " + location.size || ""
-                    : "Duration (seconds): " + location.duration ||
-                      "" + " , Quantity: " + location.quantity ||
-                      ""}
-                    {' '}{location && location.sizingOption ? location.sizingOption.name : ''}
-                </p>
+                  <p style={{ color: "#000", fontSize: 18, marginTop: 15 }}>
+                    {location.size
+                      ? "Size: " + location.size || ""
+                      : "Duration (seconds): " + location.duration ||
+                        "" + " , Quantity: " + location.quantity ||
+                        ""}{" "}
+                    {location && location.sizingOption
+                      ? location.sizingOption.name
+                      : ""}
+                  </p>
 
-                <div className={classes.price}>
-                    <p style={{ fontWeight: "bold", marginTop: 15, fontSize: 18, color: '#0a24a7'}}> <span style={{color: '#0a24a7'}}>Admatch: </span>{` ${
-                      location.count ? (location.count / 5) * 100 : "0"
-                    }%`}</p>
+                  <div className={classes.price}>
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        marginTop: 15,
+                        fontSize: 18,
+                        color: "#0a24a7",
+                      }}
+                    >
+                      {" "}
+                      <span style={{ color: "#0a24a7" }}>Admatch: </span>
+                      {` ${location.count ? (location.count / 5) * 100 : "0"}%`}
+                    </p>
                   </div>
                 </CardBody>
 
@@ -1481,7 +1520,8 @@ class Location2 extends Component {
                     <div>
                       {this.renderPrice(location.discountedPrice, location)}
 
-                      {location.discountedPrice && location.discountedPrice.value !== 0 ? (
+                      {location.discountedPrice &&
+                      location.discountedPrice.value !== 0 ? (
                         <p
                           style={{
                             textAlign: "left",
@@ -1490,12 +1530,13 @@ class Location2 extends Component {
                             textDecoration: "line-through",
                             marginTop: "-15px",
                           }}
-                        >{`${numberWithCommas(location.discountedPrice.value)}`}</p>
+                        >{`${numberWithCommas(
+                          location.discountedPrice.value
+                        )}`}</p>
                       ) : (
                         ""
                       )}
                     </div>
-
 
                     <div style={{ color: "#000", fontSize: "13px" }}>
                       <Place style={{ fontSize: "20px" }} />
@@ -1601,7 +1642,33 @@ class Location2 extends Component {
       );
     }
 
-    document.title = `Adspace.ng | ${locationObject ? locationObject.name || '' : '' } | ${locationObject ? locationObject.category ? (locationObject.category.name || '') : '' : ''} | ${locationObject ? locationObject.subCategory ? (locationObject.subCategory.name || '') : '' : ''} | ${locationObject ? locationObject.city ? (locationObject.city.name || '') : '' : ''} | ${locationObject ? locationObject.state ? (locationObject.state.name || '') : '' : ''}`;
+    document.title = `Adspace.ng | ${
+      locationObject ? locationObject.name || "" : ""
+    } | ${
+      locationObject
+        ? locationObject.category
+          ? locationObject.category.name || ""
+          : ""
+        : ""
+    } | ${
+      locationObject
+        ? locationObject.subCategory
+          ? locationObject.subCategory.name || ""
+          : ""
+        : ""
+    } | ${
+      locationObject
+        ? locationObject.city
+          ? locationObject.city.name || ""
+          : ""
+        : ""
+    } | ${
+      locationObject
+        ? locationObject.state
+          ? locationObject.state.name || ""
+          : ""
+        : ""
+    }`;
 
     if (success) {
       return (
@@ -1614,28 +1681,22 @@ class Location2 extends Component {
       );
     }
 
-
     return (
-      <div className={classes.productPage}>
-        <Header
-          brand="ADSPACE"
-          links={
-            <HeaderLinks
-              dropdownHoverColor="rose"
-              isAuthenticated={isAuthenticated}
-              user={user}
-              logOutUser={() => logOut()}
-            />
-          }
-          // fixed
-          // color="white"
-          // changeColorOnScroll={{
-          //     height: 300,
-          //     color: "white"
-          // }}
+      <div
+        className={classes.productPage}
+        style={{ height: "100vh", overflow: "auto" }}
+      >
+        <NewNavbar
+          isAuthenticated={isAuthenticated}
+          user={user}
+          logOutUser={() => logOut()}
         />
         <Parallax
-          image={locationObject.resizedImages ? (locationObject.resizedImages || []) : locationObject.images || []}
+          image={
+            locationObject.resizedImages
+              ? locationObject.resizedImages || []
+              : locationObject.images || []
+          }
           //filter="rose"
           className={classes.pageHeader}
         ></Parallax>
@@ -1651,8 +1712,16 @@ class Location2 extends Component {
                         showPlayButton={false}
                         startIndex={0}
                         items={this.cal(
-                          locationObject.resizedImages ? (locationObject.resizedImages || []) : (locationObject.images ? locationObject.images : []),
-                          locationObject.resizedImages ? (locationObject.resizedImages[0] || '') : (locationObject.images ? locationObject.images[0] || '' : '')
+                          locationObject.resizedImages
+                            ? locationObject.resizedImages || []
+                            : locationObject.images
+                            ? locationObject.images
+                            : [],
+                          locationObject.resizedImages
+                            ? locationObject.resizedImages[0] || ""
+                            : locationObject.images
+                            ? locationObject.images[0] || ""
+                            : ""
                         )}
                       />
                     </GridItem>
@@ -1673,28 +1742,55 @@ class Location2 extends Component {
                   <GridContainer>
                     <GridItem md={12} sm={12}>
                       <h1
-                    style={{
-                      textTransform: "capitalize",
-                      fontSize: 33,
-                      lineHeight: "35px",
-                      fontWeight: "Bold",
-                      color: "#0b28ba",
-                    }}
-                  >
-                    {locationObject.name ? substringText(locationObject.name, 53).toLowerCase() : ""}
-                  </h1>
+                        style={{
+                          textTransform: "capitalize",
+                          fontSize: 33,
+                          lineHeight: "35px",
+                          fontWeight: "Bold",
+                          color: "#0b28ba",
+                        }}
+                      >
+                        {locationObject.name
+                          ? substringText(locationObject.name, 53).toLowerCase()
+                          : ""}
+                      </h1>
                       {this.renderPrice(
                         locationObject.discountedPrice,
                         locationObject
                       )}
                       <p style={{ color: "#000", fontSize: 14 }}>
-                        {locationObject ? !locationObject.traffic ? `Traffic: ${0}` : `Traffic: ${locationObject.traffic.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}` : 0}
-                        {' '}{locationObject && locationObject.trafficOption ? locationObject.trafficOption.name : ''}
+                        {locationObject
+                          ? !locationObject.traffic
+                            ? `Traffic: ${0}`
+                            : `Traffic: ${locationObject.traffic
+                                .toString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+                          : 0}{" "}
+                        {locationObject && locationObject.trafficOption
+                          ? locationObject.trafficOption.name
+                          : ""}
                       </p>
                       <div className={classes.price}>
-                        <p style={{ fontWeight: "bold", marginTop: 15, fontSize: 18, color: "#0a2094"}}> <span style={{color: '#0a2094', fontWeight: 'bold'}}>Admatch: </span>{` ${
-                          locationObject.count ? (locationObject.count / 5) * 100 : "0"
-                        }%`}</p>
+                        <p
+                          style={{
+                            fontWeight: "bold",
+                            marginTop: 15,
+                            fontSize: 18,
+                            color: "#0a2094",
+                          }}
+                        >
+                          {" "}
+                          <span
+                            style={{ color: "#0a2094", fontWeight: "bold" }}
+                          >
+                            Admatch:{" "}
+                          </span>
+                          {` ${
+                            locationObject.count
+                              ? (locationObject.count / 5) * 100
+                              : "0"
+                          }%`}
+                        </p>
                       </div>
                       <Accordion
                         active={0}
@@ -1707,75 +1803,74 @@ class Location2 extends Component {
                                 <p style={{ color: "#000", fontSize: 14 }}>
                                   {locationObject.size
                                     ? "Location Size (sqm): " +
-                                    locationObject.size &&
-                                    locationObject.size !== "undefined"
+                                        locationObject.size &&
+                                      locationObject.size !== "undefined"
                                     : "Duration (seconds): " +
-                                    locationObject.duration || ""}
+                                        locationObject.duration || ""}
                                 </p>
                                 <p style={{ color: "#000", fontSize: 14 }}>
-                                  {`${locationObject.quantity
+                                  {`${
+                                    locationObject.quantity
                                       ? "Quantity: " + locationObject.quantity
                                       : ""
-                                    }`}
+                                  }`}
                                 </p>
                                 <p style={{ color: "#000", fontSize: 14 }}>
-                                  {`${locationObject.size
+                                  {`${
+                                    locationObject.size
                                       ? "Size: " + locationObject.quantity
                                       : ""
-                                    }`}
-                                    {' '}{locationObject && locationObject.sizingOption ? locationObject.sizingOption.name : ''}
+                                  }`}{" "}
+                                  {locationObject && locationObject.sizingOption
+                                    ? locationObject.sizingOption.name
+                                    : ""}
                                 </p>
                                 <p style={{ color: "#000", fontSize: 14 }}>
-                                  {`${locationObject.category
+                                  {`${
+                                    locationObject.category
                                       ? "Adtype: " +
-                                      locationObject.category.name
+                                        locationObject.category.name
                                       : ""
-                                    }`}
+                                  }`}
                                 </p>
                                 <p style={{ color: "#000", fontSize: 14 }}>
-                                  {`${locationObject.category
+                                  {`${
+                                    locationObject.category
                                       ? "Sub-Adtype: " +
-                                      locationObject.subCategory.name
+                                        locationObject.subCategory.name
                                       : ""
-                                    }`}
+                                  }`}
                                 </p>
                                 <p style={{ color: "#000", fontSize: 14 }}>
-                                  {`${locationObject.state
+                                  {`${
+                                    locationObject.state
                                       ? "State: " + locationObject.state.name
                                       : ""
-                                    }`}
+                                  }`}
                                 </p>
                                 <p style={{ color: "#000", fontSize: 14 }}>
-                                  {`${locationObject.city
+                                  {`${
+                                    locationObject.city
                                       ? "City: " + locationObject.city.name
                                       : ""
-                                    }`}
+                                  }`}
                                 </p>
                                 <h4 style={{ color: "#000", fontSize: 18 }}>
                                   Average Target Audience
                                 </h4>
 
                                 <p style={{ color: "#000", fontSize: 14 }}>
-                                  {`${locationObject
-                                      ? "Interest: "
-                                      : ""
-                                    }`}
+                                  {`${locationObject ? "Interest: " : ""}`}
                                   {this.renderInterest(locationObject)}
                                 </p>
 
                                 <p style={{ color: "#000", fontSize: 14 }}>
-                                  {`${locationObject
-                                      ? "Age Group: "
-                                      : ""
-                                    }`}
+                                  {`${locationObject ? "Age Group: " : ""}`}
                                   {this.renderAges(locationObject)}
                                 </p>
 
                                 <p style={{ color: "#000", fontSize: 14 }}>
-                                  {`${locationObject
-                                      ? "Gender: "
-                                      : ""
-                                    }`}
+                                  {`${locationObject ? "Gender: " : ""}`}
                                   {this.renderGender(locationObject)}
                                 </p>
 
@@ -1787,17 +1882,17 @@ class Location2 extends Component {
                                   {this.checkLandmark(locationObject)}
                                 </p>
                               </>
-
                             ),
                           },
                           {
                             title: "Details and Care",
                             content: (
                               <>
-                                <p>{`${locationObject.remarks
-                                  ? locationObject.remarks
-                                  : ""
-                                  }`}</p>
+                                <p>{`${
+                                  locationObject.remarks
+                                    ? locationObject.remarks
+                                    : ""
+                                }`}</p>
                               </>
                             ),
                           },
@@ -1851,7 +1946,7 @@ class Location2 extends Component {
                 </div>
                 } */}
 
-         <div id="iframeMap">
+        <div id="iframeMap">
           <div
             style={{
               height: `100%`,
