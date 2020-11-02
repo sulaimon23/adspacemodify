@@ -1637,26 +1637,24 @@ class Location2 extends Component {
       ? this.props.location.pathname || ""
       : "/";
     if (!isAuthenticated && showBookingDetails) {
-      return (
-        <Redirect to={{ pathname: "/login", state: { route: routeTo } }} />
-      );
+      return <Redirect to="/login" />;
     }
 
-    document.title = `Adspace.ng | ${
+    document.title = `Adspace.ng ${
       locationObject ? locationObject.name || "" : ""
-    } | ${
+    }  ${
       locationObject
         ? locationObject.category
           ? locationObject.category.name || ""
           : ""
         : ""
-    } | ${
+    } ${
       locationObject
         ? locationObject.subCategory
           ? locationObject.subCategory.name || ""
           : ""
         : ""
-    } | ${
+    } |${
       locationObject
         ? locationObject.city
           ? locationObject.city.name || ""
@@ -1688,7 +1686,7 @@ class Location2 extends Component {
       >
         <NewNavbar
           isAuthenticated={isAuthenticated}
-          user={user}
+          authUser={user}
           logOutUser={() => logOut()}
         />
         <Parallax
