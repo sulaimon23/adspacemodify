@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import NumericInput from "react-numeric-input";
+import image from "../../assets/img/dg1.jpg";
+
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import {
   logOut,
@@ -34,6 +36,7 @@ import {
   loadSavedPlan,
   savePlanToUserObject,
   savedPlanSelected,
+  saveBrands,
   addReduceQuantityByInput,
 } from "../../actions";
 // import shoppingCartStyle from "../../assets/jss/material-kit-pro-react/views/shoppingCartStyle.js";
@@ -142,6 +145,7 @@ class Profile extends Component {
     super(props);
 
     this.state = {
+      selectedEnabled: 0,
       branding: "",
       brands: [
         {
@@ -177,7 +181,6 @@ class Profile extends Component {
         { label: "2000 - 5000", startValue: 2000, endValue: 3000 },
         { label: "> 5000", startValue: 5000, endValue: 1000000 },
       ],
-      selectedEnabled: 0,
       modal: false,
       campaignTitle: "",
       startDate: moment(),
@@ -1510,45 +1513,23 @@ class Profile extends Component {
       />
     );
   }
-
   handleSaveBrands(brands, branding) {
-    const {
-      interestsArray,
-      agesArray,
-      gendersArray,
-      saveBrandsProfile,
-      userInfo,
-      selectedBrand,
-    } = this.props;
+    const { interestsArray, agesArray, gendersArray, saveBrands } = this.props;
+    const { selectedEnabled } = this.state;
     const newArray = brands.map((brand) => {
-      if (brand.gender !== undefined) {
-        return {
-          ...brand,
-          ages: brand.ages.map((age) => {
-            return this.findItem(agesArray, age);
-          }),
-          interests: brand.interests.map((interest) => {
-            return this.findItem(interestsArray, interest);
-          }),
-          gender: this.findItem(gendersArray, brand.gender),
-        };
-      }
+      return {
+        ...brand,
+        ages: brand.ages.map((age) => {
+          return this.findItem(agesArray, age);
+        }),
+        interests: brand.interests.map((interest) => {
+          return this.findItem(interestsArray, interest);
+        }),
+        gender: this.findItem(gendersArray, brand.gender),
+      };
     });
-
-    saveBrandsProfile(newArray, userInfo, selectedBrand);
-    this.setState({
-      branding: "",
-      brands: [
-        {
-          ages: [],
-          gender: "",
-          interests: [],
-          brandName: "",
-        },
-      ],
-    });
+    saveBrands(newArray, branding, selectedEnabled);
   }
-
   renderBrands() {
     const { userInfo, classes, selectedBrand } = this.props;
     const { branding, brands } = this.state;
@@ -1557,67 +1538,129 @@ class Profile extends Component {
 
     if (Array.isArray(brands_) && brands_.length >= 0) {
       return (
-        <GridItem sm={11} md={8} sl={8}>
-          <div>
-            <h4
-              className={classes.title}
-              style={{ textAlign: "center", color: grayColor[1] }}
-            >
-              My Branding{" "}
-            </h4>
-          </div>
-          <Card>
-            <CardBody>
-              {/* <h4 className={classes.title} style={{ textAlign: 'center', color: grayColor[1]}}>My Branding </h4> */}
-              {this.renderDefaultNoBranding(0)}
-              {brands_.map((brand, index) => {
-                return (
-                  <GridContainer key={index}>
-                    {this.renderBrandsDetails(brand, index + 1)}
-                  </GridContainer>
-                );
-              })}
-              {userInfo.isMulti && (
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={12}>
-                    <GridContainer>
-                      <GridItem xs={12} dm={12} md={12}>
-                        <FormControl
-                          fullWidth
-                          className={classes.selectFormControl}
-                        >
-                          {this.renderBrandingComponent()}
-                        </FormControl>
-                      </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                      <GridItem xs={12} dm={12} md={12}>
+        <div className={classes.container}>
+          <GridContainer justify="center">
+            <GridItem xs={12} sm={10} md={10}>
+              <Card className={classes.cardSignup}>
+                <h2 className={classes.cardTitle}>Branding</h2>
+                <CardBody>
+                  <GridContainer justify="center">
+                    <GridItem xs={12} sm={12} md={12}>
+                      <form className={classes.form}>
+                        <GridContainer>
+                          <GridItem sm={2} md={2} lg={2} />
+                          <GridItem xs={12} sm={4} md={4} lg={3}>
+                            <FormControl
+                              fullWidth
+                              className={classes.selectFormControl}
+                            >
+                              <InputLabel
+                                htmlFor="simple-select"
+                                className={classes.selectLabel}
+                              >
+                                Select Branding Type
+                              </InputLabel>
+                              <Select
+                                MenuProps={{
+                                  className: classes.selectMenu,
+                                }}
+                                classes={{
+                                  select: classes.select,
+                                }}
+                                value={branding}
+                                onChange={(e) =>
+                                  this.handleBrandSelectionChange(
+                                    e.target.value
+                                  )
+                                }
+                                inputProps={{
+                                  name: "simpleSelect",
+                                  id: "simple-select",
+                                }}
+                              >
+                                <MenuItem
+                                  classes={{
+                                    root: classes.selectMenuItem,
+                                    selected: classes.selectMenuItemSelected,
+                                  }}
+                                  value="single"
+                                >
+                                  Single Branding
+                                </MenuItem>
+                                <MenuItem
+                                  classes={{
+                                    root: classes.selectMenuItem,
+                                    selected: classes.selectMenuItemSelected,
+                                  }}
+                                  value="multi"
+                                >
+                                  Multiple Branding
+                                </MenuItem>
+                              </Select>
+                            </FormControl>
+                          </GridItem>
+                        </GridContainer>
+                        {this.renderBrandingComponent()}
+                      </form>
+                      {this.props.loading && (
                         <div
                           className={classes.textCenter}
-                          style={{
-                            marginTop: 20,
-                            marginBottom: 20,
-                            textAlign: "center",
-                          }}
+                          style={{ marginTop: 20, marginBottom: 20 }}
                         >
+                          <CircularProgress />
+                        </div>
+                      )}
+                      <div
+                        className={classes.textCenter}
+                        style={{ marginTop: 20, marginBottom: 20 }}
+                      >
+                        <Button
+                          color="success"
+                          round
+                          onClick={() =>
+                            this.handleSaveBrands(brands, branding)
+                          }
+                        >
+                          Save
+                        </Button>
+                        {branding === "multi" && (
                           <Button
-                            color="success"
+                            color="primary"
                             round
                             onClick={() =>
-                              this.handleSaveBrands(brands, branding)
+                              this.setState({
+                                brands: [
+                                  ...brands,
+                                  {
+                                    ages: [],
+                                    gender: "",
+                                    interests: [],
+                                    brandName: "",
+                                  },
+                                ],
+                              })
                             }
                           >
-                            Save
+                            Add MORE...
                           </Button>
-                        </div>
-                      </GridItem>
-                    </GridContainer>
-                  </GridItem>
-                </GridContainer>
-              )}
-            </CardBody>
-          </Card>
-        </GridItem>
+                        )}
+                        {brands.length > 1 && (
+                          <Button
+                            color="danger"
+                            round
+                            onClick={() => this.removeBrand()}
+                          >
+                            REMOVE
+                          </Button>
+                        )}
+                      </div>
+                    </GridItem>
+                  </GridContainer>
+                </CardBody>
+              </Card>
+            </GridItem>
+          </GridContainer>
+        </div>
       );
     } else return null;
   }
@@ -1636,6 +1679,16 @@ class Profile extends Component {
     });
     this.setState({ brands: arr });
   }
+  handleBrandSelectionChange(value) {
+    if (value === "single")
+      this.setState({
+        branding: value,
+        brands: [{ ages: [], gender: "", interests: [], brandName: "" }],
+      });
+    else {
+      this.setState({ branding: value });
+    }
+  }
 
   renderBrandingComponent() {
     const { classes, interestsArray, agesArray, gendersArray } = this.props;
@@ -1644,184 +1697,239 @@ class Profile extends Component {
       return brands.map((brand, index) => {
         const { ages, gender, interests, brandName } = brand;
         return (
-          <GridContainer key={index}>
-            <GridItem xs={12} md={12} sm={12}>
-              <GridContainer>
-                <GridItem sm={2} md={2} lg={2} />
-                <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
-                    formControlProps={{
-                      fullWidth: true,
-                      className: classes.customFormControlClasses,
-                    }}
-                    value={brandName}
-                    inputProps={{
-                      type: "text",
-                      onChange: (e) => {
-                        this.handleInputChange(
-                          e.target.value,
-                          index,
-                          brands,
-                          "brandname"
-                        );
-                      },
-                      placeholder: "Brand Name...",
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} md={4}>
-                  <FormControl
-                    style={{ marginTop: 10 }}
-                    fullWidth
-                    className={classes.selectFormControl}
-                  >
-                    <InputLabel
-                      htmlFor="simple-select"
-                      className={classes.selectLabel}
-                    >
-                      Age (choose 2)
-                    </InputLabel>
-                    <Select
-                      multiple
-                      value={ages}
-                      onChange={(e) =>
-                        this.handleInputChange(
-                          e.target.value,
-                          index,
-                          brands,
-                          "ages"
-                        )
-                      }
-                      MenuProps={{
-                        className: classes.selectMenu,
-                        classes: { paper: classes.selectPaper },
-                      }}
-                      classes={{ select: classes.select }}
-                      inputProps={{
-                        name: "multipleSelect",
-                        id: "multiple-select",
-                      }}
-                    >
-                      {agesArray &&
-                        agesArray.map((item, index) => {
-                          return (
-                            <MenuItem
-                              key={index}
+          <Card>
+            <CardBody>
+              <GridContainer key={index}>
+                <GridItem xs={12} md={12} sm={12}>
+                  <GridContainer>
+                    <GridItem sm={2} md={2} lg={2}>
+                      <div
+                        style={{
+                          justifyContent: "center",
+                          alignItems: "center",
+                          marginTop: 30,
+                        }}
+                        className={
+                          classes.checkboxAndRadio +
+                          " " +
+                          classes.checkboxAndRadioHorizontal
+                        }
+                      >
+                        <FormControlLabel
+                          control={
+                            <Radio
+                              checked={this.props.selectedEnabled === index}
+                              onChange={() =>
+                                this.setState({ selectedEnabled: index })
+                              }
+                              value="a"
+                              name="radio button enabled"
+                              aria-label="A"
+                              icon={
+                                <FiberManualRecord
+                                  className={classes.radioUnchecked}
+                                />
+                              }
+                              checkedIcon={
+                                <FiberManualRecord
+                                  className={classes.radioChecked}
+                                />
+                              }
                               classes={{
-                                root: classes.selectMenuItem,
-                                selected:
-                                  classes.selectMenuItemSelectedMultiple,
+                                checked: classes.radio,
+                                root: classes.radioRoot,
                               }}
-                              value={item.id}
-                            >
-                              {`${item.min || ""} - ${item.max || ""}`}
-                            </MenuItem>
-                          );
-                        })}
-                    </Select>
-                  </FormControl>
+                            />
+                          }
+                          classes={{
+                            label: classes.label,
+                            root: classes.labelRoot,
+                          }}
+                        />
+                      </div>
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={6}>
+                      <CustomInput
+                        formControlProps={{
+                          fullWidth: true,
+                          className: classes.customFormControlClasses,
+                        }}
+                        value={brandName}
+                        inputProps={{
+                          type: "text",
+                          onChange: (e) => {
+                            this.handleInputChange(
+                              e.target.value,
+                              index,
+                              brands,
+                              "brandname"
+                            );
+                          },
+                          placeholder: "Brand Name...",
+                        }}
+                      />
+                    </GridItem>
+                    <GridItem xs={12} md={4}>
+                      <FormControl
+                        style={{ marginTop: 10 }}
+                        fullWidth
+                        className={classes.selectFormControl}
+                      >
+                        <InputLabel
+                          htmlFor="simple-select"
+                          className={classes.selectLabel}
+                        >
+                          Age (choose 2)
+                        </InputLabel>
+                        <Select
+                          multiple
+                          value={ages}
+                          onChange={(e) =>
+                            this.handleInputChange(
+                              e.target.value,
+                              index,
+                              brands,
+                              "ages"
+                            )
+                          }
+                          MenuProps={{
+                            className: classes.selectMenu,
+                            classes: { paper: classes.selectPaper },
+                          }}
+                          classes={{ select: classes.select }}
+                          inputProps={{
+                            name: "multipleSelect",
+                            id: "multiple-select",
+                          }}
+                        >
+                          {agesArray &&
+                            agesArray.map((item, index) => {
+                              return (
+                                <MenuItem
+                                  key={index}
+                                  classes={{
+                                    root: classes.selectMenuItem,
+                                    selected:
+                                      classes.selectMenuItemSelectedMultiple,
+                                  }}
+                                  value={item.id}
+                                >
+                                  {`${item.min || ""} - ${item.max || ""}`}
+                                </MenuItem>
+                              );
+                            })}
+                        </Select>
+                      </FormControl>
+                    </GridItem>
+                  </GridContainer>
+                  <GridContainer>
+                    <GridItem sm={2} md={2} lg={2} />
+                    <GridItem xs={12} md={6}>
+                      <FormControl
+                        fullWidth
+                        className={classes.selectFormControl}
+                      >
+                        <InputLabel
+                          htmlFor="simple-select"
+                          className={classes.selectLabel}
+                        >
+                          Select Interests (choose 2)
+                        </InputLabel>
+                        <Select
+                          multiple
+                          value={interests}
+                          onChange={(e) =>
+                            this.handleInputChange(
+                              e.target.value,
+                              index,
+                              brands,
+                              "interests"
+                            )
+                          }
+                          MenuProps={{
+                            className: classes.selectMenu,
+                            classes: { paper: classes.selectPaper },
+                          }}
+                          classes={{ select: classes.select }}
+                          inputProps={{
+                            name: "multipleSelect",
+                            id: "multiple-select",
+                          }}
+                        >
+                          {interestsArray &&
+                            interestsArray.map((item, index) => {
+                              return (
+                                <MenuItem
+                                  key={index}
+                                  classes={{
+                                    root: classes.selectMenuItem,
+                                    selected:
+                                      classes.selectMenuItemSelectedMultiple,
+                                  }}
+                                  value={item.id}
+                                >
+                                  {item.description || ""}
+                                </MenuItem>
+                              );
+                            })}
+                        </Select>
+                      </FormControl>
+                    </GridItem>
+                    <GridItem xs={12} md={4}>
+                      <FormControl
+                        fullWidth
+                        className={classes.selectFormControl}
+                      >
+                        <InputLabel
+                          htmlFor="simple-select"
+                          className={classes.selectLabel}
+                        >
+                          Gender
+                        </InputLabel>
+                        <Select
+                          MenuProps={{
+                            className: classes.selectMenu,
+                          }}
+                          classes={{
+                            select: classes.select,
+                          }}
+                          value={gender}
+                          onChange={(e) =>
+                            this.handleInputChange(
+                              e.target.value,
+                              index,
+                              brands,
+                              "gender"
+                            )
+                          }
+                          inputProps={{
+                            name: "simpleSelect",
+                            id: "simple-select",
+                          }}
+                        >
+                          {gendersArray &&
+                            gendersArray.map((item, index) => {
+                              return (
+                                <MenuItem
+                                  key={index}
+                                  classes={{
+                                    root: classes.selectMenuItem,
+                                    selected: classes.selectMenuItemSelected,
+                                  }}
+                                  value={item.id}
+                                >
+                                  {item.description || ""}
+                                </MenuItem>
+                              );
+                            })}
+                        </Select>
+                      </FormControl>
+                    </GridItem>
+                  </GridContainer>
                 </GridItem>
               </GridContainer>
-              <GridContainer>
-                <GridItem sm={2} md={2} lg={2} />
-                <GridItem xs={12} md={6}>
-                  <FormControl fullWidth className={classes.selectFormControl}>
-                    <InputLabel
-                      htmlFor="simple-select"
-                      className={classes.selectLabel}
-                    >
-                      Select Interests (choose 2)
-                    </InputLabel>
-                    <Select
-                      multiple
-                      value={interests}
-                      onChange={(e) =>
-                        this.handleInputChange(
-                          e.target.value,
-                          index,
-                          brands,
-                          "interests"
-                        )
-                      }
-                      MenuProps={{
-                        className: classes.selectMenu,
-                        classes: { paper: classes.selectPaper },
-                      }}
-                      classes={{ select: classes.select }}
-                      inputProps={{
-                        name: "multipleSelect",
-                        id: "multiple-select",
-                      }}
-                    >
-                      {interestsArray &&
-                        interestsArray.map((item, index) => {
-                          return (
-                            <MenuItem
-                              key={index}
-                              classes={{
-                                root: classes.selectMenuItem,
-                                selected:
-                                  classes.selectMenuItemSelectedMultiple,
-                              }}
-                              value={item.id}
-                            >
-                              {item.description || ""}
-                            </MenuItem>
-                          );
-                        })}
-                    </Select>
-                  </FormControl>
-                </GridItem>
-                <GridItem xs={12} md={4}>
-                  <FormControl fullWidth className={classes.selectFormControl}>
-                    <InputLabel
-                      htmlFor="simple-select"
-                      className={classes.selectLabel}
-                    >
-                      Gender
-                    </InputLabel>
-                    <Select
-                      MenuProps={{
-                        className: classes.selectMenu,
-                      }}
-                      classes={{
-                        select: classes.select,
-                      }}
-                      value={gender}
-                      onChange={(e) =>
-                        this.handleInputChange(
-                          e.target.value,
-                          index,
-                          brands,
-                          "gender"
-                        )
-                      }
-                      inputProps={{
-                        name: "simpleSelect",
-                        id: "simple-select",
-                      }}
-                    >
-                      {gendersArray &&
-                        gendersArray.map((item, index) => {
-                          return (
-                            <MenuItem
-                              key={index}
-                              classes={{
-                                root: classes.selectMenuItem,
-                                selected: classes.selectMenuItemSelected,
-                              }}
-                              value={item.id}
-                            >
-                              {item.description || ""}
-                            </MenuItem>
-                          );
-                        })}
-                    </Select>
-                  </FormControl>
-                </GridItem>
-              </GridContainer>
-            </GridItem>
-          </GridContainer>
+            </CardBody>
+          </Card>
         );
       });
     }
@@ -2646,6 +2754,7 @@ class Profile extends Component {
   render() {
     const { classes, isAuthenticated, user, logOut, loading } = this.props;
 
+    const { branding, brands } = this.state;
     const {
       checkedTags,
       checkedCategories,
