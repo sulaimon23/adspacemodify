@@ -38,12 +38,13 @@ function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser, tota
           <div
             className="logoimg"
             style={{ marginRight: "10px", marginLeft: "0px" }}
+            onClick="window.location.reload()"
           >
             <Link to="/">
               <img src={logo} alt="" width={40} height={40} />
             </Link>
           </div>
-          <div className="logotext">
+          <div className="logotext" onClick="window.location.reload()">
             <Link to="/">
               <img src={logotext} alt="" width={130} height={30} />
             </Link>

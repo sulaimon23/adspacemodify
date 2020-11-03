@@ -647,7 +647,7 @@ class Profile extends Component {
                 </a>
                 <div className="view-more">Click to see details</div>
               </div>
-              <CardBody style={{ textAlign: "left", height: "160px" }} plain>
+              <CardBody style={{ textAlign: "left", height: "180px" }} plain>
                 <a
                   href={`/mediaplanning-details/${location.id}`}
                   target="_blank"

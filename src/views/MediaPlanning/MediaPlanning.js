@@ -1090,6 +1090,7 @@ class MediaPlanning extends Component {
                   )}
                   changePeriod={(id, period) => periodChange(id, period)}
                   toggle={() => showMDbooking(false)}
+                  
                   notApplicableChange={(id) => changeNotApplicable(id)}
                   submitUnpaid={() =>
                     submitAdspacesPaid(
