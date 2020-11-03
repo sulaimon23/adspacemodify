@@ -1,0 +1,8 @@
+.brando{
+    height: 100vh;
+    overflow: auto;
+}
+.brand_btn button{
+    text-align: center;
+    margin: auto 15px;
+}

@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 // import HeaderLinks from "../../components/Header/HeaderLinks";
 import { logOut, getAgeGenderInterests, saveBrands } from "../../actions";
 import image from "../../assets/img/dg1.jpg";
+import './style.css'
 import {withStyles} from "@material-ui/core";
 import basicsStyle from "../../assets/jss/material-kit-pro-react/views/signupPageStyle";
 //import basicsStyle from "../../assets/jss/material-kit-pro-react/views/componentsSections/basicsStyle.js";
@@ -320,7 +321,7 @@ class Branding extends Component{
 
         if (!isAuthenticated ) {
             return (
-                <Redirect to={{ pathname: '/login' }} />
+                <Redirect to="/" />
             )   
         }
 
@@ -336,16 +337,11 @@ class Branding extends Component{
             <div>
                 <NewNavbar  isAuthenticated={isAuthenticated} user={user} logOutUser={() => logOut()} />
                 <div
-                    className={classes.pageHeader}
-                    style={{
-                        backgroundImage: "url(" + image + ")",
-                        backgroundSize: "cover",
-                        backgroundPosition: "top center"
-                    }}
+                    className="brando"
                 >
                     <div className={classes.container}>
                         <GridContainer justify="center">
-                            <GridItem xs={12} sm={10} md={10}>
+                            <GridItem xs={12} sm={12} md={12}>
                                 <Card className={classes.cardSignup}>
                                     <h2 className={classes.cardTitle}>Branding</h2>
                                     <CardBody>
@@ -406,7 +402,7 @@ class Branding extends Component{
                                                     <CircularProgress />
                                                 </div>
                                                 }
-                                                <div className={classes.textCenter} style={{ marginTop: 20, marginBottom: 20}}>
+                                                <div className="brand_btn" style={{ marginTop: 20, marginBottom: 20}}>
                                                     <Button color="success"  round onClick={() => this.handleSaveBrands(brands, branding)}>
                                                         Save
                                                     </Button>

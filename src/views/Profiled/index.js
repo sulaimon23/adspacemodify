@@ -46,6 +46,7 @@ import {
   LinearProgress,
   withStyles,
 } from "@material-ui/core";
+import Dashboard from '../../components/dashboard/dashboard.jsx'
 import GridContainer from "../../components/Grid/GridContainer";
 import GridItem from "../../components/Grid/GridItem";
 import Card from "../../components/Card/Card";
@@ -1544,7 +1545,7 @@ class Profile extends Component {
               className={classes.title}
               style={{ textAlign: "center", color: grayColor[1] }}
             >
-              My Branding{" "}
+              {" "}
             </h4>
           </div>
           <Card>
@@ -1685,7 +1686,7 @@ class Profile extends Component {
                         />
                       </div>
                     </GridItem>
-                    <GridItem xs={12} sm={12} md={6}>
+                    <GridItem xs={12} sm={12} md={6} className="py-5">
                       <CustomInput
                         formControlProps={{
                           fullWidth: true,
@@ -2149,7 +2150,7 @@ class Profile extends Component {
     } = this.state;
     console.log(userInfo);
 
-    if (this.state.stage === 0) {
+    if (this.state.stage === 4) {
       return (
         <GridContainer>
           <GridItem md={12} xs={12} sm={12} className="margin-body">
@@ -2656,7 +2657,24 @@ class Profile extends Component {
       );
     }
   }
-
+  addZero = () => {
+    const { stage, showMediaLinks } = this.state;
+    return this.setState({ stage: 0 }, () =>
+      this.setState({ showMediaLinks: false })
+    );
+  };
+  addFive = () => {
+    const { stage, showMediaLinks } = this.state;
+    return this.setState({ stage: 5 }, () =>
+      this.setState({ showMediaLinks: false })
+    );
+  };
+  addSix = () => {
+    const { stage, showMediaLinks } = this.state;
+    return this.setState({ stage: 6}, () =>
+      this.setState({ showMediaLinks: false })
+    );
+  };
   addOne = () => {
     const { stage, showMediaLinks } = this.state;
     return this.setState({ stage: 1 }, () =>
@@ -2905,11 +2923,17 @@ class Profile extends Component {
               <div className="sidebar">
                 <span className="menu-title">main</span>
 
-                <div className="sidebar-li">
+              
+                <div className="sidebar-li" onClick={this.addZero}>
                   <div>
-                    <i class="fe fe-home"></i>
+                    <i
+                      style={{ color: stage === 0 ? "blue" : null }}
+                      class="fe fe-home"
+                    ></i>
                   </div>
-                  <span>Dashboard</span>
+                  <span style={{ color: stage === 0 ? "blue" : null }}>
+                    Dashboard
+                  </span>
                 </div>
 
                 {/* <span className="menu-title">orders</span> */}
@@ -3061,14 +3085,14 @@ class Profile extends Component {
                   </div>
                 </div>
                 
-                <div className="sidebar-li" onClick={this.addTwo}>
+                <div className="sidebar-li" onClick={this.addFive}>
                   <div>
                     <i
-                      style={{ color: stage === 2 ? "blue" : null }}
+                      style={{ color: stage === 5 ? "blue" : null }}
                       class="fe fe-user-plus"
                     ></i>
                   </div>
-                  <span style={{ color: stage === 2 ? "blue" : null }}>
+                  <span style={{ color: stage === 5 ? "blue" : null }}>
                     Saved Media Plans
                   </span>
                 </div>
@@ -3085,14 +3109,14 @@ class Profile extends Component {
                 </div>
 
                 
-                <div className="sidebar-li" onClick={this.addOne}>
+                <div className="sidebar-li" onClick={this.addSix}>
                   <div>
                     <i
-                      style={{ color: stage === 1 ? "blue" : null }}
+                      style={{ color: stage === 6 ? "blue" : null }}
                       class="fe fe-tiled"
                     ></i>
                   </div>
-                  <span style={{ color: stage === 1 ? "blue" : null }}>
+                  <span style={{ color: stage === 6 ? "blue" : null }}>
                     Ad Monitoring
                   </span>
                 </div>
@@ -3122,8 +3146,13 @@ class Profile extends Component {
             </div>
             <div className="main" style={{ height: "110vh", overflow: "auto" }}>
               <div>
+              {this.state.stage === 0 && (
+                  <GridContainer justify="center" style={{ marginTop: 70 }}>
+                    <Dashboard />
+                  </GridContainer>
+                )}
                 {/* {this.renderViews()} */}
-                {this.state.stage === 0 && (
+                {this.state.stage === 4 && (
                   <GridContainer>
                     <GridItem md={12} xs={12} sm={12}>
                       <div style={{ marginTop: 70 }}>
