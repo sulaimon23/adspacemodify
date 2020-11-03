@@ -82,7 +82,7 @@ ReactDOM.render(
         
         <Switch>
           <Route exact path="/" component={Profiled} />
-          {/* <Route exact path="/profile" component={Profile} /> */}
+          <Route exact path="/profile" component={Profiled} />
           <Route exact path="/contactus" component={ContactUs} />
           <Route exact path="/orderSummary" component={OrderSummary} />
           <Route exact path="/booking/:id" component={Booking} />

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import NumericInput from "react-numeric-input";
 import image from "../../assets/img/dg1.jpg";
-
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import {
   logOut,
@@ -113,6 +112,7 @@ import { mdPageSize } from "../../config";
 import ReactSelect from "react-select";
 import MediaPlanning from "views/MediaPlanning/MediaPlanning";
 import NewNavbar from "components/NewNavbar";
+import Monitor from "views/Monitor/Monitor";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -1882,24 +1882,22 @@ class Profile extends Component {
       userInfo,
     } = this.props;
     return (
-      <GridItem sm={12} md={12}>
-        <GridContainer>
+      <GridItem sm={12} md={12} >
+        <GridContainer >
           <GridItem sm={12} md={12}>
             <GridContainer>
-              <GridItem sm={12} md={9}>
+              <GridItem sm={12} md={9} className="heyyo">
                 {brand.hasOwnProperty("brandName") && (
                   <GridItem sm={12} md={12}>
                     <GridContainer>
                       <GridItem sm={12} md={3}>
                         <h6
-                          style={{ textAlign: "center", color: grayColor[0] }}
                         >
                           Brand Name
                         </h6>
                       </GridItem>
                       <GridItem sm={12} md={3}>
                         <h6
-                          style={{ textAlign: "center", color: grayColor[1] }}
                         >
                           {brand.brandName || ""}
                         </h6>
@@ -1912,7 +1910,6 @@ class Profile extends Component {
                     <GridContainer>
                       <GridItem sm={12} md={3}>
                         <h6
-                          style={{ textAlign: "center", color: grayColor[0] }}
                         >
                           Ages
                         </h6>
@@ -1933,7 +1930,6 @@ class Profile extends Component {
                     <GridContainer>
                       <GridItem sm={12} md={3}>
                         <h6
-                          style={{ textAlign: "center", color: grayColor[0] }}
                         >
                           Gender
                         </h6>
@@ -1951,7 +1947,6 @@ class Profile extends Component {
                     <GridContainer>
                       <GridItem sm={12} md={3}>
                         <h6
-                          style={{ textAlign: "center", color: grayColor[0] }}
                         >
                           Interests
                         </h6>
@@ -3089,7 +3084,7 @@ class Profile extends Component {
                   <div>
                     <i
                       style={{ color: stage === 5 ? "blue" : null }}
-                      class="fe fe-user-plus"
+                      class="fa fa-archive"
                     ></i>
                   </div>
                   <span style={{ color: stage === 5 ? "blue" : null }}>
@@ -3100,7 +3095,7 @@ class Profile extends Component {
                   <div>
                     <i
                       style={{ color: stage === 1 ? "blue" : null }}
-                      class="fe fe-tiled"
+                      class="fa fa-ribbon "
                     ></i>
                   </div>
                   <span style={{ color: stage === 1 ? "blue" : null }}>
@@ -3113,7 +3108,7 @@ class Profile extends Component {
                   <div>
                     <i
                       style={{ color: stage === 6 ? "blue" : null }}
-                      class="fe fe-tiled"
+                      class="fe fe-eye"
                     ></i>
                   </div>
                   <span style={{ color: stage === 6 ? "blue" : null }}>
@@ -3171,13 +3166,41 @@ class Profile extends Component {
                     </GridItem>
                   </GridContainer>
                 )}
+                {this.state.stage === 5 && (
+                  <FormControl fullWidth style={{marginTop: 200}}>
+                  <InputLabel
+                      htmlFor="simple-select"
+                      className={classes.selectLabel}
+                  >
+                    Load Saved Media Plans
+                  </InputLabel>
+                  <Select
+                      MenuProps={{
+                        className: classes.selectMenu
+                      }}
+                      classes={{
+                        select: classes.select
+                      }}
+                      value={savedPlan}
+                      onChange={(e) => savedPlanSelected(e.target.value, savedPlans)}
+                      inputProps={{
+                        name: "simpleSelect",
+                        id: "simple-select"
+                      }}
+                  >
+                    {this.renderLoadedPlans()}
+                  </Select>
+                </FormControl>
+                )}
 
                 {this.state.stage === 1 && (
                   <GridContainer justify="center" style={{ marginTop: 70 }}>
                     {this.renderBrands()}
                   </GridContainer>
                 )}
-
+  {this.state.stage === 6 && (
+    <Monitor />
+  )}
                 {this.state.stage === 2 && (
                   <div>
                     <GridContainer justify="center" style={{ marginTop: 70 }}>
