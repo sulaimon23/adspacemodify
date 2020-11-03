@@ -37,9 +37,9 @@ import SignUp from "./views/SignUp/SignUp";
 import Location from "./views/Locations/Locations";
 import Booking from "./views/Booking/Booking";
 import ContactUs from "./views/ContactUs/ContactUs";
-import Profiled from "./views/Profiled/Cards.jsx";
+import Profiled from "./views/Profiled/index.js";
 import OrderSummary from "./views/Locations/OrderSummary";
-import Branding from "./views/Branding/Branding";
+import Branding from "./views/Branding/Branding.js";
 import "./index.css";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web

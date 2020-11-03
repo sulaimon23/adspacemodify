@@ -1538,133 +1538,70 @@ class Profile extends Component {
 
     if (Array.isArray(brands_) && brands_.length >= 0) {
       return (
-        <div className={classes.container}>
-          <GridContainer justify="center">
-            <GridItem xs={12} sm={10} md={10}>
-              <Card className={classes.cardSignup}>
-                <h2 className={classes.cardTitle}>Branding</h2>
-                <CardBody>
-                  <GridContainer justify="center">
-                    <GridItem xs={12} sm={12} md={12}>
-                      <form className={classes.form}>
-                        <GridContainer>
-                          <GridItem sm={2} md={2} lg={2} />
-                          <GridItem xs={12} sm={4} md={4} lg={3}>
-                            <FormControl
-                              fullWidth
-                              className={classes.selectFormControl}
-                            >
-                              <InputLabel
-                                htmlFor="simple-select"
-                                className={classes.selectLabel}
-                              >
-                                Select Branding Type
-                              </InputLabel>
-                              <Select
-                                MenuProps={{
-                                  className: classes.selectMenu,
-                                }}
-                                classes={{
-                                  select: classes.select,
-                                }}
-                                value={branding}
-                                onChange={(e) =>
-                                  this.handleBrandSelectionChange(
-                                    e.target.value
-                                  )
-                                }
-                                inputProps={{
-                                  name: "simpleSelect",
-                                  id: "simple-select",
-                                }}
-                              >
-                                <MenuItem
-                                  classes={{
-                                    root: classes.selectMenuItem,
-                                    selected: classes.selectMenuItemSelected,
-                                  }}
-                                  value="single"
-                                >
-                                  Single Branding
-                                </MenuItem>
-                                <MenuItem
-                                  classes={{
-                                    root: classes.selectMenuItem,
-                                    selected: classes.selectMenuItemSelected,
-                                  }}
-                                  value="multi"
-                                >
-                                  Multiple Branding
-                                </MenuItem>
-                              </Select>
-                            </FormControl>
-                          </GridItem>
-                        </GridContainer>
-                        {this.renderBrandingComponent()}
-                      </form>
-                      {this.props.loading && (
+        <GridItem sm={12} md={12} sl={12}>
+          <div>
+            <h4
+              className={classes.title}
+              style={{ textAlign: "center", color: grayColor[1] }}
+            >
+              My Branding{" "}
+            </h4>
+          </div>
+          <Card>
+            <CardBody>
+              {/* <h4 className={classes.title} style={{ textAlign: 'center', color: grayColor[1]}}>My Branding </h4> */}
+              {this.renderDefaultNoBranding(0)}
+              {brands_.map((brand, index) => {
+                return (
+                  <GridContainer key={index}>
+                    {this.renderBrandsDetails(brand, index + 1)}
+                  </GridContainer>
+                );
+              })}
+              {userInfo.isMulti && (
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={12}>
+                    <GridContainer>
+                      <GridItem xs={12} dm={12} md={12}>
+                        <FormControl
+                          fullWidth
+                          className={classes.selectFormControl}
+                        >
+                          {this.renderBrandingComponent()}
+                        </FormControl>
+                      </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                      <GridItem xs={12} dm={12} md={12}>
                         <div
                           className={classes.textCenter}
-                          style={{ marginTop: 20, marginBottom: 20 }}
+                          style={{
+                            marginTop: 20,
+                            marginBottom: 20,
+                            textAlign: "center",
+                          }}
                         >
-                          <CircularProgress />
-                        </div>
-                      )}
-                      <div
-                        className={classes.textCenter}
-                        style={{ marginTop: 20, marginBottom: 20 }}
-                      >
-                        <Button
-                          color="success"
-                          round
-                          onClick={() =>
-                            this.handleSaveBrands(brands, branding)
-                          }
-                        >
-                          Save
-                        </Button>
-                        {branding === "multi" && (
                           <Button
-                            color="primary"
+                            color="success"
                             round
                             onClick={() =>
-                              this.setState({
-                                brands: [
-                                  ...brands,
-                                  {
-                                    ages: [],
-                                    gender: "",
-                                    interests: [],
-                                    brandName: "",
-                                  },
-                                ],
-                              })
+                              this.handleSaveBrands(brands, branding)
                             }
                           >
-                            Add MORE...
+                            Save
                           </Button>
-                        )}
-                        {brands.length > 1 && (
-                          <Button
-                            color="danger"
-                            round
-                            onClick={() => this.removeBrand()}
-                          >
-                            REMOVE
-                          </Button>
-                        )}
-                      </div>
-                    </GridItem>
-                  </GridContainer>
-                </CardBody>
-              </Card>
-            </GridItem>
-          </GridContainer>
-        </div>
+                        </div>
+                      </GridItem>
+                    </GridContainer>
+                  </GridItem>
+                </GridContainer>
+              )}
+            </CardBody>
+          </Card>
+        </GridItem>
       );
     } else return null;
   }
-
   handleInputChange(value, ind, brands, input) {
     const arr = brands.map((brand, index) => {
       if (ind === index) {
@@ -2977,30 +2914,7 @@ class Profile extends Component {
 
                 {/* <span className="menu-title">orders</span> */}
 
-                <div className="sidebar-li" onClick={this.addTwo}>
-                  <div>
-                    <i
-                      style={{ color: stage === 2 ? "blue" : null }}
-                      class="fe fe-user-plus"
-                    ></i>
-                  </div>
-                  <span style={{ color: stage === 2 ? "blue" : null }}>
-                    Account
-                  </span>
-                </div>
-
-                <div className="sidebar-li" onClick={this.addOne}>
-                  <div>
-                    <i
-                      style={{ color: stage === 1 ? "blue" : null }}
-                      class="fe fe-tiled"
-                    ></i>
-                  </div>
-                  <span style={{ color: stage === 1 ? "blue" : null }}>
-                    Branding
-                  </span>
-                </div>
-
+               
                 <div>
                   <p>
                     <a
@@ -3146,6 +3060,31 @@ class Profile extends Component {
                     </div>
                   </div>
                 </div>
+                
+                <div className="sidebar-li" onClick={this.addTwo}>
+                  <div>
+                    <i
+                      style={{ color: stage === 2 ? "blue" : null }}
+                      class="fe fe-user-plus"
+                    ></i>
+                  </div>
+                  <span style={{ color: stage === 2 ? "blue" : null }}>
+                    Saved Media Plans
+                  </span>
+                </div>
+                <div className="sidebar-li" onClick={this.addOne}>
+                  <div>
+                    <i
+                      style={{ color: stage === 1 ? "blue" : null }}
+                      class="fe fe-tiled"
+                    ></i>
+                  </div>
+                  <span style={{ color: stage === 1 ? "blue" : null }}>
+                    Branding
+                  </span>
+                </div>
+
+                
                 <div className="sidebar-li" onClick={this.addOne}>
                   <div>
                     <i
@@ -3166,6 +3105,17 @@ class Profile extends Component {
                   </div>
                   <span style={{ color: stage === 4 ? "blue" : null }}>
                     Orders
+                  </span>
+                </div>
+                <div className="sidebar-li" onClick={this.addTwo}>
+                  <div>
+                    <i
+                      style={{ color: stage === 2 ? "blue" : null }}
+                      class="fe fe-user-plus"
+                    ></i>
+                  </div>
+                  <span style={{ color: stage === 2 ? "blue" : null }}>
+                    Account
                   </span>
                 </div>
               </div>

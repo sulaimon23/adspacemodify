@@ -35,7 +35,8 @@ class Branding extends Component{
             branding: '',
             brands: [{
                 ages: [], gender: '', interests: [], brandName: ''
-            }]
+            }],
+            mind: false
         }
     }
     
@@ -277,7 +278,7 @@ class Branding extends Component{
 
     handleSaveBrands(brands, branding){
         const { interestsArray, agesArray, gendersArray, saveBrands } = this.props;
-        const { selectedEnabled } = this.state;
+        const { selectedEnabled, mind } = this.state;
         const newArray = brands.map((brand => {
             return {
                 ...brand,
@@ -291,7 +292,16 @@ class Branding extends Component{
             }
         }));
         saveBrands(newArray, branding, selectedEnabled);
+        this.setState({
+            mind: true,
+        })
     }
+
+    if (mind) {
+        return <Redirect exact to={{ pathname: "/" }} />;
+      }
+
+
 
     findItem(array = [], item){
         for (let i = 0; i < array.length; i++){

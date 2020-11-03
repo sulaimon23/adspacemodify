@@ -137,7 +137,7 @@ class Login extends Component {
     }
 
     if (isAuthenticated) {
-      return <Redirect to={routeTo} />;
+      return <Redirect exact to={{ pathname: "/branding" }} />;
     }
     return (
       <div className="log">
