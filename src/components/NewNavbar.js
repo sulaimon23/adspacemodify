@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { numberWithCommas, substringText, formatCurrency } from "../utils"
 
-function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser, totalPrice, exchange, currency: totalCurrency}) {
+function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser, totalPrice, exchange, currency: totalCurrency,handleBookClick}) {
     const dispatch = useDispatch();
     const currency = useSelector((state) => state.paymentType.currency);
     const changeCurrency = (curr) => {
@@ -80,7 +80,10 @@ function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser, tota
                   
                    
                     <li class="nav-ite pd-top">
-                     <div className="nav_con" style={{paddingTop: "10px"}}>
+                     <div className={`${totalPrice === 0 ? 'nav_con' : 'nav_con2'}`} style={{paddingTop: "10px"}}
+                     onClick={handleBookClick}
+                    //  style={{color: totalPrice === 0? 'red' : 'green'}}
+                     >
                           {''}                                                    
                           {formatCurrency(
                                                     totalPrice || 0,

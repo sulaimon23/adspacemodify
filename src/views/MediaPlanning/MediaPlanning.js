@@ -769,7 +769,7 @@ class MediaPlanning extends Component {
     const { totalPrice, displayMDMessage, showMDbooking } = this.props;
     if (totalPrice === 0)
       displayMDMessage(
-        "YOU DO NOT HAVE ANY ADSPACES, ADD QUANTITY TO ANY ADSPACE YOU LIKE"
+        "YOU DO NOT HAVE ANY ADSPACES, ADD QUANTITY TO ANY ADSPACE UNDER MEDIA PLANNING"
       );
     else showMDbooking(true);
   }

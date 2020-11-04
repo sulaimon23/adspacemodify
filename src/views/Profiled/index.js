@@ -1079,11 +1079,11 @@ class Profile extends Component {
     });
   }
 
-  handleBookClick() {
+  handleBookClick = () => {
     const { totalPrice, displayMDMessage, showMDbooking } = this.props;
     if (totalPrice === 0)
-      displayMDMessage(
-        "YOU DO NOT HAVE ANY ADSPACES, ADD QUANTITY TO ANY ADSPACE YOU LIKE"
+      alert(
+        "YOU DO NOT HAVE ANY ADSPACES, ADD QUANTITY TO ANY ADSPACE UNDER MEDIA PLANNING"
       );
     else showMDbooking(true);
   }
@@ -2703,7 +2703,7 @@ class Profile extends Component {
     );
   };
   render() {
-    const { classes, isAuthenticated, user, logOut, loading } = this.props;
+    const { classes, isAuthenticated, user, logOut, loading, handleBookClick } = this.props;
 
     const { branding, brands } = this.state;
     const {
@@ -2836,6 +2836,10 @@ class Profile extends Component {
           isAuthenticated={isAuthenticated}
           authUser={user}
           logOutUser={() => logOut()}
+          displayMDMessage={displayMDMessage}
+          totalPrice={totalPrice}
+          showMDbooking={showMDbooking}
+          handleBookClick={() => this.handleBookClick()}
         />
 
         {loading && <LinearProgress />}
@@ -3602,6 +3606,35 @@ class Profile extends Component {
                   >
                     <div className={classes.section}>
                       <div style={{ position: "relative" }}>
+                      {/* <GridItem xs={12} md={2} sm={12} className="try">
+                  <Card style={{ backgroundColor: "rgb(230, 47, 45)" }}>
+                    <CardBody
+                      onClick={() => this.handleBookClick()}
+                      color
+                      style={{
+                        flexDirection: "row",
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <h4
+                        style={{
+                          fontSize: 20,
+                          fontWeight: "bold",
+                          cursor: "pointer",
+                          color: "#fff"
+                        }}
+                      >
+                        Continue:
+                        {formatCurrency(
+                          totalPrice || 0,
+                          this.props.exchange,
+                          this.props.currency
+                        )}
+                      </h4>
+                    </CardBody>
+                  </Card>
+                </GridItem> */}
                         <div style={{ marginTop: 50, marginBottom: 50 }}></div>
 
                         {error && (
