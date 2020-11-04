@@ -103,6 +103,7 @@ ReactDOM.render(
           <Route exact path="/:id" component={LocationsByCompany} />
 <Redirect to="/" />
 
+
         </Switch>
         {/* <PageFooter /> */}
       </Router>

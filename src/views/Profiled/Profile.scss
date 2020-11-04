@@ -52,6 +52,15 @@ ul.breadcrumb{
 div.crumb{
     display: flex;
 }
+#menu-simpleSelect > div.MuiPaper-root.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded{
+    left: -7px !important;
+}
+.booker{
+    margin-top: 40px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
 
 .bt-1{
     border-bottom-left-radius:50% !important;

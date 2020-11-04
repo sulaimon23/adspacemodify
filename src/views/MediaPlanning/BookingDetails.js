@@ -549,11 +549,7 @@ const BookingDetails = ({
               Pay with Cheque/Bank Transfer
             </Button> */}
             <MediaAlertDialog callback={submitUnpaid} />
-            <Link to="/">
-            <Button color="info" onClick="window.location.reload()" >
-              BACK
-            </Button>
-            </Link>
+           
           </div>
         </GridContainer>
       </GridItem>

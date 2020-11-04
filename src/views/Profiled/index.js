@@ -1285,6 +1285,7 @@ class Profile extends Component {
               selected: classes.selectMenuItemSelected,
             }}
             value={plan.brandName || ""}
+            onClick={this.addSeven}
           >
             {plan.brandName || ""}
           </MenuItem>
@@ -2658,10 +2659,10 @@ class Profile extends Component {
       this.setState({ showMediaLinks: false })
     );
   };
-  addFive = () => {
-    const { stage, showMediaLinks } = this.state;
-    return this.setState({ stage: 5 }, () =>
-      this.setState({ showMediaLinks: false })
+  addSeven = () => {
+    const { stage, showMDDetails } = this.state;
+    return this.setState({ stage: 7 }, () =>
+      this.setState({ showMDDetails: false })
     );
   };
   addSix = () => {
@@ -2682,12 +2683,7 @@ class Profile extends Component {
       this.setState({ showMediaLinks: false })
     );
   };
-  addFour = () => {
-    const { stage, showMediaLinks } = this.state;
-    return this.setState({ stage: 0 }, () =>
-      this.setState({ showMediaLinks: false })
-    );
-  };
+  
   addFour = () => {
     const { stage, showMediaLinks } = this.state;
     return this.setState({ stage: 4 }, () =>
@@ -2700,7 +2696,12 @@ class Profile extends Component {
       this.setState({ showMediaLinks: true })
     );
   };
-
+  addMedia2 = () => {
+    const { stage, showMDDetails } = this.state;
+    return this.setState({ stage: 5 }, () =>
+      this.setState({ showMDDetails: false })
+    );
+  };
   render() {
     const { classes, isAuthenticated, user, logOut, loading } = this.props;
 
@@ -2806,94 +2807,21 @@ class Profile extends Component {
       );
     }
 
-    if (showMDDetails) {
-      return (
-        <div>
-          <NewNavbar
-            isAuthenticated={isAuthenticated}
-            authUser={user}
-            logOutUser={() => logOut()}
-          />
-          {loading && <LinearProgress />}
-          <div className={classes.main}>
-            <div className={classes.section}>
-              <div className={classes.container}>
-                <BookingDetails
-                  classes={classes}
-                  campaignTitle={this.state.campaignTitle}
-                  totalPrice={totalPrice}
-                  qtyAddReduce={(id, action) => addReduceQuantity(id, action)}
-                  resetPeriod={(id) => periodReset(id)}
-                  locations={originalLocationsArray.filter(
-                    (element) => element.userAddedQuantity > 0
-                  )}
-                  changePeriod={(id, period) => periodChange(id, period)}
-                  toggle={() => showMDbooking(false)}
-                  notApplicableChange={(id) => changeNotApplicable(id)}
-                  submitUnpaid={() =>
-                    submitAdspacesPaid(
-                      originalLocationsArray.filter(
-                        (element) => element.userAddedQuantity > 0
-                      ),
-                      startDate,
-                      totalPrice,
-                      campaignTitle,
-                      0,
-                      this.props.currency,
-                      this.props.exchange
-                    )
-                  }
-                  submit={() =>
-                    submitAdspacesPaid(
-                      originalLocationsArray.filter(
-                        (element) => element.userAddedQuantity > 0
-                      ),
-                      startDate,
-                      totalPrice + vat,
-                      campaignTitle,
-                      1,
-                      this.props.currency,
-                      this.props.exchange
-                    )
-                  }
-                  saveLoader={saveLoader}
-                  saveMessage={saveMessage}
-                  saveError={saveError}
-                  campaignTitle={campaignTitle}
-                  campaignTitleChange={(value) =>
-                    this.setState({ campaignTitle: value })
-                  }
-                  showError={(message) =>
-                    displayMDMessageBookingDetails(message)
-                  }
-                  startDateChange={(date, location, row) =>
-                    updateLocationWithStartEndDate("start", date, location, row)
-                  }
-                  endDateChange={(date, location, row) =>
-                    updateLocationWithStartEndDate("end", date, location, row)
-                  }
-                  openRow={openRow}
-                  openRowChange={(row) => updateOpenRow(row)}
-                  onFileInputChange={(file, name, location) =>
-                    fileInputChange(file, name, location)
-                  }
-                  savePlan={() =>
-                    savePlanToUserObject(
-                      originalLocationsArray.filter(
-                        (element) => element.userAddedQuantity > 0
-                      ),
-                      campaignTitle,
-                      totalPrice
-                    )
-                  }
-                  startDate={startDate}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
+    // if (showMDDetails) {
+    //   return (
+    //     <div>
+          
+    //       {loading && <LinearProgress />}
+    //       <div className={classes.main}>
+    //         <div className={classes.section}>
+    //           <div className={classes.container}>
+                
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   );
+    // }
 
     const { stage, showMediaLinks } = this.state;
 
@@ -3079,18 +3007,72 @@ class Profile extends Component {
                     </div>
                   </div>
                 </div>
+
+
+
                 
-                <div className="sidebar-li" onClick={this.addFive}>
-                  <div>
-                    <i
-                      style={{ color: stage === 5 ? "blue" : null }}
-                      class="fa fa-archive"
-                    ></i>
+                <div>
+                  <p>
+                    <a
+                      onClick={this.addMedia2}
+                      data-toggle="collapse"
+                      href="#collapseExample2"
+                      role="button"
+                      aria-expanded="false"
+                      aria-controls="collapseExample"
+                    >
+                      <div className="sidebar-li" >
+                        <div>
+                          <i
+                            style={{ color: stage === 5 ? "blue" : null }}
+                            class="fe fe-cart"
+                          ></i>
+                        </div>
+                        <span style={{ color: stage === 5 ? "blue" : null }}>
+                          Saved Media Plan
+                        </span>
+                      </div>
+                    </a>
+                  </p>
+
+                  <div class="collapse" id="collapseExample2">
+                  <FormControl fullWidth  style={{marginTop: -30}}>
+                        <InputLabel
+                            htmlFor="simple-select"
+                            className={classes.selectLabel}
+                        >
+                          Load Saved Media Plans
+                        </InputLabel>
+                        <Select
+                            // MenuProps={{
+                            //   className: classes.selectMenu
+                            // }}
+                            // classes={{
+                            //   select: classes.select
+                            // }}
+                            value={savedPlan}
+                            onChange={(e) => savedPlanSelected(e.target.value, savedPlans)}
+                            inputProps={{
+                              name: "simpleSelect",
+                              id: "simple-select"
+                            }}
+                            
+                        >
+                          {this.renderLoadedPlans() }
+                        </Select>
+                      </FormControl>
+                      
                   </div>
-                  <span style={{ color: stage === 5 ? "blue" : null }}>
-                    Saved Media Plans
-                  </span>
                 </div>
+
+
+
+
+
+
+
+
+                
                 <div className="sidebar-li" onClick={this.addOne}>
                   <div>
                     <i
@@ -3167,30 +3149,84 @@ class Profile extends Component {
                   </GridContainer>
                 )}
                 {this.state.stage === 5 && (
-                  <FormControl fullWidth style={{marginTop: 200}}>
-                  <InputLabel
-                      htmlFor="simple-select"
-                      className={classes.selectLabel}
-                  >
-                    Load Saved Media Plans
-                  </InputLabel>
-                  <Select
-                      MenuProps={{
-                        className: classes.selectMenu
-                      }}
-                      classes={{
-                        select: classes.select
-                      }}
-                      value={savedPlan}
-                      onChange={(e) => savedPlanSelected(e.target.value, savedPlans)}
-                      inputProps={{
-                        name: "simpleSelect",
-                        id: "simple-select"
-                      }}
-                  >
-                    {this.renderLoadedPlans()}
-                  </Select>
-                </FormControl>
+                  // <BookingDetails />
+                  <div style={{display: 'flex', alignItems:'center', justifyContent:'center',height:'100vh'}}>
+                    <h1>Please Select a Saved Plan</h1>
+                    </div>
+                )}
+                {this.state.stage === 7 && (
+                  <div className="booker">
+                    <BookingDetails
+                  classes={classes}
+                  campaignTitle={this.state.campaignTitle}
+                  totalPrice={totalPrice}
+                  qtyAddReduce={(id, action) => addReduceQuantity(id, action)}
+                  resetPeriod={(id) => periodReset(id)}
+                  locations={originalLocationsArray.filter(
+                    (element) => element.userAddedQuantity > 0
+                  )}
+                  changePeriod={(id, period) => periodChange(id, period)}
+                  toggle={() => showMDbooking(false)}
+                  notApplicableChange={(id) => changeNotApplicable(id)}
+                  submitUnpaid={() =>
+                    submitAdspacesPaid(
+                      originalLocationsArray.filter(
+                        (element) => element.userAddedQuantity > 0
+                      ),
+                      startDate,
+                      totalPrice,
+                      campaignTitle,
+                      0,
+                      this.props.currency,
+                      this.props.exchange
+                    )
+                  }
+                  submit={() =>
+                    submitAdspacesPaid(
+                      originalLocationsArray.filter(
+                        (element) => element.userAddedQuantity > 0
+                      ),
+                      startDate,
+                      totalPrice + vat,
+                      campaignTitle,
+                      1,
+                      this.props.currency,
+                      this.props.exchange
+                    )
+                  }
+                  saveLoader={saveLoader}
+                  saveMessage={saveMessage}
+                  saveError={saveError}
+                  campaignTitle={campaignTitle}
+                  campaignTitleChange={(value) =>
+                    this.setState({ campaignTitle: value })
+                  }
+                  showError={(message) =>
+                    displayMDMessageBookingDetails(message)
+                  }
+                  startDateChange={(date, location, row) =>
+                    updateLocationWithStartEndDate("start", date, location, row)
+                  }
+                  endDateChange={(date, location, row) =>
+                    updateLocationWithStartEndDate("end", date, location, row)
+                  }
+                  openRow={openRow}
+                  openRowChange={(row) => updateOpenRow(row)}
+                  onFileInputChange={(file, name, location) =>
+                    fileInputChange(file, name, location)
+                  }
+                  savePlan={() =>
+                    savePlanToUserObject(
+                      originalLocationsArray.filter(
+                        (element) => element.userAddedQuantity > 0
+                      ),
+                      campaignTitle,
+                      totalPrice
+                    )
+                  }
+                  startDate={startDate}
+                />
+                  </div>
                 )}
 
                 {this.state.stage === 1 && (
