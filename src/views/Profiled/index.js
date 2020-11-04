@@ -91,7 +91,8 @@ import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
-
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 import Carousel from "react-slick";
 import Typography from "@material-ui/core/Typography";
 import Instruction from "../../components/Instruction/Instruction";
@@ -1082,10 +1083,12 @@ class Profile extends Component {
   handleBookClick = () => {
     const { totalPrice, displayMDMessage, showMDbooking } = this.props;
     if (totalPrice === 0)
-      alert(
-        "YOU DO NOT HAVE ANY ADSPACES, ADD QUANTITY TO ANY ADSPACE UNDER MEDIA PLANNING"
+      toast.error(
+        "YOU DO NOT HAVE ANY ADSPACES, ADD QUANTITY TO ANY ADSPACE UNDER MEDIA PLANNING" ,{
+          className: 'not_bar'
+        }
       );
-    else showMDbooking(true);
+    else this.addSeven();
   }
 
   cal(images, image) {
@@ -2849,6 +2852,7 @@ class Profile extends Component {
             <div className="left">
               <div className="sidebar">
                 <span className="menu-title">main</span>
+                    <ToastContainer />
 
               
                 <div className="sidebar-li" onClick={this.addZero}>
@@ -3205,8 +3209,10 @@ class Profile extends Component {
                   campaignTitleChange={(value) =>
                     this.setState({ campaignTitle: value })
                   }
-                  showError={(message) =>
-                    displayMDMessageBookingDetails(message)
+                  showError={() =>
+                    toast.success("Note: Quantity increment will stop when it reaches the maximum quantity for the selected location", {
+                      className: 'but_alert'
+                    })
                   }
                   startDateChange={(date, location, row) =>
                     updateLocationWithStartEndDate("start", date, location, row)

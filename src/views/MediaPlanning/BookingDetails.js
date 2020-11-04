@@ -304,7 +304,7 @@ const BookingDetails = ({
           <Button color="info">
             <Link
               // to={`https://www.google.com/maps/search/?api=1&query=${locationObject.geolocation.latitude},${locationObject.geolocation.longitude}`}
-              to={{ pathname: `/location/${locationObject.id}`, locationObject }}
+              to={`/mediaplanning-details/${locationObject.id}`}
               target="_blank"
               style={{ color: '#fff' }}
             >
@@ -401,7 +401,7 @@ const BookingDetails = ({
   const object = {};
   object[openRow] = true;
   return (
-    <GridContainer justify="center">
+    <GridContainer justify="center" style={{marginTop: 70}}>
       <GridItem xs={12} md={12} sm={12}>
         <Card>
           <CardBody>

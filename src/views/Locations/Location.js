@@ -1331,7 +1331,7 @@ class Location extends Component {
             >
               <Link
                 style={{ display: "inline-block", width: "100%" }}
-                to={{ pathname: `/location/${location.id}` }}
+                to={`/mediaplanning-details/${location.id}`}
               >
                 <Card
                   product
