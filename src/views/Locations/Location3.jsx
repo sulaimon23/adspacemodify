@@ -1424,7 +1424,8 @@ class Location2 extends Component {
                 width: "100%",
                 height: "600px",
               }}
-              to={{ pathname: `/location/${location.id}` }}
+              to={`/mediaplanning-details/${location.id}`}
+              // to={{ pathname: `/location/${location.id}` }}
             >
               <Card
                 product

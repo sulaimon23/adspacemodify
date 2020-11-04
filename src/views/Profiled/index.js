@@ -626,7 +626,7 @@ class Profile extends Component {
               <div style={{ position: "relative" }}>
                 <a
                   href={`/mediaplanning-details/${location.id}`}
-                  // target="_blank"
+                  target="_blank"
                 >
                   <img
                     width="100%"
