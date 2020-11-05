@@ -3613,7 +3613,7 @@ class Profile extends Component {
                     <div className={classes.section}>
                       <div style={{ position: "relative" }}>
                     
-                      <div style={{textAlign:'end', marginTop: -60}}>
+                      <div style={{textAlign:'end', marginTop: -65}}>
                       <h4
                      onClick={() => this.handleBookClick()}
                       className={`${totalPrice === 0 ? 'nav_con' : 'nav_con2'}`} 
