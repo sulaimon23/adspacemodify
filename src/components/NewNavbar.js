@@ -78,9 +78,9 @@ function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser, tota
 
                     <ul class="navbar-nav  ml-auto">
                   
-                   
+{/*                    
                     <li class="nav-ite pd-top">
-                     <div className={`${totalPrice === 0 ? 'nav_con' : 'nav_con2'}`} style={{paddingTop: "10px"}}
+                     <div style={{paddingTop: "10px"}}
                      onClick={handleBookClick}
                     //  style={{color: totalPrice === 0? 'red' : 'green'}}
                      >
@@ -90,7 +90,7 @@ function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser, tota
                                                     exchange,
                                                     totalCurrency
                                                     )}</div>
-                        </li>
+                        </li> */}
                         <li class="nav-it avatar dropdown ">
                             <a class="nav-link dropdown-toggle currency" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">

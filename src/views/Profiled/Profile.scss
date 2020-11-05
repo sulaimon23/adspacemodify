@@ -121,6 +121,21 @@ hr.solid {
     background-color: #d3d3d3;
     padding: 10px;
 }
+.nav_con{
+    font-weight: 600;
+    color: blue;
+    margin-top: 5px;
+    margin-right: 15px;
+    // pointer-events: none;
+    cursor: pointer;
+}
+.nav_con2{
+    font-weight: 600;
+    color: green;
+    margin-top: 5px;
+    margin-right: 15px;
+    cursor: pointer;
+}
 
 .select-style{
     // height: 30px;

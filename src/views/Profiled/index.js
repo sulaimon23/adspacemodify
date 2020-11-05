@@ -3612,35 +3612,21 @@ class Profile extends Component {
                   >
                     <div className={classes.section}>
                       <div style={{ position: "relative" }}>
-                      {/* <GridItem xs={12} md={2} sm={12} className="try">
-                  <Card style={{ backgroundColor: "rgb(230, 47, 45)" }}>
-                    <CardBody
-                      onClick={() => this.handleBookClick()}
-                      color
-                      style={{
-                        flexDirection: "row",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
+                    
+                      <div style={{textAlign:'end', marginTop: -60}}>
                       <h4
-                        style={{
-                          fontSize: 20,
-                          fontWeight: "bold",
-                          cursor: "pointer",
-                          color: "#fff"
-                        }}
+                     onClick={() => this.handleBookClick()}
+                      className={`${totalPrice === 0 ? 'nav_con' : 'nav_con2'}`} 
+                        
                       >
-                        Continue:
+                        {/* Continue: */}
                         {formatCurrency(
                           totalPrice || 0,
                           this.props.exchange,
                           this.props.currency
                         )}
                       </h4>
-                    </CardBody>
-                  </Card>
-                </GridItem> */}
+                      </div>
                         <div style={{ marginTop: 50, marginBottom: 50 }}></div>
 
                         {error && (
