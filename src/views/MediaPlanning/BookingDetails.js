@@ -413,7 +413,7 @@ const BookingDetails = ({
   const object = {};
   object[openRow] = true;
   return (
-    <GridContainer justify="center" style={{marginTop:40}}>
+    <GridContainer justify="center" style={{marginTop:70}}>
       <GridItem xs={12} md={12} sm={12}>
             <ReactTable
               data={bookingDetails()}
@@ -504,7 +504,7 @@ const BookingDetails = ({
             />
           </GridItem>
         </GridContainer>
-        <GridContainer style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 30, marginBottom:40 }}>
+        <GridContainer style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 10}}>
           <div>
             <Button color="info" onClick={() => handleExport()}>
               EXPORT YOUR PLAN
