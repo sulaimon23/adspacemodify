@@ -24,7 +24,7 @@ export const loginUser = (email, password) => {
             if (res.err)
                 return dispatch({ type: LOGIN_SAVE_FAILED, payload: res.err.message || "Error Login"});
             else {
-
+                
                 let email = res.user.user.email;
                 let userRef = await getDb().collection("users").doc(email).get();
                 let user = userRef.data();
@@ -34,6 +34,7 @@ export const loginUser = (email, password) => {
                     return dispatch({ type: LOGIN_SAVE_FAILED, payload: "ERROR: THIS ACCOUNT IS NOT ALLOWED TO LOGIN" });
                 }else{
                     if (user.status === 0)
+                    
                         return dispatch({ type: LOGIN_SAVE_SUCCESS, payload: user });
                     else
                         return dispatch({ type: LOGIN_SAVE_FAILED, payload: "ERROR: USER IS NOT ACTIVE, MAYBE DISABLED" });

@@ -389,7 +389,7 @@ class MediaPlanning extends Component {
         console.log(location, 'location')
         return (
           <GridItem md={6} sm={4} key={index}>
-              <Card className="card" product>
+              <Card className="card" >
                 {/* <CardHeader noShadow image onClick={() => this.setState({ noticeModal: !noticeModal, location: location})}> */}
                 <div style={{position: 'relative'}}>
                 <a href={`/mediaplanning-details/${location.id}`} target="_blank">

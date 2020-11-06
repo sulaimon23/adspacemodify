@@ -1,0 +1,8 @@
+.cust .makeStyles-justIcon-114{
+    background-color: blue !important;
+}
+.capital{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}

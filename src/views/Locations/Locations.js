@@ -466,7 +466,7 @@ class Locations extends Component {
                     </GridItem>
                   </GridContainer>
 
-                  <GridContainer style={{ paddingTop: 40 }}>
+                  <GridContainer style={{ marginTop: -70 }}>
                     <GridItem xs={12} sm={12} md={4}>
                       <div className="location-gal">
                         <ReactSelect

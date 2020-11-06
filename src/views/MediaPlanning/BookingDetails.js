@@ -1,6 +1,14 @@
 import React from "react";
 import Button from "../../components/CustomButtons/Button";
 import GridContainer from "../../components/Grid/GridContainer";
+import NumericInput from "react-numeric-input";
+import { connect } from "react-redux";
+import './book.css'
+import {
+  DialogContent,
+  LinearProgress,
+  withStyles,
+} from "@material-ui/core";
 import GridItem from "../../components/Grid/GridItem";
 import ReactTable from "react-table";
 import moment from "moment";
@@ -17,7 +25,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { CircularProgress } from "@material-ui/core";
 import CustomInput from "../../components/CustomInput/CustomInput";
-
 import { useSelector } from "react-redux";
 import CheckoutStripe from "views/Stripe/stripe";
 import CheckoutPaystack from "views/Paystack";
@@ -28,6 +35,7 @@ import { download } from '../../exportJSON2CSV';
 import { getAuth, getDb } from "../../firebase";
 import { Link } from "react-router-dom";
 import MediaAlertDialog from "views/Modal/MediaPlanningNote";
+import { addReduceQuantityByInput } from "actions";
 const PERIODS = [
   { id: 1, name: "1 month" },
   { id: 2, name: "2 months" },
@@ -91,9 +99,9 @@ const BookingDetails = ({
           location: location,
           quantity: (
             <span key={index}>
-              {location.userAddedQuantity || 0}
+              {/* {location.userAddedQuantity || 0} */}
               {` `}
-              <div className={classes.buttonGroup}>
+              <div className="capital">
                 <Button
                   color="info"
                   size="sm"
@@ -104,9 +112,31 @@ const BookingDetails = ({
                       ? qtyAddReduce(location.id, "reduce")
                       : ""
                   }
+                  style={{ height: 20, width: 20, background: "#2962ff" }}
+
                 >
                   <Remove />
                 </Button>
+                <NumericInput
+                      // className="form-control"
+                      value={location.userAddedQuantity || 0}
+                      min={0}
+                      max={location.quantity}
+                      strict={true}
+                      step={1}
+                      precision={0}
+                      size={1}
+                      style={{
+                        input: {
+                          paddingRight: 0,
+                          height: 30,
+                          padding: 0,
+                        },
+                      }}
+                      onChange={(value) =>
+                        addReduceQuantityByInput(location.id, location, value)
+                      }
+                    />
                 <Button
                   color="info"
                   size="sm"
@@ -119,6 +149,8 @@ const BookingDetails = ({
                       )
                       : qtyAddReduce(location.id, "add")
                   }
+                  style={{ height: 20, width: 20, background: "#2962ff" }}
+
                 >
                   <Add />
                 </Button>
@@ -216,16 +248,13 @@ const BookingDetails = ({
         style={{
           display: "flex",
           flexDirection: "row",
-          padding: 15,
-          paddingLeft: 30,
         }}
       >
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            padding: 15,
-            paddingLeft: 30,
+            // paddingLeft: 30, 
           }}
         >
           <p style={{ color: "#000", fontSize: 14, }}>
@@ -255,7 +284,7 @@ const BookingDetails = ({
             display: "flex",
             flexDirection: "column",
             padding: 15,
-            paddingLeft: 30,
+            // paddingLeft: 30,
           }}
         >
           <p style={{ color: "#000", fontSize: 14, }}>
@@ -280,27 +309,8 @@ const BookingDetails = ({
           </p>
         </div>
         <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: 15,
-            paddingLeft: 30,
-          }}
+          
         >
-          {/* <Tooltip
-            id="tooltip-top"
-            title="Click to See location"
-            placement="top"
-            classes={{ tooltip: classes.tooltip }}
-          >
-            <a
-              href={`https://www.google.com/maps/search/?api=1&query=${locationObject.geolocation.latitude},${locationObject.geolocation.longitude}`}
-              target="_blank"
-            >
-              <Place fontSize="large" />
-            </a>
-          </Tooltip> */}
           <Button color="info">
             <Link
               // to={`https://www.google.com/maps/search/?api=1&query=${locationObject.geolocation.latitude},${locationObject.geolocation.longitude}`}
@@ -318,7 +328,7 @@ const BookingDetails = ({
               style={{
                 display: "flex",
                 flexDirection: "column",
-                paddingLeft: 30,
+                paddingLeft: 20,
               }}
             >
               <FormControl variant="outlined" fullWidth>
@@ -338,7 +348,7 @@ const BookingDetails = ({
               style={{
                 display: "flex",
                 flexDirection: "column",
-                paddingLeft: 30,
+                paddingLeft: 20,
               }}
             >
               <FormControl variant="outlined" fullWidth>
@@ -362,6 +372,8 @@ const BookingDetails = ({
                 flexDirection: "column",
                 paddingTop: 30, paddingLeft: 30
               }}
+              className="cust"
+
             >
               <CustomFileInput
                 formControlProps={{
@@ -374,7 +386,7 @@ const BookingDetails = ({
                 endButton={{
                   buttonProps: {
                     round: true,
-                    color: "primary",
+                    // color: "primary",
                     justIcon: true,
                     fileButton: true
                   },
@@ -401,10 +413,8 @@ const BookingDetails = ({
   const object = {};
   object[openRow] = true;
   return (
-    <GridContainer justify="center" style={{marginTop: 70}}>
+    <GridContainer justify="center" style={{marginTop:40}}>
       <GridItem xs={12} md={12} sm={12}>
-        <Card>
-          <CardBody>
             <ReactTable
               data={bookingDetails()}
               filterable
@@ -412,22 +422,22 @@ const BookingDetails = ({
                 {
                   Header: "",
                   accessor: "image",
-                  headerStyle: { textAlign: "center" },
+                  headerStyle: { textAlign: "center" , fontWeight: 900},
                   sortable: false,
                   filterable: false,
                 },
                 {
                   Header: "Adspace Name",
                   accessor: "location_name",
-                  headerStyle: { textAlign: "center" },
-                  style: { textAlign: "center" },
+                  headerStyle: { textAlign: "center",  fontWeight: 900},
+                  style: { textAlign: "left" },
                   sortable: false,
                   filterable: false,
                 },
                 {
                   Header: "Adtype",
                   accessor: "category",
-                  headerStyle: { textAlign: "center" },
+                  headerStyle: { textAlign: "center" , fontWeight: 900},
                   style: { textAlign: "center" },
                   sortable: false,
                   filterable: false,
@@ -435,7 +445,7 @@ const BookingDetails = ({
                 {
                   Header: "Price",
                   accessor: "price",
-                  headerStyle: { textAlign: "center" },
+                  headerStyle: { textAlign: "center" ,  fontWeight: 900},
                   Footer: (
                     <span>
                       <strong>
@@ -453,41 +463,25 @@ const BookingDetails = ({
                 {
                   Header: "Qty",
                   accessor: "quantity",
-                  headerStyle: { textAlign: "center" },
+                  headerStyle: { textAlign: "center" ,  fontWeight: 900},
                   style: { textAlign: "center" },
                   sortable: false,
                   filterable: false,
                 },
-                /*{
-                  Header: "Start Date",
-                  accessor: "startDate",
-                  headerStyle: { textAlign: "center" },
-                  style: { textAlign: "center" },
-                  sortable: false,
-                  filterable: false,
-                },
-                  {
-                      Header: "End Date",
-                      accessor: "endDate",
-                      headerStyle: { textAlign: "center" },
-                      style: { textAlign: "center" },
-                      sortable: false,
-                      filterable: false,
-                  },*/
+                
               ]}
               defaultExpanded={{ 0: true }}
               defaultPageSize={locations.length}
               showPaginationTop={false}
               showPaginationBottom={false}
-              className="-striped -highlight"
+              // className="-striped -highlight"
               SubComponent={(row) => moreInfo(row)}
               expanded={object}
               onExpandedChange={(newExpanded, index, event) => {
                 openRowChange(index[0])
               }}
+              style={{ width: '100%', overFlow: 'hidden', padding: 0,margin: 0, fontWeight: 700}}
             />
-          </CardBody>
-        </Card>
       </GridItem>
       <GridItem xs={12} sm={12} md={12}>
         <GridContainer>
@@ -510,7 +504,7 @@ const BookingDetails = ({
             />
           </GridItem>
         </GridContainer>
-        <GridContainer style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <GridContainer style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 30, marginBottom:40 }}>
           <div>
             <Button color="info" onClick={() => handleExport()}>
               EXPORT YOUR PLAN
@@ -605,4 +599,104 @@ const BookingDetails = ({
   );
 };
 
-export default BookingDetails;
+const selectStyles = { menu: (styles) => ({ ...styles, zIndex: 999 }) };
+
+
+const mapStateToProps = ({
+  profile,
+  login,
+  branding,
+  mediaplanning,
+  paymentType,
+}) => {
+  const {
+    loading,
+    error,
+    message,
+    isEdit,
+    displayName,
+    subscribe,
+    ordersArray,
+    ordersLoader,
+    userInfo,
+    selectedBrand,
+    success,
+  } = profile;
+  const { isAuthenticated, user } = login;
+  const { agesArray, gendersArray, interestsArray } = branding;
+  const { currency, exchange } = paymentType;
+  const {
+    // loading,
+    // error,
+    // message,
+    locationsArray,
+    tagsArray,
+    categoriesArray,
+    originalLocationsArray,
+    totalPrice,
+    showMDDetails,
+    saveLoader,
+    saveMessage,
+    saveError,
+    // success,
+    orders,
+    orderNos,
+    subCategoriesArray,
+    statesArray,
+    citiesArray,
+    openRow,
+    savedPlans,
+    savedPlan,
+  } = mediaplanning;
+
+  return {
+    loading,
+    error,
+    message,
+    isAuthenticated,
+    user,
+    isEdit,
+    displayName,
+    subscribe,
+    ordersArray,
+    ordersLoader,
+    userInfo,
+    agesArray,
+    gendersArray,
+    interestsArray,
+    selectedBrand,
+    success,
+    locationsArray,
+
+    tagsArray,
+    categoriesArray,
+    originalLocationsArray,
+    totalPrice,
+    showMDDetails,
+    saveLoader,
+    saveMessage,
+    saveError,
+    success,
+    orders,
+    orderNos,
+    subCategoriesArray,
+    statesArray,
+    citiesArray,
+    currency,
+    exchange,
+    openRow,
+    savedPlans,
+    savedPlan,
+  };
+};
+
+
+export default connect(
+  mapStateToProps,
+  {
+    
+
+    addReduceQuantityByInput,
+  }
+)(withStyles( )(BookingDetails));
+

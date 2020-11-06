@@ -50,6 +50,9 @@ position: -webkit-sticky;
   right: 1% !important;
   padding: 2px !important;
   top: 5%;
+  box-shadow: 2px 2px 3px black;
+  border-radius:5px;
+  padding-left: 10px !important;
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
@@ -73,7 +76,7 @@ position: -webkit-sticky;
 }
 
 .MediaPlanning-section-61 {
-  padding: 70px 0px;
+  padding: 50px 0px;
   background-size: cover;
   background-position: 50%;
   background: #eee;

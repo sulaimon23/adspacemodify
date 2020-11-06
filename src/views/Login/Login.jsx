@@ -45,6 +45,7 @@ class Login extends Component {
 
   componentDidMount() {
     getAuth().onAuthStateChanged((user) => {
+      // console.log(this.props.getUser(user, "user"));
       if (user) {
         if (user.emailVerified === true)
           this.props.setAuthenticated(true, user);
@@ -137,7 +138,7 @@ class Login extends Component {
     }
 
     if (isAuthenticated) {
-      return <Redirect exact to={{ pathname: "/branding" }} />;
+      return <Redirect exact to={{ pathname: "/" }} />;
     }
     return (
       <div className="log">

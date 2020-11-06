@@ -208,13 +208,26 @@ class Profile extends Component {
       } else {
         this.props.setAuthenticated(false, user);
       }
-      this.props.getAgeGenderInterests();
+      console.log(user, "userrrr")
     });
+    
+    // let userRef = await getDb().collection("users").doc(email).get();
 
     document.title =
       "Adspace.ng – Media Planning | Advert Space | Billboards | Television |Newspaper | Radio | Influencer | Magazine";
     this.props.getAllLocations();
+
   }
+  // rent = (e) => {
+  //   const {
+  //     selectedBrand,
+  //     classes,
+  //     changeSelectedBrand,
+  //     removeBrand,
+  //     userInfo,
+  //   } = this.props;
+  //   return console.log(e, 'helloo')
+  // }
 
   handleToggleTags(value) {
     const {
@@ -1876,6 +1889,8 @@ class Profile extends Component {
       });
     }
   }
+ 
+
 
   renderBrandsDetails(brand, index) {
     const {
@@ -1885,6 +1900,7 @@ class Profile extends Component {
       removeBrand,
       userInfo,
     } = this.props;
+    
     return (
       <GridItem sm={12} md={12} >
         <GridContainer >
@@ -2884,7 +2900,7 @@ class Profile extends Component {
                         <div>
                           <i
                             style={{ color: stage === 3 ? "blue" : null }}
-                            class="fe fe-cart"
+                            class="fa fa-pencil-square-o"
                           ></i>
                         </div>
                         <span style={{ color: stage === 3 ? "blue" : null }}>
@@ -3033,7 +3049,7 @@ class Profile extends Component {
                         <div>
                           <i
                             style={{ color: stage === 5 ? "blue" : null }}
-                            class="fe fe-cart"
+                            class="fa fa-floppy-o"
                           ></i>
                         </div>
                         <span style={{ color: stage === 5 ? "blue" : null }}>
@@ -3085,7 +3101,7 @@ class Profile extends Component {
                   <div>
                     <i
                       style={{ color: stage === 1 ? "blue" : null }}
-                      class="fa fa-ribbon "
+                      class="fa fa-bullseye"
                     ></i>
                   </div>
                   <span style={{ color: stage === 1 ? "blue" : null }}>
@@ -3608,12 +3624,14 @@ class Profile extends Component {
                   <div
                     className={classes.main}
                     className="margin-body"
-                    style={{ marginTop: 70 }}
+                    style={{ marginTop: 20 }}
                   >
                     <div className={classes.section}>
                       <div style={{ position: "relative" }}>
                     
-                      <div style={{textAlign:'end', marginTop: -65}}>
+                      <div style={{marginTop:35, marginRight:15, backgroundColor:'white'}}
+                      className="try"
+                      >
                       <h4
                      onClick={() => this.handleBookClick()}
                       className={`${totalPrice === 0 ? 'nav_con' : 'nav_con2'}`} 
@@ -3703,7 +3721,7 @@ class Profile extends Component {
                             {locationsArray && locationsArray.length > 0 && (
                               <GridItem md={12} sm={12} xs={12}>
                                 <div
-                                  style={{
+                           j       style={{
                                     display: "flex",
                                     justifyContent: "space-between",
                                     alignItems: "center",
