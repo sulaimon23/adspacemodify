@@ -11,6 +11,9 @@ import {
     LOGIN_FORGOT_PASSWORD_SAVE, LOGIN_FORGOT_PASSWORD_SAVE_SUCCESS
 } from "./type";
 import {getAuth, getDb, userLogin, userLogout} from "../firebase";
+import { history } from "./history";
+
+
 
 export const displayLoginMessage = (message) => {
     return { type: LOGIN_DISPLAY_MESSAGE, payload: message };
@@ -24,21 +27,28 @@ export const loginUser = (email, password) => {
             if (res.err)
                 return dispatch({ type: LOGIN_SAVE_FAILED, payload: res.err.message || "Error Login"});
             else {
-                
+                let claims = await res.user.user.getIdTokenResult();
                 let email = res.user.user.email;
                 let userRef = await getDb().collection("users").doc(email).get();
                 let user = userRef.data();
                 user.id = userRef.id;
                 user.emailVerified = res.user.user.emailVerified;
+
+
+                if(user.brands === undefined){
+                 return   history.push('/branding');
+               }
+
                 if (user.role !== 2){
                     return dispatch({ type: LOGIN_SAVE_FAILED, payload: "ERROR: THIS ACCOUNT IS NOT ALLOWED TO LOGIN" });
                 }else{
                     if (user.status === 0)
-                    
-                        return dispatch({ type: LOGIN_SAVE_SUCCESS, payload: user });
+                        return dispatch({ type: LOGIN_SAVE_SUCCESS, payload: {user, branding: claims.branding || undefined} });
                     else
                         return dispatch({ type: LOGIN_SAVE_FAILED, payload: "ERROR: USER IS NOT ACTIVE, MAYBE DISABLED" });
                 }
+
+                
             }
         }
         catch (e) {
@@ -48,8 +58,9 @@ export const loginUser = (email, password) => {
     }
 };
 
-export const setAuthenticated = (set, user) => {
-    return { type:LOGIN_SET_AUTHENTICATED, payload: {set, user} };
+export const setAuthenticated = (set, user, branding) => {
+    console.log(set)
+    return { type:LOGIN_SET_AUTHENTICATED, payload: {set, user, branding} };
 };
 
 export const logOut = () => {
@@ -71,7 +82,8 @@ export const sendVerificationEmail = () => {
         dispatch({type: LOGIN_SAVE});
         try {
             let actionCodeSettings = {
-                url: `https://www.adspace.ng/branding`
+                //url: `https://www.adspace.ng/branding`
+                url: `http://localhost:3000/?verified=true`
             };
             let user = getAuth().currentUser;
             await user.sendEmailVerification(actionCodeSettings);

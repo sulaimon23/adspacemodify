@@ -1,9 +1,10 @@
 import {
     BRANDING_FETCH,
     BRANDING_FETCH_FAILED,
-    BRANDING_FETCH_SUCCESS, BRANDING_SAVE, BRANDING_SAVE_SUCCESS
+    BRANDING_FETCH_SUCCESS, BRANDING_SAVE, BRANDING_SAVE_BEFORE_SIGNUP, BRANDING_SAVE_SUCCESS
 } from "./type";
 import {getAuth, getDb} from "../firebase";
+const { cloud_api } = require("../config");
 
 
 export const getAgeGenderInterests = () => {
@@ -42,12 +43,58 @@ export const getAgeGenderInterests = () => {
 };
 
 
+export const saveBrandsBeforeSignUp = (brands = [], branding, selectedIndex) => {
+    if (branding === 'single' || branding === ''){
+        selectedIndex = 0;
+        branding = 'single';
+    }
+
+    let currentBrand = brands[selectedIndex], bestMatchArray = [];
+    if (currentBrand){
+        if (currentBrand.ages){
+            currentBrand.ages.map(age => {
+                if (age.id) bestMatchArray.push(age.id);
+            })
+        }
+        if (currentBrand.gender){
+            if (currentBrand.gender.id) bestMatchArray.push(currentBrand.gender.id);
+        }
+        if (currentBrand.interests){
+            currentBrand.interests.map(interest => {
+                if (interest.id) bestMatchArray.push(interest.id);
+            })
+        }
+    }
+    let brandObject = {
+        branding, brands,
+        currentBrand: brands[selectedIndex],
+        bestMatch: bestMatchArray || []
+    };
+
+
+    return { type: BRANDING_SAVE_BEFORE_SIGNUP, payload: brandObject }
+};
+
+
 export const saveBrands = (brands, branding) => {
     return async (dispatch) => {
         dispatch({ type: BRANDING_SAVE });
 
         try{
             let user = getAuth().currentUser;
+
+            let res = await fetch(`${cloud_api}/addCustomClaim`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({uid: user.uid}),
+            });
+            console.log(res);
+            if (res.status !== 200)
+                return dispatch({ type: BRANDING_SAVE, payload: 'ERROR SAVING BRANDS'})
+
             await getDb().collection("users").doc(user.email).set({isMulti: branding === 'multi', brands: brands}, {merge: true});
             return dispatch({ type: BRANDING_SAVE_SUCCESS })
         }

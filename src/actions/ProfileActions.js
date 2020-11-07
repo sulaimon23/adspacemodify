@@ -20,7 +20,7 @@ import {
 } from "./type";
 import {firebaseObject, getAuth, getDb} from "../firebase";
 
-
+const { cloud_api } = require("../config");
 export const editProfile = (show) => {
     return { type: PROFILE_SHOW_EDIT, payload: show };
 };
@@ -144,6 +144,19 @@ export const saveBrandsProfile = (brands_, userInfo, selectedBrand = 0) => {
                 }
             }
 
+            let res = await fetch(`${cloud_api}/addCustomClaim`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({user}),
+            });
+            console.log(res);
+            if (res.status === 200){
+                await user.getIdToken(true);
+            }
+
             dispatch({ type: PROFILE_UPDATE_LOCATIONS_USER, payload: userInfo });
             dispatch({ type: PROFILE_UPDATE_MEDIAPLANNING_USER, payload: userInfo });
             return dispatch({ type: PROFILE_SAVE_SUCCESS, payload: {userInfo, selectedBrand: selectedBrand + 1} });
@@ -214,14 +227,14 @@ export const deleteAccount = (email, password) => {
         dispatch({ type: PROFILE_DELETE_ACCOUNT });
         try{
             //sigin in first
-            console.log(email, password)
+
             await getAuth().signInWithEmailAndPassword(email, password);
 
             let user = getAuth().currentUser;
             let email_ = user.email;
-            console.log(email_)
+
             let res = await getDb().collection("users").doc(email_).delete();
-            console.log(res)
+
             await user.delete();
             dispatch({ type: LOGOUT });
             return dispatch({ type: PROFILE_DELETE_ACCOUNT_SUCCESS })

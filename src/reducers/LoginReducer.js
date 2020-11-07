@@ -21,10 +21,12 @@ const INITIAL_STATE = {
     success: false,
     emailVerified: true,
     showForgotPass: false,
-    forgotPasswordEmailSent: false
+    forgotPasswordEmailSent: false,
+    branding: false
 };
 
 export default (state = INITIAL_STATE, action) => {
+    console.log(action.type)
     switch (action.type) {
         case LOGIN_SAVE:
             return { ...state, loading: true, error: false, message: '', success: false, emailVerified: true, showForgotPass: false, forgotPasswordEmailSent: false };
@@ -33,12 +35,14 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_SAVE_SUCCESS:
             return { ...state, loading: false, error: !action.payload.emailVerified, message: !action.payload.emailVerified ? "THIS EMAIL ACCOUNT IS NOT VERIFIED, PLEASE CLICK VERIFY, AND CHECK YOUR EMAIL INBOX FOR A VERIFICATION EMAIL" : '',
                 success: action.payload.emailVerified, isAuthenticated: action.payload.emailVerified,
-            user: action.payload.emailVerified ? action.payload : {}, emailVerified: action.payload.emailVerified, showForgotPass: false, forgotPasswordEmailSent: false
+            user: action.payload.emailVerified ? action.payload.user : {}, emailVerified: action.payload.emailVerified, showForgotPass: false, forgotPasswordEmailSent: false,
+                branding: action.payload.branding || undefined
             };
         case LOGIN_DISPLAY_MESSAGE:
             return { ...state, loading: false, error: true, message: action.payload, success: false, isAuthenticated: false , forgotPasswordEmailSent: false};
         case LOGIN_SET_AUTHENTICATED:
-            return { ...INITIAL_STATE, isAuthenticated: action.payload.set, user: action.payload.user };
+            console.log(action.payload)
+            return { ...INITIAL_STATE, isAuthenticated: action.payload.set, user: action.payload.user, branding: action.payload.branding || false };
         case LOGOUT:
             return state;
         case LOGOUT_SUCCESS:

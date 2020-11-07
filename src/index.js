@@ -46,6 +46,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import { PersistGate } from "redux-persist/integration/react";
 import Location2 from "views/Locations/Location3.jsx";
 import PaymentPage from "views/Locations/PaymentPage";
+import { history } from "actions/history";
 const persistConfig = {
   key: "root",
   storage,
@@ -68,17 +69,16 @@ const saveSubsetFilter = createFilter("paymentType", [
 const persistor = persistStore(store, {
   transforms: [saveSubsetFilter],
 });
-var hist = createBrowserHistory();
-init();
 
 
+init()
 
 
 ReactDOM.render(
   
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <Router history={hist}>
+      <Router history={history}>
         
         <Switch>
           <Route exact path="/" component={Profiled} />
@@ -101,7 +101,6 @@ ReactDOM.render(
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/branding" component={Branding} />
           <Route exact path="/:id" component={LocationsByCompany} />
-<Redirect to="/" />
 
 
         </Switch>

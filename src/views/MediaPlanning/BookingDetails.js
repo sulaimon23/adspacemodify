@@ -35,7 +35,10 @@ import { download } from '../../exportJSON2CSV';
 import { getAuth, getDb } from "../../firebase";
 import { Link } from "react-router-dom";
 import MediaAlertDialog from "views/Modal/MediaPlanningNote";
-import { addReduceQuantityByInput } from "actions";
+// import { addReduceQuantityByInput } from "actions";
+import {
+addReduceQuantityByInput
+} from '../../actions'
 const PERIODS = [
   { id: 1, name: "1 month" },
   { id: 2, name: "2 months" },
@@ -65,6 +68,7 @@ const BookingDetails = ({
   qtyAddReduce,
   submitUnpaid,
   submit,
+  addReduceQuantityByInput,
   campaignTitle,
   changePeriod,
   notApplicableChange,

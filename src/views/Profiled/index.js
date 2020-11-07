@@ -208,7 +208,6 @@ class Profile extends Component {
       } else {
         this.props.setAuthenticated(false, user);
       }
-      console.log(user, "userrrr")
     });
     
     // let userRef = await getDb().collection("users").doc(email).get();
@@ -780,17 +779,8 @@ class Profile extends Component {
                         addReduceQuantityByInput(location.id, location, value)
                       }
                     />
-                    {/* <div>
-                      <span
-                        style={{
-                          color: "#000",
-                          fontSize: "15px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        {location.userAddedQuantity || 0}
-                      </span>
-                    </div> */}
+                    
+                    
                     <Button
                       //   color="info"
                       size="sm"
@@ -2806,7 +2796,7 @@ class Profile extends Component {
     } = this.state;
 
     if (!isAuthenticated) {
-      return <Redirect to={{ pathname: "/login" }} />;
+      return <Redirect to="/login" />;
     }
 
     let vat = (7.5 / 100) * totalPrice;

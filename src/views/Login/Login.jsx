@@ -44,11 +44,21 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    getAuth().onAuthStateChanged((user) => {
-      // console.log(this.props.getUser(user, "user"));
+    getAuth().onAuthStateChanged(async (user) => {
       if (user) {
-        if (user.emailVerified === true)
-          this.props.setAuthenticated(true, user);
+        if (user.emailVerified === true) {
+          let claims = await user.getIdTokenResult();
+          console.log(claims);
+          this.props.setAuthenticated(
+            true,
+            user,
+            claims
+              ? claims.claims
+                ? claims.claims.branding || undefined
+                : undefined
+              : undefined
+          );
+        }
       } else {
         this.props.setAuthenticated(false, null);
       }
@@ -69,13 +79,16 @@ class Login extends Component {
   }
 
   forgotPasswordClicked() {
-    const { email } = this.state;
-    const { displayLoginMessage, sendForgotPassword } = this.props;
-    if (!this.verifyEmail(email))
-      displayLoginMessage("PLEASE PROVIDE A VALID EMAIL");
-    else {
-      sendForgotPassword(email);
-    }
+    return (e) => {
+      e.preventDefault();
+      const { email } = this.state;
+      const { displayLoginMessage, sendForgotPassword } = this.props;
+      if (!this.verifyEmail(email))
+        displayLoginMessage("PLEASE PROVIDE A VALID EMAIL");
+      else {
+        sendForgotPassword(email);
+      }
+    };
   }
 
   renderButtons() {
@@ -125,6 +138,7 @@ class Login extends Component {
       showForgotPassword,
       showForgotPass,
       forgotPasswordEmailSent,
+      setAuthenticated,
     } = this.props;
     const { email, password } = this.state;
     const routeTo = this.props.location
@@ -132,10 +146,6 @@ class Login extends Component {
         ? this.props.location.state.route || ""
         : "/"
       : "/";
-
-    if (isAuthenticated === undefined) {
-      return <div></div>;
-    }
 
     if (isAuthenticated) {
       return <Redirect exact to={{ pathname: "/" }} />;
@@ -328,7 +338,10 @@ const mapStateToProps = ({ login }) => {
     emailVerified,
     showForgotPass,
     forgotPasswordEmailSent,
+    branding,
+    setAuthenticated,
   } = login;
+  console.log(branding);
   return {
     loading,
     error,
@@ -338,6 +351,8 @@ const mapStateToProps = ({ login }) => {
     emailVerified,
     showForgotPass,
     forgotPasswordEmailSent,
+    branding,
+    setAuthenticated,
   };
 };
 
