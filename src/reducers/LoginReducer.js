@@ -26,7 +26,6 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-    console.log(action.type)
     switch (action.type) {
         case LOGIN_SAVE:
             return { ...state, loading: true, error: false, message: '', success: false, emailVerified: true, showForgotPass: false, forgotPasswordEmailSent: false };

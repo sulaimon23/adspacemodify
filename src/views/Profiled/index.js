@@ -146,6 +146,7 @@ class Profile extends Component {
   constructor(props) {
     super(props);
 
+
     this.state = {
       selectedEnabled: 0,
       branding: "",
@@ -227,6 +228,9 @@ class Profile extends Component {
   //   } = this.props;
   //   return console.log(e, 'helloo')
   // }
+
+
+
 
   handleToggleTags(value) {
     const {
@@ -1536,6 +1540,9 @@ class Profile extends Component {
         gender: this.findItem(gendersArray, brand.gender),
       };
     });
+    console.log(newArray, 'array')
+    console.log(branding, 'branding')
+    console.log(selectedEnabled, 'selectedEnabled')
     saveBrands(newArray, branding, selectedEnabled);
   }
   renderBrands() {
@@ -1566,7 +1573,7 @@ class Profile extends Component {
                   </GridContainer>
                 );
               })}
-              {userInfo.isMulti && (
+              {userInfo && (
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={12}>
                     <GridContainer>
@@ -1642,8 +1649,8 @@ class Profile extends Component {
       return brands.map((brand, index) => {
         const { ages, gender, interests, brandName } = brand;
         return (
-          <Card>
-            <CardBody>
+          <Card >
+            <CardBody className="brand_drop" >
               <GridContainer key={index}>
                 <GridItem xs={12} md={12} sm={12}>
                   <GridContainer>
@@ -1663,9 +1670,9 @@ class Profile extends Component {
                         <FormControlLabel
                           control={
                             <Radio
-                              checked={this.props.selectedEnabled === index}
+                              checked={this.state.selectedEnabled === index}
                               onChange={() =>
-                                this.setState({ selectedEnabled: index })
+                                this.setState({ selectedEnabled: index + 1 })
                               }
                               value="a"
                               name="radio button enabled"
@@ -1767,12 +1774,14 @@ class Profile extends Component {
                       </FormControl>
                     </GridItem>
                   </GridContainer>
-                  <GridContainer>
-                    <GridItem sm={2} md={2} lg={2} />
-                    <GridItem xs={12} md={6}>
+                  <GridContainer >
+                    <GridItem sm={2} md={2} lg={2} style={{zIndex: '9'}} />
+                    <GridItem xs={12} md={6}  >
                       <FormControl
                         fullWidth
                         className={classes.selectFormControl}
+                        
+
                       >
                         <InputLabel
                           htmlFor="simple-select"
@@ -2046,87 +2055,75 @@ class Profile extends Component {
       </GridItem>
     );
   }
-
-  renderDefaultNoBranding(index) {
+  renderDefaultNoBranding(index){
     const { selectedBrand, classes, changeSelectedBrand } = this.props;
-    return (
-      <GridItem sm={12} md={12}>
-        <GridContainer>
-          <GridItem sm={12} md={12}>
+    return(
+        <GridItem sm={12} md={12}>
             <GridContainer>
-              <GridItem sm={12} md={9}>
                 <GridItem sm={12} md={12}>
-                  <GridContainer>
-                    <GridItem sm={12} md={3}>
-                      <h6 style={{ textAlign: "center", color: grayColor[0] }}>
-                        Brand Name
-                      </h6>
-                    </GridItem>
-                    <GridItem sm={12} md={3}>
-                      <h6 style={{ textAlign: "center", color: grayColor[1] }}>
-                        No Branding (Default)
-                      </h6>
-                    </GridItem>
-                  </GridContainer>
+                    <GridContainer>
+                        <GridItem sm={12} md={9}>
+                            <GridItem sm={12} md={12}>
+                                <GridContainer>
+                                    <GridItem sm={12} md={3}>
+                                        <h6 style={{ textAlign: 'center', color: grayColor[0] }}>Brand Name</h6>
+                                    </GridItem>
+                                    <GridItem sm={12} md={3}>
+                                        <h6 style={{ textAlign: 'center', color: grayColor[1] }}>No Branding (Default)</h6>
+                                    </GridItem>
+                                </GridContainer>
+                            </GridItem>
+                        </GridItem>
+                        <GridItem sm={12} md={3}>
+                            <GridContainer>
+                                <GridItem sm={12} md={6}>
+                                    <div
+                                        style={{ justifyContent: 'center', alignItems: 'center', marginTop: 30 }}
+                                        className={
+                                            classes.checkboxAndRadio +
+                                            " " +
+                                            classes.checkboxAndRadioHorizontal
+                                        }
+                                    >
+                                        <FormControlLabel
+                                            control={
+                                                <Radio
+                                                    checked={selectedBrand === index}
+                                                    onChange={() => changeSelectedBrand(index)}
+                                                    value="a"
+                                                    name="radio button enabled"
+                                                    aria-label="A"
+                                                    icon={
+                                                        <FiberManualRecord className={classes.radioUnchecked} />
+                                                    }
+                                                    checkedIcon={
+                                                        <FiberManualRecord className={classes.radioChecked} />
+                                                    }
+                                                    classes={{
+                                                        checked: classes.radio,
+                                                        root: classes.radioRoot
+                                                    }}
+                                                />
+                                            }
+                                            classes={{
+                                                label: classes.label,
+                                                root: classes.labelRoot
+                                            }}
+                                        />
+                                    </div>
+                                </GridItem>
+                            </GridContainer>
+                        </GridItem>
+                    </GridContainer>
                 </GridItem>
-              </GridItem>
-              <GridItem sm={12} md={3}>
-                <GridContainer>
-                  <GridItem sm={12} md={6}>
-                    <div
-                      style={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginTop: 30,
-                      }}
-                      className={
-                        classes.checkboxAndRadio +
-                        " " +
-                        classes.checkboxAndRadioHorizontal
-                      }
-                    >
-                      <FormControlLabel
-                        control={
-                          <Radio
-                            checked={selectedBrand === index}
-                            onChange={() => changeSelectedBrand(index)}
-                            value="a"
-                            name="radio button enabled"
-                            aria-label="A"
-                            icon={
-                              <FiberManualRecord
-                                className={classes.radioUnchecked}
-                              />
-                            }
-                            checkedIcon={
-                              <FiberManualRecord
-                                className={classes.radioChecked}
-                              />
-                            }
-                            classes={{
-                              checked: classes.radio,
-                              root: classes.radioRoot,
-                            }}
-                          />
-                        }
-                        classes={{
-                          label: classes.label,
-                          root: classes.labelRoot,
-                        }}
-                      />
-                    </div>
-                  </GridItem>
-                </GridContainer>
-              </GridItem>
+                <GridItem sm={12} md={12}>
+                    <Divider variant="fullWidth" />
+                </GridItem>
             </GridContainer>
-          </GridItem>
-          <GridItem sm={12} md={12}>
-            <Divider variant="fullWidth" />
-          </GridItem>
-        </GridContainer>
-      </GridItem>
-    );
-  }
+        </GridItem>
+    )
+}
+
 
   renderViews() {
     const {
@@ -2711,6 +2708,11 @@ class Profile extends Component {
       this.setState({ showMDDetails: false })
     );
   };
+
+  closeTime = (value) => {
+      this.setState({startDate: ''}); 
+  }
+
   render() {
     const { classes, isAuthenticated, user, logOut, loading, handleBookClick } = this.props;
 
@@ -2770,8 +2772,10 @@ class Profile extends Component {
       savedPlan,
       savedPlanSelected,
       savedPlans,
+      saveBrands,
       totalPrice,
       exchange,
+      locations,
       currency,
     } = this.props;
 
@@ -2832,9 +2836,15 @@ class Profile extends Component {
     //   );
     // }
 
+
     const { stage, showMediaLinks } = this.state;
+    const allThings = originalLocationsArray.filter(
+       (element) => element.userAddedQuantity > 0
+     )
 
     return (
+
+
       <div>
         {this.renderDeleteAccountModal(classes)}
         {/* <Header
@@ -2960,10 +2970,10 @@ class Profile extends Component {
                         </Tooltip>
                         <Clearfix />
                       </div>
-                      <div style={{ marginTop: "20px" }}>
-                        <FormControl variant="outlined" fullWidth>
+                      <div style={{ marginTop: "20px",paddingLeft:10, paddingRight:10}}>
+                        <FormControl variant="outlined" fullWidth style={{background: 'black', paddingTop:0, paddingBottom: 5, paddingLeft:5, paddingRight: 30, borderRadius:'7px'}}>
                           <Datetime
-                            style={{ borderWidth: 0 }}
+                            style={{ borderWidth: 0, width: '80%'}}
                             timeFormat={false}
                             isValidDate={valid}
                             value={startDate}
@@ -2971,7 +2981,9 @@ class Profile extends Component {
                               placeholder: "Start Date",
                             }}
                             onChange={(e) => this.setState({ startDate: e })}
+                            // onBlur={this.closeTime}
                           />
+                          <i className="fe fe-close icen" onClick={this.closeTime}></i>
                         </FormControl>
                       </div>
                       {showMediaLinks && (
@@ -3619,22 +3631,6 @@ class Profile extends Component {
                     <div className={classes.section}>
                       <div style={{ position: "relative" }}>
                     
-                      <div style={{marginTop:35, marginRight:15, backgroundColor:'white'}}
-                      className="try"
-                      >
-                      <h4
-                     onClick={() => this.handleBookClick()}
-                      className={`${totalPrice === 0 ? 'nav_con' : 'nav_con2'}`} 
-                        
-                      >
-                        {/* Continue: */}
-                        {formatCurrency(
-                          totalPrice || 0,
-                          this.props.exchange,
-                          this.props.currency
-                        )}
-                      </h4>
-                      </div>
                         <div style={{ marginTop: 50, marginBottom: 50 }}></div>
 
                         {error && (
@@ -3669,7 +3665,11 @@ class Profile extends Component {
                         ) : (
                           <GridContainer>
                             <GridItem md={12} sm={7} xs={7}>
-                              <div
+                              
+                                <div style={{marginTop:35, marginRight:15, backgroundColor:'white'}}
+                                className="try"
+                                >
+                                  <div
                                 style={{
                                   height: 60,
                                   backgroundColor: "#fff",
@@ -3701,7 +3701,31 @@ class Profile extends Component {
                                     />
                                   </div>
                                 </div>
+                                
+                                <div>
+                                  <h4 style={{fontWeight: 600}}>Total | <span style={{textDecoration:'underline', color:'blue'}}> {allThings.length} Selected</span></h4>
+                                </div>
+
+                                <h4
+                                className={`${totalPrice === 0 ? 'nav_con' : 'nav_con2'}`} 
+                                  
+                                >
+                                  {/* Continue: */}
+                                  {formatCurrency(
+                                    totalPrice || 0,
+                                    this.props.exchange,
+                                    this.props.currency
+                                  )}
+                                </h4>
+                                <button className="btn btn-primary btn-md" onClick={() => this.handleBookClick()} style={{marginRight: 20}} >Next</button>
                               </div>
+                                
+                                </div>
+
+
+
+
+
                             </GridItem>
                             <GridItem md={12} sm={9} xs={9}>
                               <GridContainer>
@@ -3753,6 +3777,7 @@ const mapStateToProps = ({
   branding,
   mediaplanning,
   paymentType,
+
 }) => {
   const {
     loading,
@@ -3765,10 +3790,11 @@ const mapStateToProps = ({
     ordersLoader,
     userInfo,
     selectedBrand,
+
     success,
   } = profile;
   const { isAuthenticated, user } = login;
-  const { agesArray, gendersArray, interestsArray } = branding;
+  const { agesArray, gendersArray, interestsArray ,saveBrands} = branding;
   const { currency, exchange } = paymentType;
   const {
     // loading,
@@ -3792,6 +3818,7 @@ const mapStateToProps = ({
     openRow,
     savedPlans,
     savedPlan,
+  
   } = mediaplanning;
 
   return {
@@ -3812,7 +3839,7 @@ const mapStateToProps = ({
     selectedBrand,
     success,
     locationsArray,
-
+    saveBrands,
     tagsArray,
     categoriesArray,
     originalLocationsArray,
@@ -3832,6 +3859,7 @@ const mapStateToProps = ({
     openRow,
     savedPlans,
     savedPlan,
+   
   };
 };
 
@@ -3871,5 +3899,7 @@ export default connect(
     savePlanToUserObject,
     savedPlanSelected,
     addReduceQuantityByInput,
+    saveBrands,
+    // locations
   }
 )(withStyles(styles)(Profile));

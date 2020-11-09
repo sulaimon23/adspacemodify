@@ -34,7 +34,7 @@ export const loginUser = (email, password) => {
                 user.id = userRef.id;
                 user.emailVerified = res.user.user.emailVerified;
 
-
+                
                 if(user.brands === undefined){
                  return   history.push('/branding');
                }

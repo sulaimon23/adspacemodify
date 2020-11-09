@@ -89,7 +89,7 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, error: false, message: '', showMDDetails: true, saveLoader: true, success: false, orderNos: '', showSignIn: false };
         case MEDIA_PLANNING_SAVE_FAILED:
             return { ...state, error: false, message: '', showMDDetails: true, saveLoader: false, saveError: true, saveMessage: action.payload , success: false, showSignIn: false};
-        case MEDIA_PLANNING_SAVE_SUCCESS:
+        case MEDIA_PLANNING_SAVE_SUCCESS:   
             return { ...state, error: false, message: '', showMDDetails: state.showMDDetails, saveLoader: false, saveError: false, saveMessage: '',
             success: true, orders: action.payload.orderArray, orderNos: action.payload.orderNos, totalPrice: action.payload.totalPrice, showSignIn: false };
         case MEDIA_PLANNING_PAGINATED:

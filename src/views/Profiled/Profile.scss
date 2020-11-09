@@ -14,8 +14,22 @@
         margin-right: 0 !important;
     }
 }
-
-
+.makeStyles-cardBody-134{
+    z-index: 9 !important;
+}
+.icen {
+    float: right;
+    margin-top: 11px;
+    color: white;
+    background-color: rgb(10, 10, 133);
+    padding:7px;
+    font-size: 12px !important;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 2;
+    right: 50px;
+    cursor: pointer;
+}
 .makeStyles-cardBody-209 {
     flex: 1 1 auto;
     // padding: 0.5rem 1rem !important;
@@ -45,6 +59,7 @@
 
 
 }
+
 ul.breadcrumb{
     display: flex;
     justify-content: space-between;

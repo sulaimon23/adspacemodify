@@ -298,7 +298,10 @@ class Branding extends Component{
         })
     }
 
-    
+    if (mind) {
+        return <Redirect exact to={{ pathname: "/" }} />;
+      }
+
 
 
     findItem(array = [], item){
@@ -320,10 +323,8 @@ class Branding extends Component{
     if ( !isAuthenticated) {
       return <Redirect exact to={{ pathname: "/login" }} />;
 
-    }
-              if (success) {
-            return <Redirect exact to={{ pathname: "/" }} />;
-          }
+        }
+             
 
 
 
