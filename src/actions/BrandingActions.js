@@ -82,16 +82,17 @@ export const saveBrands = (brands, branding) => {
 
         try{
             let user = getAuth().currentUser;
-            console.log(user, 'user')
+            console.log(user.uid, 'user')
             let res = await fetch(`${cloud_api}/addCustomClaim`, {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({uid: user.uid}),
+                body: JSON.stringify({user}),
             });
             console.log(res.status, 'response');
+            console.log(user.email)
             if (res.status !== 200)
                 return dispatch({ type: BRANDING_SAVE, payload: 'ERROR SAVING BRANDS'})
 

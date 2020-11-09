@@ -33,7 +33,7 @@ import { func } from "prop-types";
 import CustomFileInput from "../../components/CustomFileInput/CustomFileInput";
 import { download } from '../../exportJSON2CSV';
 import { getAuth, getDb } from "../../firebase";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import MediaAlertDialog from "views/Modal/MediaPlanningNote";
 // import { addReduceQuantityByInput } from "actions";
 import {
@@ -64,6 +64,7 @@ const BookingDetails = ({
   classes,
   locations,
   toggle,
+  success,
   totalPrice,
   qtyAddReduce,
   submitUnpaid,
@@ -84,6 +85,20 @@ const BookingDetails = ({
   const { exchange, currency } = useSelector((state) => state.paymentType);
   let vat = (7.5 / 100) * totalPrice
   totalPrice = totalPrice + vat
+
+
+  if (success) {
+    return (
+      <Redirect exact
+        to={{
+          pathname: "/orderSummary",
+         
+        }}
+      />
+    );
+  }
+
+
   function bookingDetails() {
     if (locations && locations.length > 0) {
       return locations.map((location, index) => {
@@ -124,7 +139,7 @@ const BookingDetails = ({
                 <NumericInput
                       // className="form-control"
                       value={location.userAddedQuantity || 0}
-                      min={0}
+                      min={0} 
                       max={location.quantity}
                       strict={true}
                       step={1}
@@ -624,7 +639,7 @@ const mapStateToProps = ({
     ordersLoader,
     userInfo,
     selectedBrand,
-    success,
+    // success,
   } = profile;
   const { isAuthenticated, user } = login;
   const { agesArray, gendersArray, interestsArray } = branding;
@@ -642,7 +657,7 @@ const mapStateToProps = ({
     saveLoader,
     saveMessage,
     saveError,
-    // success,
+    success,
     orders,
     orderNos,
     subCategoriesArray,

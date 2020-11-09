@@ -324,6 +324,16 @@ class Branding extends Component{
       return <Redirect exact to={{ pathname: "/login" }} />;
 
         }
+        if (success) {
+            return (
+              <Redirect exact
+                to={{
+                  pathname: "/orderSummary",
+                 
+                }}
+              />
+            );
+          }
              
 
 
