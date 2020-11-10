@@ -45,7 +45,7 @@ import {
   LinearProgress,
   withStyles,
 } from "@material-ui/core";
-import Dashboard from '../../components/dashboard/dashboard.jsx'
+import Dashboard from "../../components/dashboard/dashboard.jsx";
 import GridContainer from "../../components/Grid/GridContainer";
 import GridItem from "../../components/Grid/GridItem";
 import Card from "../../components/Card/Card";
@@ -91,8 +91,8 @@ import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
-import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Carousel from "react-slick";
 import Typography from "@material-ui/core/Typography";
 import Instruction from "../../components/Instruction/Instruction";
@@ -145,7 +145,6 @@ const sortOptions = [
 class Profile extends Component {
   constructor(props) {
     super(props);
-
 
     this.state = {
       selectedEnabled: 0,
@@ -210,13 +209,12 @@ class Profile extends Component {
         this.props.setAuthenticated(false, user);
       }
     });
-    
+
     // let userRef = await getDb().collection("users").doc(email).get();
 
     document.title =
       "Adspace.ng – Media Planning | Advert Space | Billboards | Television |Newspaper | Radio | Influencer | Magazine";
     this.props.getAllLocations();
-
   }
   // rent = (e) => {
   //   const {
@@ -228,9 +226,6 @@ class Profile extends Component {
   //   } = this.props;
   //   return console.log(e, 'helloo')
   // }
-
-
-
 
   handleToggleTags(value) {
     const {
@@ -783,8 +778,7 @@ class Profile extends Component {
                         addReduceQuantityByInput(location.id, location, value)
                       }
                     />
-                    
-                    
+
                     <Button
                       //   color="info"
                       size="sm"
@@ -1091,12 +1085,13 @@ class Profile extends Component {
     const { totalPrice, displayMDMessage, showMDbooking } = this.props;
     if (totalPrice === 0)
       toast.error(
-        "YOU DO NOT HAVE ANY ADSPACES, ADD QUANTITY TO ANY ADSPACE UNDER MEDIA PLANNING" ,{
-          className: 'not_bar'
+        "YOU DO NOT HAVE ANY ADSPACES, ADD QUANTITY TO ANY ADSPACE UNDER MEDIA PLANNING",
+        {
+          className: "not_bar",
         }
       );
     else this.addSeven();
-  }
+  };
 
   cal(images, image) {
     if (images && images.length > 0) {
@@ -1540,9 +1535,9 @@ class Profile extends Component {
         gender: this.findItem(gendersArray, brand.gender),
       };
     });
-    console.log(newArray, 'array')
-    console.log(branding, 'branding')
-    console.log(selectedEnabled, 'selectedEnabled')
+    console.log(newArray, "array");
+    console.log(branding, "branding");
+    console.log(selectedEnabled, "selectedEnabled");
     saveBrands(newArray, branding, selectedEnabled);
   }
   renderBrands() {
@@ -1617,7 +1612,8 @@ class Profile extends Component {
       );
     } else return null;
   }
-  handleInputChange(value, ind, brands, input) {
+  handleInputChange = (value, ind, brands, input) => {
+    console.log(this.state.interestsArray, "interestsArray", brands, "brands");
     const arr = brands.map((brand, index) => {
       if (ind === index) {
         if (input === "brandname") return { ...brand, brandName: value };
@@ -1630,7 +1626,7 @@ class Profile extends Component {
       return brand;
     });
     this.setState({ brands: arr });
-  }
+  };
   handleBrandSelectionChange(value) {
     if (value === "single")
       this.setState({
@@ -1641,7 +1637,6 @@ class Profile extends Component {
       this.setState({ branding: value });
     }
   }
-
   renderBrandingComponent() {
     const { classes, interestsArray, agesArray, gendersArray } = this.props;
     const { brands } = this.state;
@@ -1649,247 +1644,216 @@ class Profile extends Component {
       return brands.map((brand, index) => {
         const { ages, gender, interests, brandName } = brand;
         return (
-          <Card >
-            <CardBody className="brand_drop" >
-              <GridContainer key={index}>
-                <GridItem xs={12} md={12} sm={12}>
-                  <GridContainer>
-                    <GridItem sm={2} md={2} lg={2}>
-                      <div
-                        style={{
-                          justifyContent: "center",
-                          alignItems: "center",
-                          marginTop: 30,
-                        }}
-                        className={
-                          classes.checkboxAndRadio +
-                          " " +
-                          classes.checkboxAndRadioHorizontal
-                        }
-                      >
-                        <FormControlLabel
-                          control={
-                            <Radio
-                              checked={this.state.selectedEnabled === index}
-                              onChange={() =>
-                                this.setState({ selectedEnabled: index + 1 })
-                              }
-                              value="a"
-                              name="radio button enabled"
-                              aria-label="A"
-                              icon={
-                                <FiberManualRecord
-                                  className={classes.radioUnchecked}
-                                />
-                              }
-                              checkedIcon={
-                                <FiberManualRecord
-                                  className={classes.radioChecked}
-                                />
-                              }
+          <GridContainer key={index}>
+            <GridItem xs={12} md={12} sm={12}>
+              <GridContainer>
+                <GridItem sm={2} md={2} lg={2} />
+                <GridItem xs={12} sm={12} md={6}>
+                  <CustomInput
+                    formControlProps={{
+                      fullWidth: true,
+                      className: classes.customFormControlClasses,
+                    }}
+                    value={brandName}
+                    inputProps={{
+                      type: "text",
+                      onChange: (e) => {
+                        this.handleInputChange(
+                          e.target.value,
+                          index,
+                          brands,
+                          "brandname"
+                        );
+                      },
+                      placeholder: "Brand Name...",
+                    }}
+                  />
+                </GridItem>
+                <GridItem xs={12} md={4}>
+                  <FormControl
+                    style={{ marginTop: 10, marginBottom: 50, zIndex: 999999 }}
+                    fullWidth
+                    // className={classes.selectFormControl}
+                  >
+                    <InputLabel
+                      htmlFor="simple-select"
+                      className={classes.selectLabel}
+                    >
+                      Age (choose 2)
+                    </InputLabel>
+                    <Select
+                      multiple
+                      value={ages}
+                      onChange={(e) =>
+                        this.handleInputChange(
+                          e.target.value,
+                          index,
+                          brands,
+                          "ages"
+                        )
+                      }
+                      MenuProps={{
+                        className: classes.selectMenu,
+                        classes: { paper: classes.selectPaper },
+                        anchorOrigin: {
+                          vertical: "bottom",
+                          horizontal: "left",
+                        },
+                        transformOrigin: {
+                          vertical: "top",
+                          horizontal: "left",
+                        },
+                        getContentAnchorEl: null,
+                      }}
+                      style={{ zIndex: 9999999 }}
+                      classes={{ select: classes.select }}
+                      inputProps={{
+                        name: "multipleSelect",
+                        id: "multiple-select",
+                      }}
+                    >
+                      {agesArray &&
+                        agesArray.map((item, index) => {
+                          return (
+                            <MenuItem
+                              style={{ zIndex: 9999999 }}
+                              key={index}
                               classes={{
-                                checked: classes.radio,
-                                root: classes.radioRoot,
+                                root: classes.selectMenuItem,
+                                selected:
+                                  classes.selectMenuItemSelectedMultiple,
                               }}
-                            />
-                          }
-                          classes={{
-                            label: classes.label,
-                            root: classes.labelRoot,
-                          }}
-                        />
-                      </div>
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={6} className="py-5">
-                      <CustomInput
-                        formControlProps={{
-                          fullWidth: true,
-                          className: classes.customFormControlClasses,
-                        }}
-                        value={brandName}
-                        inputProps={{
-                          type: "text",
-                          onChange: (e) => {
-                            this.handleInputChange(
-                              e.target.value,
-                              index,
-                              brands,
-                              "brandname"
-                            );
-                          },
-                          placeholder: "Brand Name...",
-                        }}
-                      />
-                    </GridItem>
-                    <GridItem xs={12} md={4}>
-                      <FormControl
-                        style={{ marginTop: 10 }}
-                        fullWidth
-                        className={classes.selectFormControl}
-                      >
-                        <InputLabel
-                          htmlFor="simple-select"
-                          className={classes.selectLabel}
-                        >
-                          Age (choose 2)
-                        </InputLabel>
-                        <Select
-                          multiple
-                          value={ages}
-                          onChange={(e) =>
-                            this.handleInputChange(
-                              e.target.value,
-                              index,
-                              brands,
-                              "ages"
-                            )
-                          }
-                          MenuProps={{
-                            className: classes.selectMenu,
-                            classes: { paper: classes.selectPaper },
-                          }}
-                          classes={{ select: classes.select }}
-                          inputProps={{
-                            name: "multipleSelect",
-                            id: "multiple-select",
-                          }}
-                        >
-                          {agesArray &&
-                            agesArray.map((item, index) => {
-                              return (
-                                <MenuItem
-                                  key={index}
-                                  classes={{
-                                    root: classes.selectMenuItem,
-                                    selected:
-                                      classes.selectMenuItemSelectedMultiple,
-                                  }}
-                                  value={item.id}
-                                >
-                                  {`${item.min || ""} - ${item.max || ""}`}
-                                </MenuItem>
-                              );
-                            })}
-                        </Select>
-                      </FormControl>
-                    </GridItem>
-                  </GridContainer>
-                  <GridContainer >
-                    <GridItem sm={2} md={2} lg={2} style={{zIndex: '9'}} />
-                    <GridItem xs={12} md={6}  >
-                      <FormControl
-                        fullWidth
-                        className={classes.selectFormControl}
-                        
-
-                      >
-                        <InputLabel
-                          htmlFor="simple-select"
-                          className={classes.selectLabel}
-                        >
-                          Select Interests (choose 2)
-                        </InputLabel>
-                        <Select
-                          multiple
-                          value={interests}
-                          onChange={(e) =>
-                            this.handleInputChange(
-                              e.target.value,
-                              index,
-                              brands,
-                              "interests"
-                            )
-                          }
-                          MenuProps={{
-                            className: classes.selectMenu,
-                            classes: { paper: classes.selectPaper },
-                          }}
-                          classes={{ select: classes.select }}
-                          inputProps={{
-                            name: "multipleSelect",
-                            id: "multiple-select",
-                          }}
-                        >
-                          {interestsArray &&
-                            interestsArray.map((item, index) => {
-                              return (
-                                <MenuItem
-                                  key={index}
-                                  classes={{
-                                    root: classes.selectMenuItem,
-                                    selected:
-                                      classes.selectMenuItemSelectedMultiple,
-                                  }}
-                                  value={item.id}
-                                >
-                                  {item.description || ""}
-                                </MenuItem>
-                              );
-                            })}
-                        </Select>
-                      </FormControl>
-                    </GridItem>
-                    <GridItem xs={12} md={4}>
-                      <FormControl
-                        fullWidth
-                        className={classes.selectFormControl}
-                      >
-                        <InputLabel
-                          htmlFor="simple-select"
-                          className={classes.selectLabel}
-                        >
-                          Gender
-                        </InputLabel>
-                        <Select
-                          MenuProps={{
-                            className: classes.selectMenu,
-                          }}
-                          classes={{
-                            select: classes.select,
-                          }}
-                          value={gender}
-                          onChange={(e) =>
-                            this.handleInputChange(
-                              e.target.value,
-                              index,
-                              brands,
-                              "gender"
-                            )
-                          }
-                          inputProps={{
-                            name: "simpleSelect",
-                            id: "simple-select",
-                          }}
-                        >
-                          {gendersArray &&
-                            gendersArray.map((item, index) => {
-                              return (
-                                <MenuItem
-                                  key={index}
-                                  classes={{
-                                    root: classes.selectMenuItem,
-                                    selected: classes.selectMenuItemSelected,
-                                  }}
-                                  value={item.id}
-                                >
-                                  {item.description || ""}
-                                </MenuItem>
-                              );
-                            })}
-                        </Select>
-                      </FormControl>
-                    </GridItem>
-                  </GridContainer>
+                              value={item.id}
+                            >
+                              {`${item.min || ""} - ${item.max || ""}`}
+                            </MenuItem>
+                          );
+                        })}
+                    </Select>
+                  </FormControl>
                 </GridItem>
               </GridContainer>
-            </CardBody>
-          </Card>
+              <GridContainer>
+                <GridItem sm={2} md={2} lg={2} />
+                <GridItem xs={12} md={6}>
+                  <FormControl fullWidth className={classes.selectFormControl}>
+                    <InputLabel
+                      htmlFor="simple-select"
+                      className={classes.selectLabel}
+                    >
+                      Select Interests (choose 2)
+                    </InputLabel>
+                    <Select
+                      multiple
+                      value={interests}
+                      onChange={(e) =>
+                        this.handleInputChange(
+                          e.target.value,
+                          index,
+                          brands,
+                          "interests"
+                        )
+                      }
+                      MenuProps={{
+                        className: classes.selectMenu,
+                        classes: { paper: classes.selectPaper },
+                        anchorOrigin: {
+                          vertical: "bottom",
+                          horizontal: "left",
+                        },
+                        transformOrigin: {
+                          vertical: "top",
+                          horizontal: "left",
+                        },
+                        getContentAnchorEl: null,
+                      }}
+                      classes={{ select: classes.select }}
+                      inputProps={{
+                        name: "multipleSelect",
+                        id: "multiple-select",
+                      }}
+                    >
+                      {interestsArray &&
+                        interestsArray.map((item, index) => {
+                          return (
+                            <MenuItem
+                              key={index}
+                              classes={{
+                                root: classes.selectMenuItem,
+                                // selected:
+                                //   classes.selectMenuItemSelectedMultiple,
+                              }}
+                              value={item.id}
+                            >
+                              {item.description || ""}
+                            </MenuItem>
+                          );
+                        })}
+                    </Select>
+                  </FormControl>
+                </GridItem>
+                <GridItem xs={12} md={4}>
+                  <FormControl fullWidth className={classes.selectFormControl}>
+                    <InputLabel
+                      htmlFor="simple-select"
+                      className={classes.selectLabel}
+                    >
+                      Gender
+                    </InputLabel>
+                    <Select
+                      MenuProps={{
+                        className: classes.selectMenu,
+                        classes: { paper: classes.selectPaper },
+                        anchorOrigin: {
+                          vertical: "bottom",
+                          horizontal: "left",
+                        },
+                        transformOrigin: {
+                          vertical: "top",
+                          horizontal: "left",
+                        },
+                        getContentAnchorEl: null,
+                      }}
+                      classes={{ select: classes.select }}
+                      value={gender}
+                      onChange={(e) =>
+                        this.handleInputChange(
+                          e.target.value,
+                          index,
+                          brands,
+                          "gender"
+                        )
+                      }
+                      inputProps={{
+                        name: "simpleSelect",
+                        id: "simple-select",
+                      }}
+                    >
+                      {gendersArray &&
+                        gendersArray.map((item, index) => {
+                          return (
+                            <MenuItem
+                              key={index}
+                              classes={{
+                                root: classes.selectMenuItem,
+                                selected: classes.selectMenuItemSelected,
+                              }}
+                              value={item.id}
+                            >
+                              {item.description || ""}
+                            </MenuItem>
+                          );
+                        })}
+                    </Select>
+                  </FormControl>
+                </GridItem>
+              </GridContainer>
+            </GridItem>
+          </GridContainer>
         );
       });
     }
   }
- 
-
 
   renderBrandsDetails(brand, index) {
     const {
@@ -1899,10 +1863,10 @@ class Profile extends Component {
       removeBrand,
       userInfo,
     } = this.props;
-    
+
     return (
-      <GridItem sm={12} md={12} >
-        <GridContainer >
+      <GridItem sm={12} md={12}>
+        <GridContainer>
           <GridItem sm={12} md={12}>
             <GridContainer>
               <GridItem sm={12} md={9} className="heyyo">
@@ -1910,16 +1874,10 @@ class Profile extends Component {
                   <GridItem sm={12} md={12}>
                     <GridContainer>
                       <GridItem sm={12} md={3}>
-                        <h6
-                        >
-                          Brand Name
-                        </h6>
+                        <h6>Brand Name</h6>
                       </GridItem>
                       <GridItem sm={12} md={3}>
-                        <h6
-                        >
-                          {brand.brandName || ""}
-                        </h6>
+                        <h6>{brand.brandName || ""}</h6>
                       </GridItem>
                     </GridContainer>
                   </GridItem>
@@ -1928,10 +1886,7 @@ class Profile extends Component {
                   <GridItem sm={12} md={12}>
                     <GridContainer>
                       <GridItem sm={12} md={3}>
-                        <h6
-                        >
-                          Ages
-                        </h6>
+                        <h6>Ages</h6>
                       </GridItem>
                       <GridItem sm={12} md={9}>
                         {brand.ages.map((age, index) => {
@@ -1948,10 +1903,7 @@ class Profile extends Component {
                   <GridItem sm={12} md={12}>
                     <GridContainer>
                       <GridItem sm={12} md={3}>
-                        <h6
-                        >
-                          Gender
-                        </h6>
+                        <h6>Gender</h6>
                       </GridItem>
                       <GridItem sm={12} md={9}>
                         <Badge color="info">{`${
@@ -1965,10 +1917,7 @@ class Profile extends Component {
                   <GridItem sm={12} md={12}>
                     <GridContainer>
                       <GridItem sm={12} md={3}>
-                        <h6
-                        >
-                          Interests
-                        </h6>
+                        <h6>Interests</h6>
                       </GridItem>
                       <GridItem sm={12} md={9}>
                         {brand.interests.map((interest, index) => {
@@ -2055,75 +2004,86 @@ class Profile extends Component {
       </GridItem>
     );
   }
-  renderDefaultNoBranding(index){
+  renderDefaultNoBranding(index) {
     const { selectedBrand, classes, changeSelectedBrand } = this.props;
-    return(
-        <GridItem sm={12} md={12}>
+    return (
+      <GridItem sm={12} md={12}>
+        <GridContainer>
+          <GridItem sm={12} md={12}>
             <GridContainer>
+              <GridItem sm={12} md={9}>
                 <GridItem sm={12} md={12}>
-                    <GridContainer>
-                        <GridItem sm={12} md={9}>
-                            <GridItem sm={12} md={12}>
-                                <GridContainer>
-                                    <GridItem sm={12} md={3}>
-                                        <h6 style={{ textAlign: 'center', color: grayColor[0] }}>Brand Name</h6>
-                                    </GridItem>
-                                    <GridItem sm={12} md={3}>
-                                        <h6 style={{ textAlign: 'center', color: grayColor[1] }}>No Branding (Default)</h6>
-                                    </GridItem>
-                                </GridContainer>
-                            </GridItem>
-                        </GridItem>
-                        <GridItem sm={12} md={3}>
-                            <GridContainer>
-                                <GridItem sm={12} md={6}>
-                                    <div
-                                        style={{ justifyContent: 'center', alignItems: 'center', marginTop: 30 }}
-                                        className={
-                                            classes.checkboxAndRadio +
-                                            " " +
-                                            classes.checkboxAndRadioHorizontal
-                                        }
-                                    >
-                                        <FormControlLabel
-                                            control={
-                                                <Radio
-                                                    checked={selectedBrand === index}
-                                                    onChange={() => changeSelectedBrand(index)}
-                                                    value="a"
-                                                    name="radio button enabled"
-                                                    aria-label="A"
-                                                    icon={
-                                                        <FiberManualRecord className={classes.radioUnchecked} />
-                                                    }
-                                                    checkedIcon={
-                                                        <FiberManualRecord className={classes.radioChecked} />
-                                                    }
-                                                    classes={{
-                                                        checked: classes.radio,
-                                                        root: classes.radioRoot
-                                                    }}
-                                                />
-                                            }
-                                            classes={{
-                                                label: classes.label,
-                                                root: classes.labelRoot
-                                            }}
-                                        />
-                                    </div>
-                                </GridItem>
-                            </GridContainer>
-                        </GridItem>
-                    </GridContainer>
+                  <GridContainer>
+                    <GridItem sm={12} md={3}>
+                      <h6 style={{ textAlign: "center", color: grayColor[0] }}>
+                        Brand Name
+                      </h6>
+                    </GridItem>
+                    <GridItem sm={12} md={3}>
+                      <h6 style={{ textAlign: "center", color: grayColor[1] }}>
+                        No Branding (Default)
+                      </h6>
+                    </GridItem>
+                  </GridContainer>
                 </GridItem>
-                <GridItem sm={12} md={12}>
-                    <Divider variant="fullWidth" />
-                </GridItem>
+              </GridItem>
+              <GridItem sm={12} md={3}>
+                <GridContainer>
+                  <GridItem sm={12} md={6}>
+                    <div
+                      style={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginTop: 30,
+                      }}
+                      className={
+                        classes.checkboxAndRadio +
+                        " " +
+                        classes.checkboxAndRadioHorizontal
+                      }
+                    >
+                      <FormControlLabel
+                        control={
+                          <Radio
+                            checked={selectedBrand === index}
+                            onChange={() => changeSelectedBrand(index)}
+                            value="a"
+                            name="radio button enabled"
+                            aria-label="A"
+                            icon={
+                              <FiberManualRecord
+                                className={classes.radioUnchecked}
+                              />
+                            }
+                            checkedIcon={
+                              <FiberManualRecord
+                                className={classes.radioChecked}
+                              />
+                            }
+                            classes={{
+                              checked: classes.radio,
+                              root: classes.radioRoot,
+                            }}
+                          />
+                        }
+                        classes={{
+                          label: classes.label,
+                          root: classes.labelRoot,
+                        }}
+                      />
+                    </div>
+                  </GridItem>
+                </GridContainer>
+              </GridItem>
             </GridContainer>
-        </GridItem>
-    )
-}
-
+          </GridItem>
+          <GridItem sm={12} md={12}>
+            <Divider variant="fullWidth" />
+          </GridItem>
+        </GridContainer>
+      </GridItem>
+    );
+  }
 
   renderViews() {
     const {
@@ -2542,7 +2502,6 @@ class Profile extends Component {
   renderDeleteAccountModal(classes) {
     const { deleteAccountModal, deleteEmail, deletePassword } = this.state;
     const { deleteAccount, message, loading } = this.props;
-    console.log(deleteEmail, deletePassword);
     if (deleteAccountModal) {
       return (
         <Dialog
@@ -2673,7 +2632,7 @@ class Profile extends Component {
   };
   addSix = () => {
     const { stage, showMediaLinks } = this.state;
-    return this.setState({ stage: 6}, () =>
+    return this.setState({ stage: 6 }, () =>
       this.setState({ showMediaLinks: false })
     );
   };
@@ -2689,7 +2648,7 @@ class Profile extends Component {
       this.setState({ showMediaLinks: false })
     );
   };
-  
+
   addFour = () => {
     const { stage, showMediaLinks } = this.state;
     return this.setState({ stage: 4 }, () =>
@@ -2710,11 +2669,18 @@ class Profile extends Component {
   };
 
   closeTime = (value) => {
-      this.setState({startDate: ''}); 
-  }
+    this.setState({ startDate: "" });
+  };
 
   render() {
-    const { classes, isAuthenticated, user, logOut, loading, handleBookClick } = this.props;
+    const {
+      classes,
+      isAuthenticated,
+      user,
+      logOut,
+      loading,
+      handleBookClick,
+    } = this.props;
 
     const { branding, brands } = this.state;
     const {
@@ -2804,31 +2770,31 @@ class Profile extends Component {
     }
 
     let vat = (7.5 / 100) * totalPrice;
-    if (success) {
-      return (
-        <Redirect
-          to={{
-            pathname: "/orderSummary",
-            state: {
-              orderObject: undefined,
-              orders,
-              orderNos: orderNos,
-              totalPrice: totalPrice,
-            },
-          }}
-        />
-      );
-    }
+    // if (success) {
+    //   return (
+    //     <Redirect
+    //       to={{
+    //         pathname: "/orderSummary",
+    //         state: {
+    //           orderObject: undefined,
+    //           orders,
+    //           orderNos: orderNos,
+    //           totalPrice: totalPrice,
+    //         },
+    //       }}
+    //     />
+    //   );
+    // }
 
     // if (showMDDetails) {
     //   return (
     //     <div>
-          
+
     //       {loading && <LinearProgress />}
     //       <div className={classes.main}>
     //         <div className={classes.section}>
     //           <div className={classes.container}>
-                
+
     //           </div>
     //         </div>
     //       </div>
@@ -2836,15 +2802,12 @@ class Profile extends Component {
     //   );
     // }
 
-
     const { stage, showMediaLinks } = this.state;
     const allThings = originalLocationsArray.filter(
-       (element) => element.userAddedQuantity > 0
-     )
+      (element) => element.userAddedQuantity > 0
+    );
 
     return (
-
-
       <div>
         {this.renderDeleteAccountModal(classes)}
         {/* <Header
@@ -2868,9 +2831,8 @@ class Profile extends Component {
             <div className="left">
               <div className="sidebar">
                 <span className="menu-title">main</span>
-                    <ToastContainer />
+                <ToastContainer />
 
-              
                 <div className="sidebar-li" onClick={this.addZero}>
                   <div>
                     <i
@@ -2885,7 +2847,6 @@ class Profile extends Component {
 
                 {/* <span className="menu-title">orders</span> */}
 
-               
                 <div>
                   <p>
                     <a
@@ -2970,10 +2931,27 @@ class Profile extends Component {
                         </Tooltip>
                         <Clearfix />
                       </div>
-                      <div style={{ marginTop: "20px",paddingLeft:10, paddingRight:10}}>
-                        <FormControl variant="outlined" fullWidth style={{background: 'black', paddingTop:0, paddingBottom: 5, paddingLeft:5, paddingRight: 30, borderRadius:'7px'}}>
+                      <div
+                        style={{
+                          marginTop: "20px",
+                          paddingLeft: 10,
+                          paddingRight: 10,
+                        }}
+                      >
+                        <FormControl
+                          variant="outlined"
+                          fullWidth
+                          style={{
+                            background: "black",
+                            paddingTop: 0,
+                            paddingBottom: 5,
+                            paddingLeft: 5,
+                            paddingRight: 30,
+                            borderRadius: "7px",
+                          }}
+                        >
                           <Datetime
-                            style={{ borderWidth: 0, width: '80%'}}
+                            style={{ borderWidth: 0, width: "80%" }}
                             timeFormat={false}
                             isValidDate={valid}
                             value={startDate}
@@ -2983,7 +2961,10 @@ class Profile extends Component {
                             onChange={(e) => this.setState({ startDate: e })}
                             // onBlur={this.closeTime}
                           />
-                          <i className="fe fe-close icen" onClick={this.closeTime}></i>
+                          <i
+                            className="fe fe-close icen"
+                            onClick={this.closeTime}
+                          ></i>
                         </FormControl>
                       </div>
                       {showMediaLinks && (
@@ -2994,22 +2975,6 @@ class Profile extends Component {
                               activeColor="rose"
                               collapses={[
                                 {
-                                  title: "States",
-                                  content: (
-                                    <div className={classes.customExpandPanel}>
-                                      <div
-                                        className={
-                                          classes.checkboxAndRadio +
-                                          " " +
-                                          classes.checkboxAndRadioHorizontal
-                                        }
-                                      >
-                                        {this.renderStatesMD()}
-                                      </div>
-                                    </div>
-                                  ),
-                                },
-                                {
                                   title: "Adtype",
                                   content: (
                                     <div className={classes.customExpandPanel}>
@@ -3019,8 +2984,26 @@ class Profile extends Component {
                                           " " +
                                           classes.checkboxAndRadioHorizontal
                                         }
+                                        style={{ height: "120px" }}
                                       >
                                         {this.renderCategoriesMD()}
+                                      </div>
+                                    </div>
+                                  ),
+                                },
+                                {
+                                  title: "States",
+                                  content: (
+                                    <div className={classes.customExpandPanel}>
+                                      <div
+                                        className={
+                                          classes.checkboxAndRadio +
+                                          " " +
+                                          classes.checkboxAndRadioHorizontal
+                                        }
+                                        style={{ height: "120px" }}
+                                      >
+                                        {this.renderStatesMD()}
                                       </div>
                                     </div>
                                   ),
@@ -3034,9 +3017,6 @@ class Profile extends Component {
                   </div>
                 </div>
 
-
-
-                
                 <div>
                   <p>
                     <a
@@ -3047,7 +3027,7 @@ class Profile extends Component {
                       aria-expanded="false"
                       aria-controls="collapseExample"
                     >
-                      <div className="sidebar-li" >
+                      <div className="sidebar-li">
                         <div>
                           <i
                             style={{ color: stage === 5 ? "blue" : null }}
@@ -3062,43 +3042,35 @@ class Profile extends Component {
                   </p>
 
                   <div class="collapse" id="collapseExample2">
-                  <FormControl fullWidth  style={{marginTop: -30}}>
-                        <InputLabel
-                            htmlFor="simple-select"
-                            className={classes.selectLabel}
-                        >
-                          Load Saved Media Plans
-                        </InputLabel>
-                        <Select
-                            // MenuProps={{
-                            //   className: classes.selectMenu
-                            // }}
-                            // classes={{
-                            //   select: classes.select
-                            // }}
-                            value={savedPlan}
-                            onChange={(e) => savedPlanSelected(e.target.value, savedPlans)}
-                            inputProps={{
-                              name: "simpleSelect",
-                              id: "simple-select"
-                            }}
-                            
-                        >
-                          {this.renderLoadedPlans() }
-                        </Select>
-                      </FormControl>
-                      
+                    <FormControl fullWidth style={{ marginTop: -30 }}>
+                      <InputLabel
+                        htmlFor="simple-select"
+                        className={classes.selectLabel}
+                      >
+                        Load Saved Media Plans
+                      </InputLabel>
+                      <Select
+                        // MenuProps={{
+                        //   className: classes.selectMenu
+                        // }}
+                        // classes={{
+                        //   select: classes.select
+                        // }}
+                        value={savedPlan}
+                        onChange={(e) =>
+                          savedPlanSelected(e.target.value, savedPlans)
+                        }
+                        inputProps={{
+                          name: "simpleSelect",
+                          id: "simple-select",
+                        }}
+                      >
+                        {this.renderLoadedPlans()}
+                      </Select>
+                    </FormControl>
                   </div>
                 </div>
 
-
-
-
-
-
-
-
-                
                 <div className="sidebar-li" onClick={this.addOne}>
                   <div>
                     <i
@@ -3111,7 +3083,6 @@ class Profile extends Component {
                   </span>
                 </div>
 
-                
                 <div className="sidebar-li" onClick={this.addSix}>
                   <div>
                     <i
@@ -3149,7 +3120,7 @@ class Profile extends Component {
             </div>
             <div className="main" style={{ height: "110vh", overflow: "auto" }}>
               <div>
-              {this.state.stage === 0 && (
+                {this.state.stage === 0 && (
                   <GridContainer justify="center" style={{ marginTop: 70 }}>
                     <Dashboard />
                   </GridContainer>
@@ -3176,84 +3147,106 @@ class Profile extends Component {
                 )}
                 {this.state.stage === 5 && (
                   // <BookingDetails />
-                  <div style={{display: 'flex', alignItems:'center', justifyContent:'center',height:'100vh'}}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      height: "100vh",
+                    }}
+                  >
                     <h1>Please Select a Saved Plan</h1>
-                    </div>
+                  </div>
                 )}
                 {this.state.stage === 7 && (
                   <div className="booker">
                     <BookingDetails
-                  classes={classes}
-                  campaignTitle={this.state.campaignTitle}
-                  totalPrice={totalPrice}
-                  qtyAddReduce={(id, action) => addReduceQuantity(id, action)}
-                  resetPeriod={(id) => periodReset(id)}
-                  locations={originalLocationsArray.filter(
-                    (element) => element.userAddedQuantity > 0
-                  )}
-                  changePeriod={(id, period) => periodChange(id, period)}
-                  toggle={() => showMDbooking(false)}
-                  notApplicableChange={(id) => changeNotApplicable(id)}
-                  submitUnpaid={() =>
-                    submitAdspacesPaid(
-                      originalLocationsArray.filter(
+                      classes={classes}
+                      campaignTitle={this.state.campaignTitle}
+                      totalPrice={totalPrice}
+                      qtyAddReduce={(id, action) =>
+                        addReduceQuantity(id, action)
+                      }
+                      resetPeriod={(id) => periodReset(id)}
+                      locations={originalLocationsArray.filter(
                         (element) => element.userAddedQuantity > 0
-                      ),
-                      startDate,
-                      totalPrice,
-                      campaignTitle,
-                      0,
-                      this.props.currency,
-                      this.props.exchange
-                    )
-                  }
-                  submit={() =>
-                    submitAdspacesPaid(
-                      originalLocationsArray.filter(
-                        (element) => element.userAddedQuantity > 0
-                      ),
-                      startDate,
-                      totalPrice + vat,
-                      campaignTitle,
-                      1,
-                      this.props.currency,
-                      this.props.exchange
-                    )
-                  }
-                  saveLoader={saveLoader}
-                  saveMessage={saveMessage}
-                  saveError={saveError}
-                  campaignTitle={campaignTitle}
-                  campaignTitleChange={(value) =>
-                    this.setState({ campaignTitle: value })
-                  }
-                  showError={() =>
-                    toast.success("Note: Quantity increment will stop when it reaches the maximum quantity for the selected location", {
-                      className: 'but_alert'
-                    })
-                  }
-                  startDateChange={(date, location, row) =>
-                    updateLocationWithStartEndDate("start", date, location, row)
-                  }
-                  endDateChange={(date, location, row) =>
-                    updateLocationWithStartEndDate("end", date, location, row)
-                  }
-                  openRow={openRow}
-                  openRowChange={(row) => updateOpenRow(row)}
-                  onFileInputChange={(file, name, location) =>
-                    fileInputChange(file, name, location)
-                  }
-                  savePlan={() =>
-                    savePlanToUserObject(
-                      originalLocationsArray.filter(
-                        (element) => element.userAddedQuantity > 0
-                      ),
-                      campaignTitle,
-                      totalPrice
-                    )
-                  }
-                  startDate={startDate}
-                />
+                      )}
+                      changePeriod={(id, period) => periodChange(id, period)}
+                      toggle={() => showMDbooking(false)}
+                      notApplicableChange={(id) => changeNotApplicable(id)}
+                      submitUnpaid={() =>
+                        submitAdspacesPaid(
+                          originalLocationsArray.filter(
+                            (element) => element.userAddedQuantity > 0
+                          ),
+                          startDate,
+                          totalPrice,
+                          campaignTitle,
+                          0,
+                          this.props.currency,
+                          this.props.exchange
+                        )
+                      }
+                      submit={() =>
+                        submitAdspacesPaid(
+                          originalLocationsArray.filter(
+                            (element) => element.userAddedQuantity > 0
+                          ),
+                          startDate,
+                          totalPrice + vat,
+                          campaignTitle,
+                          1,
+                          this.props.currency,
+                          this.props.exchange
+                        )
+                      }
+                      saveLoader={saveLoader}
+                      saveMessage={saveMessage}
+                      saveError={saveError}
+                      campaignTitle={campaignTitle}
+                      campaignTitleChange={(value) =>
+                        this.setState({ campaignTitle: value })
+                      }
+                      showError={() =>
+                        toast.success(
+                          "Note: Quantity increment will stop when it reaches the maximum quantity for the selected location",
+                          {
+                            className: "but_alert",
+                          }
+                        )
+                      }
+                      startDateChange={(date, location, row) =>
+                        updateLocationWithStartEndDate(
+                          "start",
+                          date,
+                          location,
+                          row
+                        )
+                      }
+                      endDateChange={(date, location, row) =>
+                        updateLocationWithStartEndDate(
+                          "end",
+                          date,
+                          location,
+                          row
+                        )
+                      }
+                      openRow={openRow}
+                      openRowChange={(row) => updateOpenRow(row)}
+                      onFileInputChange={(file, name, location) =>
+                        fileInputChange(file, name, location)
+                      }
+                      savePlan={() =>
+                        savePlanToUserObject(
+                          originalLocationsArray.filter(
+                            (element) => element.userAddedQuantity > 0
+                          ),
+                          campaignTitle,
+                          totalPrice
+                        )
+                      }
+                      startDate={startDate}
+                    />
                   </div>
                 )}
 
@@ -3262,9 +3255,7 @@ class Profile extends Component {
                     {this.renderBrands()}
                   </GridContainer>
                 )}
-  {this.state.stage === 6 && (
-    <Monitor />
-  )}
+                {this.state.stage === 6 && <Monitor />}
                 {this.state.stage === 2 && (
                   <div>
                     <GridContainer justify="center" style={{ marginTop: 70 }}>
@@ -3630,7 +3621,6 @@ class Profile extends Component {
                   >
                     <div className={classes.section}>
                       <div style={{ position: "relative" }}>
-                    
                         <div style={{ marginTop: 50, marginBottom: 50 }}></div>
 
                         {error && (
@@ -3665,67 +3655,85 @@ class Profile extends Component {
                         ) : (
                           <GridContainer>
                             <GridItem md={12} sm={7} xs={7}>
-                              
-                                <div style={{marginTop:35, marginRight:15, backgroundColor:'white'}}
-                                className="try"
-                                >
-                                  <div
+                              <div
                                 style={{
-                                  height: 60,
-                                  backgroundColor: "#fff",
-                                  alignItems: "center",
-                                  display: "flex",
-                                  justifyContent: "space-between",
+                                  marginTop: 35,
+                                  marginRight: 15,
+                                  backgroundColor: "white",
                                 }}
+                                className="try"
                               >
-                                <div>
-                                  <h4
-                                    style={{
-                                      // textAlign: "center",
-                                      fontWeight: "bold",
-                                    }}
-                                  >{`${
-                                    locationsArray ? locationsArray.length : 0
-                                  } Available Ad spaces.`}</h4>
-                                </div>
-                                <div>
-                                  <div className="col-md-4">
-                                    {/* <strong style={{marginRight: '8px', fontWeight: '900'}}>Sort By {' '}: {' '}</strong> */}
-                                    <ReactSelect
-                                      options={sortOptions}
-                                      onChange={(e) => sortMDLocations(e.value)}
-                                      placeholder="Sort By"
-                                      outlined={false}
-                                      // styles={selectStyles}
-                                      className="select-style"
-                                    />
-                                  </div>
-                                </div>
-                                
-                                <div>
-                                  <h4 style={{fontWeight: 600}}>Total | <span style={{textDecoration:'underline', color:'blue'}}> {allThings.length} Selected</span></h4>
-                                </div>
-
-                                <h4
-                                className={`${totalPrice === 0 ? 'nav_con' : 'nav_con2'}`} 
-                                  
+                                <div
+                                  style={{
+                                    height: 60,
+                                    backgroundColor: "#fff",
+                                    alignItems: "center",
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                  }}
                                 >
-                                  {/* Continue: */}
-                                  {formatCurrency(
-                                    totalPrice || 0,
-                                    this.props.exchange,
-                                    this.props.currency
-                                  )}
-                                </h4>
-                                <button className="btn btn-primary btn-md" onClick={() => this.handleBookClick()} style={{marginRight: 20}} >Next</button>
-                              </div>
-                                
+                                  <div>
+                                    <h4
+                                      style={{
+                                        // textAlign: "center",
+                                        fontWeight: "bold",
+                                      }}
+                                    >{`${
+                                      locationsArray ? locationsArray.length : 0
+                                    } Available Ad spaces.`}</h4>
+                                  </div>
+                                  <div>
+                                    <div className="col-md-4">
+                                      {/* <strong style={{marginRight: '8px', fontWeight: '900'}}>Sort By {' '}: {' '}</strong> */}
+                                      <ReactSelect
+                                        options={sortOptions}
+                                        onChange={(e) =>
+                                          sortMDLocations(e.value)
+                                        }
+                                        placeholder="Sort By"
+                                        outlined={false}
+                                        // styles={selectStyles}
+                                        className="select-style"
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div>
+                                    <h4 style={{ fontWeight: 600 }}>
+                                      Total |{" "}
+                                      <span
+                                        style={{
+                                          textDecoration: "underline",
+                                          color: "blue",
+                                        }}
+                                      >
+                                        {" "}
+                                        {allThings.length} Selected
+                                      </span>
+                                    </h4>
+                                  </div>
+
+                                  <h4
+                                    className={`${
+                                      totalPrice === 0 ? "nav_con" : "nav_con2"
+                                    }`}
+                                  >
+                                    {/* Continue: */}
+                                    {formatCurrency(
+                                      totalPrice || 0,
+                                      this.props.exchange,
+                                      this.props.currency
+                                    )}
+                                  </h4>
+                                  <button
+                                    className="btn btn-primary btn-md"
+                                    onClick={() => this.handleBookClick()}
+                                    style={{ marginRight: 20 }}
+                                  >
+                                    Next
+                                  </button>
                                 </div>
-
-
-
-
-
+                              </div>
                             </GridItem>
                             <GridItem md={12} sm={9} xs={9}>
                               <GridContainer>
@@ -3735,7 +3743,8 @@ class Profile extends Component {
                             {locationsArray && locationsArray.length > 0 && (
                               <GridItem md={12} sm={12} xs={12}>
                                 <div
-                           j       style={{
+                                  j
+                                  style={{
                                     display: "flex",
                                     justifyContent: "space-between",
                                     alignItems: "center",
@@ -3777,7 +3786,6 @@ const mapStateToProps = ({
   branding,
   mediaplanning,
   paymentType,
-
 }) => {
   const {
     loading,
@@ -3794,7 +3802,7 @@ const mapStateToProps = ({
     success,
   } = profile;
   const { isAuthenticated, user } = login;
-  const { agesArray, gendersArray, interestsArray ,saveBrands} = branding;
+  const { agesArray, gendersArray, interestsArray, saveBrands } = branding;
   const { currency, exchange } = paymentType;
   const {
     // loading,
@@ -3818,7 +3826,6 @@ const mapStateToProps = ({
     openRow,
     savedPlans,
     savedPlan,
-  
   } = mediaplanning;
 
   return {
@@ -3859,7 +3866,6 @@ const mapStateToProps = ({
     openRow,
     savedPlans,
     savedPlan,
-   
   };
 };
 

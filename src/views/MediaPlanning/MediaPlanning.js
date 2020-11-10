@@ -1039,27 +1039,27 @@ class MediaPlanning extends Component {
     if (!isAuthenticated) {
       return (
         <Redirect
-          to={{ pathname: "/login", state: { route: "/mediaplanning" } }}
+          to={{ pathname: "/login" }}
         />
       );
     }
 
     let vat = (7.5 / 100) * totalPrice
-    if (success) {
-      return (
-        <Redirect
-          to={{
-            pathname: "/orderSummary",
-            state: {
-              orderObject: undefined,
-              orders,
-              orderNos: orderNos,
-              totalPrice: totalPrice,
-            },
-          }}
-        />
-      );
-    }
+    // if (success) {
+    //   return (
+    //     <Redirect exact
+    //       to={{
+    //         pathname: "/orderSummary",
+    //         state: {
+    //           orderObject: undefined,
+    //           orders,
+    //           orderNos: orderNos,
+    //           totalPrice: totalPrice,
+    //         },
+    //       }}
+    //     />
+    //   );
+    // }
 
     if (showMDDetails) {
       return (

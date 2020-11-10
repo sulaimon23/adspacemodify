@@ -37,7 +37,7 @@ import SignUp from "./views/SignUp/SignUp";
 import Location from "./views/Locations/Locations";
 import Booking from "./views/Booking/Booking";
 import ContactUs from "./views/ContactUs/ContactUs";
-import Profiled from "./views/Profiled/index.js";
+import Profiled from "./views/Profiled/index.jsx";
 import OrderSummary from "./views/Locations/OrderSummary";
 import Branding from "./views/Branding/Branding.js";
 import "./index.css";
