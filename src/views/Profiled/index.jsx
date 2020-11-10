@@ -1644,7 +1644,7 @@ class Profile extends Component {
       return brands.map((brand, index) => {
         const { ages, gender, interests, brandName } = brand;
         return (
-          <GridContainer key={index}>
+          <GridContainer key={index} style={{ marginTop: 30 }}>
             <GridItem xs={12} md={12} sm={12}>
               <GridContainer>
                 <GridItem sm={2} md={2} lg={2} />
@@ -1673,11 +1673,13 @@ class Profile extends Component {
                   <FormControl
                     style={{ marginTop: 10, marginBottom: 50, zIndex: 999999 }}
                     fullWidth
-                    // className={classes.selectFormControl}
+                    className={classes.FormControl}
                   >
                     <InputLabel
                       htmlFor="simple-select"
-                      className={classes.selectLabel}
+                      //   className={classes.selectLabel}
+                      style={{ zIndex: -2999999999 }}
+                      shrink={false}
                     >
                       Age (choose 2)
                     </InputLabel>
@@ -1700,8 +1702,8 @@ class Profile extends Component {
                           horizontal: "left",
                         },
                         transformOrigin: {
-                          vertical: "top",
-                          horizontal: "left",
+                          vertical: "center",
+                          horizontal: "top",
                         },
                         getContentAnchorEl: null,
                       }}
@@ -3728,7 +3730,11 @@ class Profile extends Component {
                                   <button
                                     className="btn btn-primary btn-md"
                                     onClick={() => this.handleBookClick()}
-                                    style={{ marginRight: 20 }}
+                                    style={{
+                                      marginRight: 20,
+                                      color: "black",
+                                      background: "yellow",
+                                    }}
                                   >
                                     Next
                                   </button>
