@@ -148,7 +148,7 @@ class Profile extends Component {
     super(props);
 
     this.state = {
-      maxim: 0,
+      maxim: [],
       chartData: false,
       selectedEnabled: 0,
       branding: "",
@@ -198,7 +198,8 @@ class Profile extends Component {
       pageNumber: 0,
       status: 0,
       reset: false,
-      hello: []
+      hello: [],
+      lengthOfItems: 0,
     };
   }
 
@@ -227,14 +228,40 @@ class Profile extends Component {
 
   sholl = () => {
     this.getChartData();
-    console.log('chartdata')
+    console.log(this.getChartData,'chartdata')
   }
 
   
    getChartData = () => {
 
+    const allThings = this.props.originalLocationsArray.filter(
+      (element) => element.userAddedQuantity > 0
+    );
+
+    
+    function getRandomColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+    let ranDom = '';
+    
+    for (let i = 0; i < allThings.length; i++) {
+      ranDom  = getRandomColor()
+      
+      return ranDom
+    }      
+
+    const some = ['']
+    some.push(ranDom)
+    console.log(some , 'some')
+
+
   const chartData = {
-    labels:this.state.hello,
+    labels:[this.state.hello],
     datasets: [
       {
         label: "Population",
@@ -651,16 +678,21 @@ class Profile extends Component {
       addReduceQuantity,
       displayMDMessage,
       addReduceQuantityByInput,
+      originalLocationsArray
     } = this.props;
     const { noticeModal, location, pageNumber, hello ,maxim} = this.state;
     let paginatedArray = [];
 
-
-   const  addUpdate = (locationData) =>{
+    
+    const  addUpdate = (locationData) =>{
       addReduceQuantity(locationData.id, "add")
-      this.setState({hello: [...hello, locationData.name]})
-      this.setState({maxim: locationData.userAddedQuantity + 2})
-      console.log(maxim, 'weray')
+    
+
+      
+
+      this.setState({hello: [locationData.category.name, ...hello]})
+      console.log(hello, 'weray')
+      
     }
   
 
