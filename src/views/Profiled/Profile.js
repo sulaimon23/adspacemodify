@@ -100,7 +100,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Datetime from "react-datetime";
 import classNames from "classnames";
 
-import BookingDetails from "../MediaPlanning/BookingDetails";
+import BookingDetails from "../MediaPlanning/BookingDetail.js";
 import "../MediaPlanning/mediaplanning.scss";
 import Clearfix from "../../components/Clearfix/Clearfix";
 import Accordion from "../../components/Accordion/Accordion";
@@ -148,7 +148,7 @@ class Profile extends Component {
     super(props);
 
     this.state = {
-      maxim: [],
+      maxim: 0,
       chartData: false,
       selectedEnabled: 0,
       branding: "",
@@ -234,34 +234,8 @@ class Profile extends Component {
   
    getChartData = () => {
 
-    const allThings = this.props.originalLocationsArray.filter(
-      (element) => element.userAddedQuantity > 0
-    );
-
-    
-    function getRandomColor() {
-      var letters = '0123456789ABCDEF';
-      var color = '#';
-      for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-    }
-    let ranDom = '';
-    
-    for (let i = 0; i < allThings.length; i++) {
-      ranDom  = getRandomColor()
-      
-      return ranDom
-    }      
-
-    const some = ['']
-    some.push(ranDom)
-    console.log(some , 'some')
-
-
   const chartData = {
-    labels:[this.state.hello],
+    labels:this.state.hello,
     datasets: [
       {
         label: "Population",
@@ -685,14 +659,18 @@ class Profile extends Component {
 
     
     const  addUpdate = (locationData) =>{
+
+      const allThings = originalLocationsArray.filter(
+        (element) => element.userAddedQuantity > 0
+      );
       addReduceQuantity(locationData.id, "add")
-    
-
-      
-
-      this.setState({hello: [locationData.category.name, ...hello]})
-      console.log(hello, 'weray')
-      
+      let over = []
+      over.push(allThings.length)
+      this.setState({hello: [...hello,locationData.userAddedQuantity]})
+      this.setState({maxim: over})
+      console.log(locationData.category, 'weray')
+      console.log(maxim, 'maxim')
+      console.log(allThings.length , 'allthings')
     }
   
 

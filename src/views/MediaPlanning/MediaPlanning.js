@@ -71,7 +71,7 @@ import Badge from "../../components/Badge/Badge";
 import Radio from "@material-ui/core/Radio";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { numberWithCommas, substringText, formatCurrency } from "../../utils";
-import BookingDetails from "./BookingDetails";
+import BookingDetails from "./BookingDetail.js";
 import { element } from "prop-types";
 import Instruction from "../../components/Instruction/Instruction";
 import moment from "moment";
