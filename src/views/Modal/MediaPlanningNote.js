@@ -28,11 +28,11 @@ export default function MediaAlertDialog({ callback }) {
     };
     return (
         <div>
-            <Button color="info"
+            <span 
                 onClick={handleClickOpen}
             >
-                Pay with Cheque/Bank Transfer
-</Button>
+                Confirm
+</span>
             <Dialog
                 open={open}
                 onClose={handleClose}

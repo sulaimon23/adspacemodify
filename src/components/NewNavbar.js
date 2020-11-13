@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './NewNavbar.scss'
 import logo from '../assets/images/logo1.png'
 import logotext from '../assets/images/logotext.png'
@@ -10,9 +10,11 @@ import { connect } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { numberWithCommas, substringText, formatCurrency } from "../utils"
 
-function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser, totalPrice, exchange, currency: totalCurrency,handleBookClick}) {
+function NewNavbar({isAuthenticated,toggleSidebar, authUser, categoriesArray, logOutUser, totalPrice, exchange, currency: totalCurrency,handleBookClick}) {
     const dispatch = useDispatch();
     const currency = useSelector((state) => state.paymentType.currency);
+
+
     const changeCurrency = (curr) => {
         dispatch({
         type: "CHANGE_CURRENCY",
@@ -26,6 +28,9 @@ function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser, tota
         isAuthenticated === undefined ||
         isAuthenticated === null
     );
+
+   
+
 
     let user = authUser || "";
     let categories = categoriesArray || [];
@@ -56,8 +61,10 @@ function NewNavbar({isAuthenticated, authUser, categoriesArray, logOutUser, tota
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse " id="navbarSupportedContent-555">
-                    <a id="toggle_btn">
-                        <i class="fe fe-text-align-left"></i>
+                    <a id="toggle_btn" onClick={() => toggleSidebar()}
+                    style={{cursor:'pointer'}}
+                 >
+                        <i class="fe fe-text-align-left" ></i>
                     </a>
                     {/* <div class="top-nav-search">
             <form action="">
@@ -166,5 +173,6 @@ const mapStateToProps = ({ mediaplanning, paymentType }) => {
 export default connect(
     mapStateToProps,
     {
+        
        
 })(NewNavbar);

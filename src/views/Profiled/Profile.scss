@@ -176,16 +176,23 @@ hr.solid {
 .sidebar {
     background-color: #fff;
     box-shadow: 0px 6px 5px rgb(0, 0, 0);
-    transition: all 0.2s ease-in-out 0s;
     padding-top: 30px;
     margin-right: 10px;
     height: 100vh;
     margin-top: 40px;
     overflow: auto;
     padding-bottom: 30px;
+    overflow-x: hidden !important;
 }
 .sidebar-li{
     align-items: center;
+    z-index: -1;
+    min-width: 250px;
+    // position: fixed;
+}
+.collapse{
+    min-width: 250px !important;
+    z-index: -99;
 }
 .sidebar-li span{
     color: rgb(53, 50, 50);
@@ -214,16 +221,28 @@ hr.solid {
     }
     .rowl .left{
         width: 20% !important;
+        // transition: ease-in-out all 0.2s;
+    }
+    .rowl .left2{
+        width: 5% !important;
+        overflow: hidden !important;
+        transition: ease-in all 0.1s;
+    }
+    .rowl .main2{
+        width: 95% !important ;
+        // transition: ease-in-out all 0.2s;
     }
     .rowl .main{
         width: 80% !important;  
         padding-right: 10px;
+        // transition: ease-in-out all 0.2s;
     }
 a{
     text-decoration: none !important;
 }
 .sidebar-li i{
     color: blue !important;
+    margin-right: 13px;
 }
 .sidebar::-webkit-scrollbar {
     width: 5px;

@@ -107,7 +107,7 @@ class Booking extends Component {
        <NewNavbar isAuthenticated={isAuthenticated}
               user={user}
               logOutUser={() => logOut()} />
-        <div className={classes.main} style={{ marginBottom: 30 }}>
+        <div className={classes.main} style={{ marginBottom: 50 }}>
           <div className={classes.sectionTestimonials}>
             <div className={classes.container}>
               <GridContainer justify="center">

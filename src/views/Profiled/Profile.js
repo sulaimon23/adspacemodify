@@ -100,7 +100,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Datetime from "react-datetime";
 import classNames from "classnames";
 
-import BookingDetails from "../MediaPlanning/BookingDetail.js";
+import BookingDetails from "../MediaPlanning/BookingDetail.jsx";
 import "../MediaPlanning/mediaplanning.scss";
 import Clearfix from "../../components/Clearfix/Clearfix";
 import Accordion from "../../components/Accordion/Accordion";
@@ -148,6 +148,7 @@ class Profile extends Component {
     super(props);
 
     this.state = {
+      showSidebar: false,
       maxim: 0,
       chartData: false,
       selectedEnabled: 0,
@@ -224,7 +225,10 @@ class Profile extends Component {
     this.props.getAllLocations();
   }
 
-  
+  toggleSidebar = () => {
+    console.log('clickedddd')
+    this.setState({showSidebar: !this.state.showSidebar})
+}
 
   sholl = () => {
     this.getChartData();
@@ -1349,15 +1353,15 @@ class Profile extends Component {
     }
   }
 
-  openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-  }
+  // openNav() {
+  //   document.getElementById("mySidenav").style.width = "250px";
+  //   document.getElementById("main").style.marginLeft = "250px";
+  // }
 
-  closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft = "0";
-  }
+  // closeNav() {
+  //   document.getElementById("mySidenav").style.width = "0";
+  //   document.getElementById("main").style.marginLeft = "0";
+  // }
 
   handleSave() {
     const {
@@ -2815,14 +2819,17 @@ class Profile extends Component {
           totalPrice={totalPrice}
           showMDbooking={showMDbooking}
           handleBookClick={() => this.handleBookClick()}
+          toggleSidebar={() =>this.toggleSidebar()}
         />
 
         {loading && <LinearProgress />}
 
         <div>
           <div className="rowl">
-            <div className="left">
-              <div className="sidebar">
+            <div className={`${ !this.state.showSidebar? "left" : "left2"}`}>
+              <div className="sidebar" 
+                
+              >
                 <span className="menu-title">main</span>
                 <ToastContainer />
 
@@ -2863,7 +2870,7 @@ class Profile extends Component {
                       </div>
                     </a>
                   </p>
-
+                  {this.state.showSidebar ? '' :
                   <div class="collapse" id="collapseExample">
                     <div style={{ marginTop: "-30px" }}>
                       <div
@@ -3008,6 +3015,7 @@ class Profile extends Component {
                       )}
                     </div>
                   </div>
+  }
                 </div>
 
                 <div>
@@ -3033,6 +3041,7 @@ class Profile extends Component {
                       </div>
                     </a>
                   </p>
+                  { this.state.showSidebar ? '' : 
 
                   <div class="collapse" id="collapseExample2">
                     <FormControl fullWidth style={{ marginTop: -30 }}>
@@ -3062,6 +3071,7 @@ class Profile extends Component {
                       </Select>
                     </FormControl>
                   </div>
+  }
                 </div>
 
                 <div className="sidebar-li" onClick={this.addOne}>
@@ -3111,7 +3121,8 @@ class Profile extends Component {
                 </div>
               </div>
             </div>
-            <div className="main" style={{ height: "110vh", overflow: "auto" }}>
+            
+            <div className={`${ !this.state.showSidebar? "main" : "main2"}`} style={{ height: "110vh", overflow: "auto" }}>
               <div>
                 {this.state.stage === 0 && (
                   <GridContainer justify="center" style={{ marginTop: 70 }}>
@@ -3708,7 +3719,7 @@ class Profile extends Component {
 
                                   <h4
                                     className={`${
-                                      totalPrice === 0 ? "nav_con" : "nav_con2"
+                                      totalPrice === 0 ? "nav_con" : "nav_con"
                                     }`}
                                     onClick={this.sholl}
                                   >
@@ -3743,6 +3754,8 @@ class Profile extends Component {
                                       marginRight: 20,
                                       color: "black",
                                       background: "yellow",
+                                      border: 'none',
+                                      fontWeight: 900
                                     }}
                                   >
                                     Next

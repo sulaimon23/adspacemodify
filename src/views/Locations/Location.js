@@ -449,7 +449,7 @@ class Location extends Component {
 
     return (
       <>
-        <GridContainer justify="flex-end">
+        <GridContainer justify="flex-end" style={{marginBottom: 30}} >
           <GridItem xs={12} sm={12} md={12}>
             <FormControl
               fullWidth
