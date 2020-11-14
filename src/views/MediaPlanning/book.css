@@ -6,3 +6,7 @@
     align-items: center;
     justify-content: space-around;
 }
+
+body{
+    font-family: "Montserrat", sans-serif !important
+}

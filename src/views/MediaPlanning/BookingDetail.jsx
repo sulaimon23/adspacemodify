@@ -82,6 +82,7 @@ const BookingDetails = ({
   originalLocationsArray,
   // totalPrice,
   // formatCurrency
+  showSidebar,
 }) => {
   const { exchange, currency } = useSelector((state) => state.paymentType);
   let vat = (7.5 / 100) * totalPrice;
@@ -260,23 +261,25 @@ const BookingDetails = ({
       });
     } else return [];
   }
+  // const { showSidebar } = this.props;
 
   function moreInfo(row) {
     let locationObject = row.original.location;
     const allThings = originalLocationsArray.filter(
       (element) => element.userAddedQuantity > 0
     );
+
     return (
       <div>
         <GridContainer>
           <GridItem md={12} sm={7} xs={7}>
             <div
               style={{
-                marginTop: 35,
+                // marginTop: 35,
                 marginRight: 15,
                 backgroundColor: "white",
               }}
-              className="try"
+              className={`${showSidebar === false ? "try2" : "trick"}`}
             >
               <div
                 style={{
@@ -291,8 +294,6 @@ const BookingDetails = ({
                   onClick={() => handleExport()}
                   style={{
                     textDecoration: "underline",
-                    fontWeight: 700,
-                    color: "blue",
                     cursor: "pointer",
                   }}
                 >
@@ -301,8 +302,6 @@ const BookingDetails = ({
                 <h6
                   style={{
                     textDecoration: "underline",
-                    fontWeight: 700,
-                    color: "blue",
                     cursor: "pointer",
                   }}
                   onClick={() => savePlan()}
@@ -310,7 +309,7 @@ const BookingDetails = ({
                   SAVE THIS PLAN
                 </h6>
                 <div>
-                  <h4 style={{ fontWeight: 600 }}>
+                  <h4>
                     Total |{" "}
                     <span
                       style={{
@@ -335,7 +334,7 @@ const BookingDetails = ({
                     marginRight: 20,
                     color: "black",
                     background: "yellow",
-                    fontWeight: 900,
+
                     border: "none",
                   }}
                 >
@@ -590,16 +589,16 @@ const BookingDetails = ({
               Header: "Price",
               accessor: "price",
               headerStyle: { textAlign: "center", fontWeight: 900 },
-              Footer: (
-                <span>
-                  <strong>
-                    Total:{" "}
-                    {numberWithCommas(
-                      formatCurrency(totalPrice, exchange, currency)
-                    )}
-                  </strong>
-                </span>
-              ),
+              // Footer: (
+              //   <span>
+              //     <strong>
+              //       Total:{" "}
+              //       {numberWithCommas(
+              //         formatCurrency(totalPrice, exchange, currency)
+              //       )}
+              //     </strong>
+              //   </span>
+              // ),
               style: { textAlign: "center" },
               sortable: false,
               filterable: false,
@@ -619,6 +618,7 @@ const BookingDetails = ({
           showPaginationBottom={false}
           // className="-striped -highlight"
           SubComponent={(row) => moreInfo(row)}
+          showSidebar={showSidebar}
           expanded={object}
           onExpandedChange={(newExpanded, index, event) => {
             openRowChange(index[0]);
@@ -635,7 +635,7 @@ const BookingDetails = ({
       <GridItem xs={12} sm={12} md={12} style={{ paddingBottom: 30 }}>
         <GridContainer>
           <GridItem xs={12} sm={12} md={3}>
-            <CustomInput
+            {/* <CustomInput
               labelText="CAMPAIGN / PRODUCT TITLE"
               id="campaign"
               formControlProps={{
@@ -650,7 +650,7 @@ const BookingDetails = ({
                   campaignTitleChange(e.target.value);
                 },
               }}
-            />
+            /> */}
           </GridItem>
         </GridContainer>
         <GridContainer
@@ -758,6 +758,8 @@ const mapStateToProps = ({
     ordersLoader,
     userInfo,
     selectedBrand,
+    // showSidebar,
+
     // success,
   } = profile;
   const { isAuthenticated, user } = login;
@@ -785,6 +787,7 @@ const mapStateToProps = ({
     openRow,
     savedPlans,
     savedPlan,
+    showSidebar,
   } = mediaplanning;
 
   return {
@@ -825,6 +828,7 @@ const mapStateToProps = ({
     openRow,
     savedPlans,
     savedPlan,
+    showSidebar,
   };
 };
 

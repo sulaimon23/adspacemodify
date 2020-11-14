@@ -44,17 +44,37 @@ position: -webkit-sticky;
   justify-content:space-between;
   width: 100%;
 }
-.try{
-  position: fixed !important;
-  z-index: 2 !important;
-  right: 1% !important;
-  padding: 2px !important;
-  top: 5%;
-  box-shadow: 2px 2px 3px black;
-  border-radius:5px;
-  padding-left: 10px !important;
-  width: 77%;
-}
+// .try{
+//   position: fixed !important;
+//   z-index: 2 !important;
+//   right: 1% !important;
+//   padding: 2px !important;
+//   top: 3.7%;
+//   box-shadow: 2px 2px 3px black;
+//   border-radius:5px;
+//   padding-left: 10px !important;
+//   width: 92%;
+//   color: blue;
+//   font-size: 14px !important;
+//   font-weight: 700 !important;
+//   font-family: 'Courier New', Courier, monospace !important;
+// }
+// .try2{
+//   position: fixed !important;
+//   z-index: 2 !important;
+//   right: 1% !important;
+//   padding: 2px !important;
+//   top: 3.7%;
+//   box-shadow: 2px 2px 3px black;
+//   border-radius:5px;
+//   padding-left: 10px !important;
+//   width: 78%;
+//   color: blue;
+//     font-size: 14px !important;
+//     font-weight: 700 !important;
+//   font-family: 'Courier New', Courier, monospace !important;
+
+// }
 
 @media (min-width: 320px) and (max-width: 480px) {
   .try{
@@ -68,7 +88,9 @@ position: -webkit-sticky;
   }
 }
 
-
+body{
+  font-family: "Montserrat", sans-serif !important
+}
 .makeStyles-cardBody-194 {
   flex: 1 1 auto;
   padding: 0.6rem 0.6rem !important;

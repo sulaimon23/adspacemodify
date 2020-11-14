@@ -40,7 +40,7 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_DISPLAY_MESSAGE:
             return { ...state, loading: false, error: true, message: action.payload, success: false, isAuthenticated: false , forgotPasswordEmailSent: false};
         case LOGIN_SET_AUTHENTICATED:
-            console.log(action.payload)
+            // console.log(action.payload)
             return { ...INITIAL_STATE, isAuthenticated: action.payload.set, user: action.payload.user, branding: action.payload.branding || false };
         case LOGOUT:
             return state;

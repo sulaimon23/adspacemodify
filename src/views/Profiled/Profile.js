@@ -15,6 +15,7 @@ import {
   getUserOrders,
   getAgeGenderInterests,
   saveBrandsProfile,
+  
   changeSelectedBrand,
   removeBrand,
   deleteAccount,
@@ -201,6 +202,8 @@ class Profile extends Component {
       reset: false,
       hello: [],
       lengthOfItems: 0,
+      types: [],
+      occurence: [],
     };
   }
 
@@ -239,19 +242,36 @@ class Profile extends Component {
    getChartData = () => {
 
   const chartData = {
-    labels:this.state.hello,
+    labels:this.state.types,
     datasets: [
       {
         label: "Population",
-        data: [617594, 181045, 153060, 106519, 105162, 95072],
+        data: this.state.occurence,
         backgroundColor: [
-          "rgba(255, 99, 132, 0.6)",
-          "rgba(54, 162, 235, 0.6)",
-          "rgba(255, 206, 86, 0.6)",
-          "rgba(75, 192, 192, 0.6)",
-          "rgba(153, 102, 255, 0.6)",
-          "rgba(255, 159, 64, 0.6)",
-          "rgba(255, 99, 132, 0.6)",
+          'Red',
+'Orange',
+'Yellow',
+'Green',
+'Blue',
+'Purple',
+'Brown',
+'Magenta',
+'Tan',
+'Cyan',
+'Olive',
+'Maroon',
+'Navy',
+'Aquamarine',
+'Turquoise',
+'Silver',
+'Lime',
+'Teal',
+'Indigo',
+'Violet',
+'Pink',
+'Black',
+'White',
+'Gray',
         ],
       },
     ],
@@ -662,20 +682,49 @@ class Profile extends Component {
     let paginatedArray = [];
 
     
-    const  addUpdate = (locationData) =>{
+    const  addUpdate = async (locationData) =>{
 
       const allThings = originalLocationsArray.filter(
         (element) => element.userAddedQuantity > 0
       );
       addReduceQuantity(locationData.id, "add")
-      let over = []
-      over.push(allThings.length)
-      this.setState({hello: [...hello,locationData.userAddedQuantity]})
-      this.setState({maxim: over})
-      console.log(locationData.category, 'weray')
-      console.log(maxim, 'maxim')
-      console.log(allThings.length , 'allthings')
+      
+        let newObj = {category: ''}
+        newObj.category = locationData.category.name
+        this.setState({hello: [...hello , newObj.category]})
+      
+
+        var arr = [ newObj.category,...hello];
+
+function foo(arr) {
+  var a = [],
+    b = [],
+    prev;
+
+  arr.sort();
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] !== prev) {
+      a.push(arr[i]);
+      b.push(1);
+    } else {
+      b[b.length - 1]++;
     }
+    prev = arr[i];
+  }
+
+  return [a, b];
+}
+
+
+var result = foo(arr);
+console.log(result)
+console.log('[' + result[0] + ']','[' + result[1] + ']')
+  this.setState({types:result[0]})
+  this.setState({occurence:result[1]})
+
+  console.log(result[0])
+
+}
   
 
 
@@ -3078,11 +3127,11 @@ class Profile extends Component {
                   <div>
                     <i
                       style={{ color: stage === 1 ? "blue" : null }}
-                      class="fa fa-bullseye"
+                      class="fa fa-cog"
                     ></i>
                   </div>
                   <span style={{ color: stage === 1 ? "blue" : null }}>
-                    Branding
+                    Campaign Settings
                   </span>
                 </div>
 
@@ -3205,6 +3254,7 @@ class Profile extends Component {
                         )
                       }
                       saveLoader={saveLoader}
+                      showSidebar={this.state.showSidebar}
                       saveMessage={saveMessage}
                       saveError={saveError}
                       campaignTitle={campaignTitle}
@@ -3662,11 +3712,13 @@ class Profile extends Component {
                               <div
                                 style={{
                                   marginTop: 35,
-                                  marginRight: 15,
+                                  marginRight: 10,
                                   backgroundColor: "white",
                                 }}
-                                className="try"
-                              >
+                                    className={`${
+                                      this.state.showSidebar === true ? "try2" : "try"
+                                    }`}
+                                >
                                 <div
                                   style={{
                                     height: 60,
@@ -3703,7 +3755,7 @@ class Profile extends Component {
                                   </div>
 
                                   <div>
-                                    <h4 style={{ fontWeight: 600 }}>
+                                    <h4 >
                                       Total |{" "}
                                       <span
                                         style={{
@@ -3854,6 +3906,7 @@ const mapStateToProps = ({
     openRow,
     savedPlans,
     savedPlan,
+    showSidebar
   } = mediaplanning;
 
   return {
@@ -3894,6 +3947,7 @@ const mapStateToProps = ({
     openRow,
     savedPlans,
     savedPlan,
+    showSidebar
   };
 };
 

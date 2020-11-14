@@ -147,6 +147,7 @@ class MediaPlanning extends Component {
       pageNumber: 0,
       status: 0,
       reset: false,
+
     };
   }
 
@@ -329,7 +330,7 @@ class MediaPlanning extends Component {
     if (location.discountedPrice && location.discountedPrice.checked) {
       return (
         <>
-          <span className={classNames(classes.price, classes.priceOld)} style={{ color: "#000", fontSize: "15px", fontWeight: "Bold" }}>
+          <span className={classNames(classes.price, classes.priceOld)} style={{ color: "#000" }}>
             {numberWithCommas(
               formatCurrency(
                 location.price || "",
@@ -339,7 +340,7 @@ class MediaPlanning extends Component {
             )}
             : {location.pricingOption.name}
           </span>
-          <span className={classNames(classes.price, classes.priceNew)} style={{ color: "#000", fontSize: "15px", fontWeight: "Bold" }}>
+          <span className={classNames(classes.price, classes.priceNew)} style={{ color: "#000" }}>
             {numberWithCommas(
               formatCurrency(
                 location.discountedPrice.value || 0,
@@ -354,7 +355,7 @@ class MediaPlanning extends Component {
     } else {
       return (
         <>
-        <span className={classNames(classes.price, classes.priceNew)} style={{ color: "#000", fontSize: "15px", fontWeight: "Bold" }}>
+        <span className={classNames(classes.price, classes.priceNew)} style={{ color: "#000", }}>
           {numberWithCommas(
             formatCurrency(
               location.price || "",
@@ -1033,7 +1034,8 @@ class MediaPlanning extends Component {
       savePlanToUserObject,
       savedPlan,
       savedPlanSelected,
-      savedPlans
+      savedPlans,
+      showSidebar
     } = this.props;
 
     if (!isAuthenticated) {
@@ -1105,6 +1107,7 @@ class MediaPlanning extends Component {
                 this.props.exchange
                     )
                   }
+                  showSidebar={this.props.showSidebar}
                   submit={() =>
                     submitAdspacesPaid(
                       originalLocationsArray.filter(
@@ -1171,7 +1174,7 @@ class MediaPlanning extends Component {
                   <h2>Plan. Buy. Monitor.</h2>
                 </GridItem>
 
-                <GridItem xs={12} md={2} sm={12} className="try">
+                <GridItem xs={12} md={2} sm={12} className={`${this.props.showSidebar ? 'try': 'try2'}`}>
                   <Card style={{ backgroundColor: "rgb(230, 47, 45)" }}>
                     <CardBody
                       onClick={() => this.handleBookClick()}
@@ -1471,7 +1474,7 @@ class MediaPlanning extends Component {
                         sm={12}
                         xs={12}
                       >
-                        <GridContainer>{this.renderMDAdSpaces()}</GridContainer>
+                        <GridContainer style={{width:'100%'}}>{this.renderMDAdSpaces()}</GridContainer>
                       </GridItem>
                       {locationsArray && locationsArray.length > 0 && (
                         <GridItem md={12} sm={12} xs={12}>
@@ -1531,7 +1534,9 @@ const mapStateToProps = ({ mediaplanning, login, paymentType }) => {
     citiesArray,
     openRow,
     savedPlans,
-    savedPlan
+    savedPlan,
+    showSidebar
+
   } = mediaplanning;
 
   const { isAuthenticated, user } = login;
@@ -1561,7 +1566,9 @@ const mapStateToProps = ({ mediaplanning, login, paymentType }) => {
     exchange,
     openRow,
     savedPlans,
-    savedPlan
+    savedPlan,
+    showSidebar
+
   };
 };
 

@@ -590,16 +590,16 @@ const BookingDetails = ({
               Header: "Price",
               accessor: "price",
               headerStyle: { textAlign: "center", fontWeight: 900 },
-              Footer: (
-                <span>
-                  <strong>
-                    Total:{" "}
-                    {numberWithCommas(
-                      formatCurrency(totalPrice, exchange, currency)
-                    )}
-                  </strong>
-                </span>
-              ),
+              // Footer: (
+              //   <span>
+              //     <strong>
+              //       Total:{" "}
+              //       {numberWithCommas(
+              //         formatCurrency(totalPrice, exchange, currency)
+              //       )}
+              //     </strong>
+              //   </span>
+              // ),
               style: { textAlign: "center" },
               sortable: false,
               filterable: false,
@@ -635,7 +635,7 @@ const BookingDetails = ({
       <GridItem xs={12} sm={12} md={12} style={{ paddingBottom: 30 }}>
         <GridContainer>
           <GridItem xs={12} sm={12} md={3}>
-            <CustomInput
+            {/* <CustomInput
               labelText="CAMPAIGN / PRODUCT TITLE"
               id="campaign"
               formControlProps={{
@@ -650,7 +650,7 @@ const BookingDetails = ({
                   campaignTitleChange(e.target.value);
                 },
               }}
-            />
+            /> */}
           </GridItem>
         </GridContainer>
         <GridContainer
