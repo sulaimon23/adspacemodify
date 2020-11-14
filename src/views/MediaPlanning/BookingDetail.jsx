@@ -275,11 +275,10 @@ const BookingDetails = ({
           <GridItem md={12} sm={7} xs={7}>
             <div
               style={{
-                // marginTop: 35,
+                marginTop: 35,
                 marginRight: 15,
                 backgroundColor: "white",
               }}
-              className={`${showSidebar === false ? "try2" : "trick"}`}
             >
               <div
                 style={{
@@ -288,28 +287,36 @@ const BookingDetails = ({
                   alignItems: "center",
                   display: "flex",
                   justifyContent: "space-between",
+                  marginTop: 35,
                 }}
+                className={`${showSidebar === true ? "try2" : "try"}`}
               >
-                <h6
+                <h4
                   onClick={() => handleExport()}
                   style={{
                     textDecoration: "underline",
                     cursor: "pointer",
+                    fontWeight: "bold",
                   }}
                 >
-                  EXPORT YOUR PLAN
-                </h6>
-                <h6
+                  Export Your Plan
+                </h4>
+                <h4
                   style={{
                     textDecoration: "underline",
                     cursor: "pointer",
+                    fontWeight: "bold",
                   }}
                   onClick={() => savePlan()}
                 >
-                  SAVE THIS PLAN
-                </h6>
+                  Save This Plan
+                </h4>
                 <div>
-                  <h4>
+                  <h4
+                    style={{
+                      fontWeight: "bold",
+                    }}
+                  >
                     Total |{" "}
                     <span
                       style={{
@@ -421,23 +428,81 @@ const BookingDetails = ({
             </p>
           </div>
           <div>
-            <Link
-              // to={`https://www.google.com/maps/search/?api=1&query=${locationObject.geolocation.latitude},${locationObject.geolocation.longitude}`}
-              to={`/mediaplanning-details/${locationObject.id}`}
-              target="_blank"
-              style={{ color: "#fff" }}
-            >
-              <h4
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <div
                 style={{
-                  textDecoration: "underline",
-                  fontWeight: 600,
-                  color: "blue",
-                  fontSize: 14,
+                  display: "flex",
+                  flexDirection: "column",
+                  paddingTop: 30,
+                  paddingLeft: 30,
                 }}
               >
-                Click to see details
-              </h4>
-            </Link>
+                <Link
+                  // to={`https://www.google.com/maps/search/?api=1&query=${locationObject.geolocation.latitude},${locationObject.geolocation.longitude}`}
+                  to={`/mediaplanning-details/${locationObject.id}`}
+                  target="_blank"
+                  style={{ color: "#fff" }}
+                >
+                  <h4
+                    style={{
+                      textDecoration: "underline",
+                      fontWeight: 600,
+                      color: "blue",
+                      fontSize: 14,
+                    }}
+                  >
+                    Click to see details
+                  </h4>
+                </Link>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  paddingTop: 30,
+                  paddingLeft: 30,
+                }}
+                className="cust"
+              >
+                <CustomFileInput
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  value={
+                    locationObject.adContent
+                      ? locationObject.adContent.file || undefined
+                      : undefined
+                  }
+                  inputProps={{
+                    placeholder: `${
+                      locationObject.adContent
+                        ? locationObject.adContent.name ||
+                          "Upload Ad Content..."
+                        : "Upload Ad Content..."
+                    }`,
+                  }}
+                  endButton={{
+                    buttonProps: {
+                      round: true,
+                      // color: "primary",
+                      justIcon: true,
+                      fileButton: true,
+                    },
+                    icon: <AttachFile />,
+                  }}
+                  onChange={(inputFiles, inputFileNames) =>
+                    onFileInputChange(
+                      inputFiles,
+                      inputFileNames,
+                      locationObject
+                    )
+                  }
+                />
+              </div>
+            </div>
           </div>
           <div>
             <div style={{ display: "flex", flexDirection: "row" }}>
@@ -494,42 +559,14 @@ const BookingDetails = ({
                   paddingTop: 30,
                   paddingLeft: 30,
                 }}
-                className="cust"
               >
-                <CustomFileInput
-                  formControlProps={{
-                    fullWidth: true,
-                  }}
-                  value={
-                    locationObject.adContent
-                      ? locationObject.adContent.file || undefined
-                      : undefined
-                  }
-                  inputProps={{
-                    placeholder: `${
-                      locationObject.adContent
-                        ? locationObject.adContent.name ||
-                          "Upload Ad Content..."
-                        : "Upload Ad Content..."
-                    }`,
-                  }}
-                  endButton={{
-                    buttonProps: {
-                      round: true,
-                      // color: "primary",
-                      justIcon: true,
-                      fileButton: true,
-                    },
-                    icon: <AttachFile />,
-                  }}
-                  onChange={(inputFiles, inputFileNames) =>
-                    onFileInputChange(
-                      inputFiles,
-                      inputFileNames,
-                      locationObject
-                    )
-                  }
-                />
+                <textarea
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="7"
+                  className="text_area"
+                ></textarea>
               </div>
             </div>
           </div>
@@ -618,7 +655,7 @@ const BookingDetails = ({
           showPaginationBottom={false}
           // className="-striped -highlight"
           SubComponent={(row) => moreInfo(row)}
-          showSidebar={showSidebar}
+          // showSidebar={showSidebar}
           expanded={object}
           onExpandedChange={(newExpanded, index, event) => {
             openRowChange(index[0]);
@@ -763,7 +800,7 @@ const mapStateToProps = ({
     // success,
   } = profile;
   const { isAuthenticated, user } = login;
-  const { agesArray, gendersArray, interestsArray } = branding;
+  const { agesArray, gendersArray, interestsArray, showSidebar } = branding;
   const { currency, exchange } = paymentType;
   const {
     // loading,
@@ -787,7 +824,6 @@ const mapStateToProps = ({
     openRow,
     savedPlans,
     savedPlan,
-    showSidebar,
   } = mediaplanning;
 
   return {

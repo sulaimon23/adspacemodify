@@ -1655,7 +1655,7 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
           <div>
             <h4
               className={classes.title}
-              style={{ textAlign: "center", color: grayColor[1] }}
+              style={{ textAlign: "center", color: 'white' }}
             >
               {" "}
             </h4>
@@ -3755,7 +3755,9 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
                                   </div>
 
                                   <div>
-                                    <h4 >
+                                    <h4 style={{
+                    fontWeight: "bold",
+                  }}   >
                                       Total |{" "}
                                       <span
                                         style={{
