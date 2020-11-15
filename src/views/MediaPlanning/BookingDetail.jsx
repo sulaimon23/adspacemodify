@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../../components/CustomButtons/Button";
 import GridContainer from "../../components/Grid/GridContainer";
 import NumericInput from "react-numeric-input";
@@ -80,11 +80,23 @@ const BookingDetails = ({
   onFileInputChange,
   savePlan,
   originalLocationsArray,
-  // totalPrice,
-  // formatCurrency
   showSidebar,
 }) => {
   const { exchange, currency } = useSelector((state) => state.paymentType);
+
+  const [planetData, setPlanetData] = useState([]);
+
+  useEffect(() => {
+    if (showSidebar) {
+      setPlanetData(showSidebar);
+    }
+  }, [showSidebar, setPlanetData]);
+
+  const [count, setCount] = useState(showSidebar);
+  useEffect(() => {
+    setCount(showSidebar);
+  }, [showSidebar]);
+
   let vat = (7.5 / 100) * totalPrice;
   totalPrice = totalPrice + vat;
 
@@ -261,7 +273,6 @@ const BookingDetails = ({
       });
     } else return [];
   }
-  // const { showSidebar } = this.props;
 
   function moreInfo(row) {
     let locationObject = row.original.location;
@@ -289,7 +300,7 @@ const BookingDetails = ({
                   justifyContent: "space-between",
                   marginTop: 35,
                 }}
-                className={`${showSidebar === true ? "try2" : "try"}`}
+                className={`${planetData ? "try2" : "try"}`}
               >
                 <h4
                   onClick={() => handleExport()}
@@ -655,7 +666,6 @@ const BookingDetails = ({
           showPaginationBottom={false}
           // className="-striped -highlight"
           SubComponent={(row) => moreInfo(row)}
-          // showSidebar={showSidebar}
           expanded={object}
           onExpandedChange={(newExpanded, index, event) => {
             openRowChange(index[0]);
@@ -795,12 +805,10 @@ const mapStateToProps = ({
     ordersLoader,
     userInfo,
     selectedBrand,
-    // showSidebar,
-
-    // success,
+    showSidebar,
   } = profile;
   const { isAuthenticated, user } = login;
-  const { agesArray, gendersArray, interestsArray, showSidebar } = branding;
+  const { agesArray, gendersArray, interestsArray } = branding;
   const { currency, exchange } = paymentType;
   const {
     // loading,

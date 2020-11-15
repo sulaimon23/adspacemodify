@@ -15,7 +15,6 @@ import {
   getUserOrders,
   getAgeGenderInterests,
   saveBrandsProfile,
-  
   changeSelectedBrand,
   removeBrand,
   deleteAccount,
@@ -208,7 +207,6 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-
     getAuth().onAuthStateChanged((user) => {
       if (user) {
         if (user.emailVerified === true)
@@ -229,58 +227,52 @@ class Profile extends Component {
   }
 
   toggleSidebar = () => {
-    console.log('clickedddd')
-    this.setState({showSidebar: !this.state.showSidebar})
-}
+    this.setState({ showSidebar: !this.state.showSidebar });
+  };
 
   sholl = () => {
     this.getChartData();
-    console.log(this.getChartData,'chartdata')
-  }
+    console.log(this.getChartData, "chartdata");
+  };
 
-  
-   getChartData = () => {
-
-  const chartData = {
-    labels:this.state.types,
-    datasets: [
-      {
-        label: "Population",
-        data: this.state.occurence,
-        backgroundColor: [
-          'Red',
-'Orange',
-'Yellow',
-'Green',
-'Blue',
-'Purple',
-'Brown',
-'Magenta',
-'Tan',
-'Cyan',
-'Olive',
-'Maroon',
-'Navy',
-'Aquamarine',
-'Turquoise',
-'Silver',
-'Lime',
-'Teal',
-'Indigo',
-'Violet',
-'Pink',
-'Black',
-'White',
-'Gray',
-        ],
-      },
-    ],
-    
-  }
-     return chartData
-  
-  }
-  
+  getChartData = () => {
+    const chartData = {
+      labels: this.state.types,
+      datasets: [
+        {
+          label: "Population",
+          data: this.state.occurence,
+          backgroundColor: [
+            "Red",
+            "Orange",
+            "Yellow",
+            "Green",
+            "Blue",
+            "Purple",
+            "Brown",
+            "Magenta",
+            "Tan",
+            "Cyan",
+            "Olive",
+            "Maroon",
+            "Navy",
+            "Aquamarine",
+            "Turquoise",
+            "Silver",
+            "Lime",
+            "Teal",
+            "Indigo",
+            "Violet",
+            "Pink",
+            "Black",
+            "White",
+            "Gray",
+          ],
+        },
+      ],
+    };
+    return chartData;
+  };
 
   handleToggleTags(value) {
     const {
@@ -676,57 +668,86 @@ class Profile extends Component {
       addReduceQuantity,
       displayMDMessage,
       addReduceQuantityByInput,
-      originalLocationsArray
+      originalLocationsArray,
     } = this.props;
-    const { noticeModal, location, pageNumber, hello ,maxim} = this.state;
+    const { noticeModal, location, pageNumber, hello, maxim } = this.state;
     let paginatedArray = [];
 
-    
-    const  addUpdate = async (locationData) =>{
+    const addUpdate = (locationData) => {
+      addReduceQuantity(locationData.id, "add");
 
-      const allThings = originalLocationsArray.filter(
-        (element) => element.userAddedQuantity > 0
-      );
-      addReduceQuantity(locationData.id, "add")
-      
-        let newObj = {category: ''}
-        newObj.category = locationData.category.name
-        this.setState({hello: [...hello , newObj.category]})
-      
+      let newObj = { category: "" };
+      newObj.category = locationData.category.name;
+      this.setState({ hello: [...hello, newObj.category] });
 
-        var arr = [ newObj.category,...hello];
+      var arr = [newObj.category, ...hello];
 
-function foo(arr) {
-  var a = [],
-    b = [],
-    prev;
+      function foo(arr) {
+        var a = [],
+          b = [],
+          prev;
 
-  arr.sort();
-  for (var i = 0; i < arr.length; i++) {
-    if (arr[i] !== prev) {
-      a.push(arr[i]);
-      b.push(1);
-    } else {
-      b[b.length - 1]++;
-    }
-    prev = arr[i];
-  }
+        arr.sort();
+        for (var i = 0; i < arr.length; i++) {
+          if (arr[i] !== prev) {
+            a.push(arr[i]);
+            b.push(1);
+          } else {
+            b[b.length - 1]++;
+          }
+          prev = arr[i];
+        }
 
-  return [a, b];
-}
+        return [a, b];
+      }
 
+      var result = foo(arr);
+      this.setState({ types: result[0] });
+      this.setState({ occurence: result[1] });
+    };
 
-var result = foo(arr);
-console.log(result)
-console.log('[' + result[0] + ']','[' + result[1] + ']')
-  this.setState({types:result[0]})
-  this.setState({occurence:result[1]})
+    const reduceUpdate = (locationData) => {
+      console.log(locationData);
+      addReduceQuantity(locationData.id, "reduce");
 
-  console.log(result[0])
+      var arr = [...hello];
+      console.log(arr, "first");
 
-}
-  
+      function foo(arr) {
+        const index = arr.indexOf(locationData.category.name);
+        if (index > -1) {
+          arr.splice(index, 1);
+        }
+        return arr;
+      }
+      var result = foo(arr);
+      console.log(result, "second");
 
+      this.setState({ hello: result });
+
+      function foot(arr) {
+        var a = [],
+          b = [],
+          prev;
+
+        arr.sort();
+        for (var i = 0; i < arr.length; i++) {
+          if (arr[i] !== prev) {
+            a.push(arr[i]);
+            b.push(1);
+          } else {
+            b[b.length - 1]++;
+          }
+          prev = arr[i];
+        }
+
+        return [a, b];
+      }
+
+      var result = foot(arr);
+      this.setState({ types: result[0] });
+      this.setState({ occurence: result[1] });
+    };
 
     if (locationsArray && locationsArray.length > 0) {
       paginatedArray = locationsArray.slice(
@@ -853,7 +874,7 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
                       className={classes.firstButton}
                       onClick={() =>
                         location.userAddedQuantity > 0
-                          ? addReduceQuantity(location.id, "reduce")
+                          ? reduceUpdate(location)
                           : ""
                       }
                       style={{ height: 20, width: 20, background: "#2962ff" }}
@@ -886,13 +907,14 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
                       size="sm"
                       round
                       className={classes.lastButton}
-                      onClick={() =>
-                        location.userAddedQuantity >= location.quantity
-                          ? displayMDMessage(
-                              "Note: Quantity increment will stop when it reaches the maximum quantity for the selected location"
-                            )
+                      onClick={
+                        () =>
+                          location.userAddedQuantity >= location.quantity
+                            ? displayMDMessage(
+                                "Note: Quantity increment will stop when it reaches the maximum quantity for the selected location"
+                              )
                             : addUpdate(location)
-                          // : addReduceQuantity(location.id, "add")
+                        // : addReduceQuantity(location.id, "add")
                       }
                       style={{ height: 20, width: 20, background: "#2962ff" }}
                     >
@@ -1655,7 +1677,7 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
           <div>
             <h4
               className={classes.title}
-              style={{ textAlign: "center", color: 'white' }}
+              style={{ textAlign: "center", color: "white" }}
             >
               {" "}
             </h4>
@@ -1740,166 +1762,195 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
       this.setState({ branding: value });
     }
   }
-  renderBrandingComponent(){
+  renderBrandingComponent() {
     const { classes, interestsArray, agesArray, gendersArray } = this.props;
-    const {  brands } = this.state;
-    if (brands){
-        return brands.map((brand, index) => {
-            const { ages, gender, interests, brandName } = brand;
-            return(
-                <GridContainer key={index}>
-                    <GridItem xs={12} md={12} sm={12}>
-                        <GridContainer>
-                            <GridItem sm={2} md={2} lg={2} />
-                            <GridItem xs={12} sm={12} md={6}>
-                                <CustomInput
-                                    formControlProps={{
-                                        fullWidth: true,
-                                        className: classes.customFormControlClasses
-                                    }}
-                                    value={brandName}
-                                    inputProps={{
-                                        type: "text",
-                                        onChange: (e) => {
-                                            this.handleInputChange(e.target.value, index, brands, 'brandname')
-                                        },
-                                        placeholder: "Brand Name..."
-                                    }}
-                                />
-                            </GridItem>
-                            <GridItem xs={12} md={4}>
-                                <FormControl style={{ marginTop: 10}} fullWidth className={classes.selectFormControl}>
-                                    <InputLabel
-                                        htmlFor="simple-select"
-                                        className={classes.selectLabel}
-                                    >
-                                        Age (choose 2)
-                                    </InputLabel>
-                                    <Select
-                                        multiple
-                                        value={ages}
-                                        onChange={(e) => this.handleInputChange(e.target.value, index, brands, 'ages')}
-                                        MenuProps={{
-                                            className: classes.selectMenu,
-                                            classes: { paper: classes.selectPaper }
-                                        }}
-                                        classes={{ select: classes.select }}
-                                        inputProps={{
-                                            name: "multipleSelect",
-                                            id: "multiple-select"
-                                        }}
-                                    >
-                                        {agesArray && (
-                                            agesArray.map((item, index) => {
-                                                return(
-                                                    <MenuItem
-                                                        key={index}
-                                                        classes={{
-                                                            root: classes.selectMenuItem,
-                                                            selected: classes.selectMenuItemSelectedMultiple
-                                                        }}
-                                                        value={item.id}
-                                                    >
-                                                        {`${item.min || ''} - ${item.max || ''}`}
-                                                    </MenuItem>
-                                                )
-                                            })
-                                        )}
-                                    </Select>
-                                </FormControl>
-                            </GridItem>
-                        </GridContainer>
-                        <GridContainer>
-                            <GridItem sm={2} md={2} lg={2} />
-                            <GridItem xs={12} md={6}>
-                                <FormControl fullWidth className={classes.selectFormControl}>
-                                    <InputLabel
-                                        htmlFor="simple-select"
-                                        className={classes.selectLabel}
-                                    >
-                                        Select Interests (choose 2)
-                                    </InputLabel>
-                                    <Select
-                                        multiple
-                                        value={interests}
-                                        onChange={(e) => this.handleInputChange(e.target.value, index, brands, 'interests')}
-                                        MenuProps={{
-                                            className: classes.selectMenu,
-                                            classes: { paper: classes.selectPaper }
-                                        }}
-                                        classes={{ select: classes.select }}
-                                        inputProps={{
-                                            name: "multipleSelect",
-                                            id: "multiple-select"
-                                        }}
-                                    >
-                                        {interestsArray && (
-                                            interestsArray.map((item, index) => {
-                                                return(
-                                                    <MenuItem
-                                                        key={index}
-                                                        classes={{
-                                                            root: classes.selectMenuItem,
-                                                            selected: classes.selectMenuItemSelectedMultiple
-                                                        }}
-                                                        value={item.id}
-                                                    >
-                                                        {item.description || ''}
-                                                    </MenuItem>
-                                                )
-                                            })
-                                        )}
-                                    </Select>
-                                </FormControl>
-                            </GridItem>
-                            <GridItem xs={12} md={4}>
-                                <FormControl fullWidth className={classes.selectFormControl}>
-                                    <InputLabel
-                                        htmlFor="simple-select"
-                                        className={classes.selectLabel}
-                                    >
-                                        Gender
-                                    </InputLabel>
-                                    <Select
-                                        MenuProps={{
-                                            className: classes.selectMenu
-                                        }}
-                                        classes={{
-                                            select: classes.select
-                                        }}
-                                        value={gender}
-                                        onChange={(e) => this.handleInputChange(e.target.value, index, brands, 'gender')}
-                                        inputProps={{
-                                            name: "simpleSelect",
-                                            id: "simple-select"
-                                        }}
-                                    >
-                                        {gendersArray && (
-                                            gendersArray.map((item, index) => {
-                                                return(
-                                                    <MenuItem
-                                                        key={index}
-                                                        classes={{
-                                                            root: classes.selectMenuItem,
-                                                            selected: classes.selectMenuItemSelected
-                                                        }}
-                                                        value={item.id}
-                                                    >
-                                                        {item.description || ''}
-                                                    </MenuItem>
-                                                )
-                                            })
-                                        )}
-                                    </Select>
-                                </FormControl>
-                            </GridItem>
-                        </GridContainer>
-                    </GridItem>
-                </GridContainer>
-            )
-        })
+    const { brands } = this.state;
+    if (brands) {
+      return brands.map((brand, index) => {
+        const { ages, gender, interests, brandName } = brand;
+        return (
+          <GridContainer key={index}>
+            <GridItem xs={12} md={12} sm={12}>
+              <GridContainer>
+                <GridItem sm={2} md={2} lg={2} />
+                <GridItem xs={12} sm={12} md={6}>
+                  <CustomInput
+                    formControlProps={{
+                      fullWidth: true,
+                      className: classes.customFormControlClasses,
+                    }}
+                    value={brandName}
+                    inputProps={{
+                      type: "text",
+                      onChange: (e) => {
+                        this.handleInputChange(
+                          e.target.value,
+                          index,
+                          brands,
+                          "brandname"
+                        );
+                      },
+                      placeholder: "Brand Name...",
+                    }}
+                  />
+                </GridItem>
+                <GridItem xs={12} md={4}>
+                  <FormControl
+                    style={{ marginTop: 10 }}
+                    fullWidth
+                    className={classes.selectFormControl}
+                  >
+                    <InputLabel
+                      htmlFor="simple-select"
+                      className={classes.selectLabel}
+                    >
+                      Age (choose 2)
+                    </InputLabel>
+                    <Select
+                      multiple
+                      value={ages}
+                      onChange={(e) =>
+                        this.handleInputChange(
+                          e.target.value,
+                          index,
+                          brands,
+                          "ages"
+                        )
+                      }
+                      MenuProps={{
+                        className: classes.selectMenu,
+                        classes: { paper: classes.selectPaper },
+                      }}
+                      classes={{ select: classes.select }}
+                      inputProps={{
+                        name: "multipleSelect",
+                        id: "multiple-select",
+                      }}
+                    >
+                      {agesArray &&
+                        agesArray.map((item, index) => {
+                          return (
+                            <MenuItem
+                              key={index}
+                              classes={{
+                                root: classes.selectMenuItem,
+                                selected:
+                                  classes.selectMenuItemSelectedMultiple,
+                              }}
+                              value={item.id}
+                            >
+                              {`${item.min || ""} - ${item.max || ""}`}
+                            </MenuItem>
+                          );
+                        })}
+                    </Select>
+                  </FormControl>
+                </GridItem>
+              </GridContainer>
+              <GridContainer>
+                <GridItem sm={2} md={2} lg={2} />
+                <GridItem xs={12} md={6}>
+                  <FormControl fullWidth className={classes.selectFormControl}>
+                    <InputLabel
+                      htmlFor="simple-select"
+                      className={classes.selectLabel}
+                    >
+                      Select Interests (choose 2)
+                    </InputLabel>
+                    <Select
+                      multiple
+                      value={interests}
+                      onChange={(e) =>
+                        this.handleInputChange(
+                          e.target.value,
+                          index,
+                          brands,
+                          "interests"
+                        )
+                      }
+                      MenuProps={{
+                        className: classes.selectMenu,
+                        classes: { paper: classes.selectPaper },
+                      }}
+                      classes={{ select: classes.select }}
+                      inputProps={{
+                        name: "multipleSelect",
+                        id: "multiple-select",
+                      }}
+                    >
+                      {interestsArray &&
+                        interestsArray.map((item, index) => {
+                          return (
+                            <MenuItem
+                              key={index}
+                              classes={{
+                                root: classes.selectMenuItem,
+                                selected:
+                                  classes.selectMenuItemSelectedMultiple,
+                              }}
+                              value={item.id}
+                            >
+                              {item.description || ""}
+                            </MenuItem>
+                          );
+                        })}
+                    </Select>
+                  </FormControl>
+                </GridItem>
+                <GridItem xs={12} md={4}>
+                  <FormControl fullWidth className={classes.selectFormControl}>
+                    <InputLabel
+                      htmlFor="simple-select"
+                      className={classes.selectLabel}
+                    >
+                      Gender
+                    </InputLabel>
+                    <Select
+                      MenuProps={{
+                        className: classes.selectMenu,
+                      }}
+                      classes={{
+                        select: classes.select,
+                      }}
+                      value={gender}
+                      onChange={(e) =>
+                        this.handleInputChange(
+                          e.target.value,
+                          index,
+                          brands,
+                          "gender"
+                        )
+                      }
+                      inputProps={{
+                        name: "simpleSelect",
+                        id: "simple-select",
+                      }}
+                    >
+                      {gendersArray &&
+                        gendersArray.map((item, index) => {
+                          return (
+                            <MenuItem
+                              key={index}
+                              classes={{
+                                root: classes.selectMenuItem,
+                                selected: classes.selectMenuItemSelected,
+                              }}
+                              value={item.id}
+                            >
+                              {item.description || ""}
+                            </MenuItem>
+                          );
+                        })}
+                    </Select>
+                  </FormControl>
+                </GridItem>
+              </GridContainer>
+            </GridItem>
+          </GridContainer>
+        );
+      });
     }
-}
+  }
 
   renderBrandsDetails(brand, index) {
     const {
@@ -2852,7 +2903,7 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
     const allThings = originalLocationsArray.filter(
       (element) => element.userAddedQuantity > 0
     );
-      // const datas = this.getChartData()()
+    // const datas = this.getChartData()()
     return (
       <div>
         {this.renderDeleteAccountModal(classes)}
@@ -2868,17 +2919,15 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
           totalPrice={totalPrice}
           showMDbooking={showMDbooking}
           handleBookClick={() => this.handleBookClick()}
-          toggleSidebar={() =>this.toggleSidebar()}
+          toggleSidebar={() => this.toggleSidebar()}
         />
 
         {loading && <LinearProgress />}
 
         <div>
           <div className="rowl">
-            <div className={`${ !this.state.showSidebar? "left" : "left2"}`}>
-              <div className="sidebar" 
-                
-              >
+            <div className={`${!this.state.showSidebar ? "left" : "left2"}`}>
+              <div className="sidebar">
                 <span className="menu-title">main</span>
                 <ToastContainer />
 
@@ -2919,152 +2968,158 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
                       </div>
                     </a>
                   </p>
-                  {this.state.showSidebar ? '' :
-                  <div class="collapse" id="collapseExample">
-                    <div style={{ marginTop: "-30px" }}>
-                      <div
-                        className={classes.cardTitle + " " + classes.textLeft}
-                        style={{
-                          marginTop: 30,
-                          overflow: "hidden",
-                          paddingLeft: 32,
-                          paddingRight: 32,
-                        }}
-                      >
-                        <Tooltip
-                          id="tooltip-top"
-                          title="Refresh Results"
-                          placement="top"
-                          classes={{ tooltip: classes.tooltip }}
-                        >
-                          <Button
-                            link
-                            justIcon
-                            size="sm"
-                            className={
-                              classes.pullLeft + " " + classes.refineButton
-                            }
-                            onClick={() => this.props.getAllLocations()}
-                          >
-                            <RefreshOutlined />
-                            Refresh
-                          </Button>
-                        </Tooltip>
-                        <Tooltip
-                          id="tooltip-top"
-                          title="Reset Filter"
-                          placement="top"
-                          classes={{ tooltip: classes.tooltip }}
-                        >
-                          <Button
-                            link
-                            justIcon
-                            size="sm"
-                            className={
-                              classes.pullRight + " " + classes.refineButton
-                            }
-                            onClick={() =>
-                              this.setState({
-                                checkedStates: [],
-                                checkedCategories: [],
-                                checkedTags: [],
-                                checkedCities: [],
-                                checkedSubCategories: [],
-                                reset: true,
-                              })
-                            }
-                          >
-                            <FormatColorResetOutlined />
-                            reset
-                          </Button>
-                        </Tooltip>
-                        <Clearfix />
-                      </div>
-                      <div
-                        style={{
-                          marginTop: "20px",
-                          paddingLeft: 10,
-                          paddingRight: 10,
-                        }}
-                      >
-                        <FormControl
-                          variant="outlined"
-                          fullWidth
+                  {this.state.showSidebar ? (
+                    ""
+                  ) : (
+                    <div class="collapse" id="collapseExample">
+                      <div style={{ marginTop: "-30px" }}>
+                        <div
+                          className={classes.cardTitle + " " + classes.textLeft}
                           style={{
-                            background: "black",
-                            paddingTop: 0,
-                            paddingBottom: 5,
-                            paddingLeft: 5,
-                            paddingRight: 30,
-                            borderRadius: "7px",
+                            marginTop: 30,
+                            overflow: "hidden",
+                            paddingLeft: 32,
+                            paddingRight: 32,
                           }}
                         >
-                          <Datetime
-                            style={{ borderWidth: 0, width: "80%" }}
-                            timeFormat={false}
-                            isValidDate={valid}
-                            value={startDate}
-                            inputProps={{
-                              placeholder: "Start Date",
-                            }}
-                            onChange={(e) => this.setState({ startDate: e })}
-                            // onBlur={this.closeTime}
-                          />
-                          <i
-                            className="fe fe-close icen"
-                            onClick={this.closeTime}
-                          ></i>
-                        </FormControl>
-                      </div>
-                      {showMediaLinks && (
-                        <div style={{ background: "#fff", marginTop: "0" }}>
-                          <div className={classes.cardBodyRefine}>
-                            <Accordion
-                              active={[0, 1, 2, 3, 4]}
-                              activeColor="rose"
-                              collapses={[
-                                {
-                                  title: "Adtype",
-                                  content: (
-                                    <div className={classes.customExpandPanel}>
-                                      <div
-                                        className={
-                                          classes.checkboxAndRadio +
-                                          " " +
-                                          classes.checkboxAndRadioHorizontal
-                                        }
-                                        style={{ height: "120px" }}
-                                      >
-                                        {this.renderCategoriesMD()}
-                                      </div>
-                                    </div>
-                                  ),
-                                },
-                                {
-                                  title: "States",
-                                  content: (
-                                    <div className={classes.customExpandPanel}>
-                                      <div
-                                        className={
-                                          classes.checkboxAndRadio +
-                                          " " +
-                                          classes.checkboxAndRadioHorizontal
-                                        }
-                                        style={{ height: "120px" }}
-                                      >
-                                        {this.renderStatesMD()}
-                                      </div>
-                                    </div>
-                                  ),
-                                },
-                              ]}
-                            />
-                          </div>
+                          <Tooltip
+                            id="tooltip-top"
+                            title="Refresh Results"
+                            placement="top"
+                            classes={{ tooltip: classes.tooltip }}
+                          >
+                            <Button
+                              link
+                              justIcon
+                              size="sm"
+                              className={
+                                classes.pullLeft + " " + classes.refineButton
+                              }
+                              onClick={() => this.props.getAllLocations()}
+                            >
+                              <RefreshOutlined />
+                              Refresh
+                            </Button>
+                          </Tooltip>
+                          <Tooltip
+                            id="tooltip-top"
+                            title="Reset Filter"
+                            placement="top"
+                            classes={{ tooltip: classes.tooltip }}
+                          >
+                            <Button
+                              link
+                              justIcon
+                              size="sm"
+                              className={
+                                classes.pullRight + " " + classes.refineButton
+                              }
+                              onClick={() =>
+                                this.setState({
+                                  checkedStates: [],
+                                  checkedCategories: [],
+                                  checkedTags: [],
+                                  checkedCities: [],
+                                  checkedSubCategories: [],
+                                  reset: true,
+                                })
+                              }
+                            >
+                              <FormatColorResetOutlined />
+                              reset
+                            </Button>
+                          </Tooltip>
+                          <Clearfix />
                         </div>
-                      )}
+                        <div
+                          style={{
+                            marginTop: "20px",
+                            paddingLeft: 10,
+                            paddingRight: 10,
+                          }}
+                        >
+                          <FormControl
+                            variant="outlined"
+                            fullWidth
+                            style={{
+                              background: "black",
+                              paddingTop: 0,
+                              paddingBottom: 5,
+                              paddingLeft: 5,
+                              paddingRight: 30,
+                              borderRadius: "7px",
+                            }}
+                          >
+                            <Datetime
+                              style={{ borderWidth: 0, width: "80%" }}
+                              timeFormat={false}
+                              isValidDate={valid}
+                              value={startDate}
+                              inputProps={{
+                                placeholder: "Start Date",
+                              }}
+                              onChange={(e) => this.setState({ startDate: e })}
+                              // onBlur={this.closeTime}
+                            />
+                            <i
+                              className="fe fe-close icen"
+                              onClick={this.closeTime}
+                            ></i>
+                          </FormControl>
+                        </div>
+                        {showMediaLinks && (
+                          <div style={{ background: "#fff", marginTop: "0" }}>
+                            <div className={classes.cardBodyRefine}>
+                              <Accordion
+                                active={[0, 1, 2, 3, 4]}
+                                activeColor="rose"
+                                collapses={[
+                                  {
+                                    title: "Adtype",
+                                    content: (
+                                      <div
+                                        className={classes.customExpandPanel}
+                                      >
+                                        <div
+                                          className={
+                                            classes.checkboxAndRadio +
+                                            " " +
+                                            classes.checkboxAndRadioHorizontal
+                                          }
+                                          style={{ height: "120px" }}
+                                        >
+                                          {this.renderCategoriesMD()}
+                                        </div>
+                                      </div>
+                                    ),
+                                  },
+                                  {
+                                    title: "States",
+                                    content: (
+                                      <div
+                                        className={classes.customExpandPanel}
+                                      >
+                                        <div
+                                          className={
+                                            classes.checkboxAndRadio +
+                                            " " +
+                                            classes.checkboxAndRadioHorizontal
+                                          }
+                                          style={{ height: "120px" }}
+                                        >
+                                          {this.renderStatesMD()}
+                                        </div>
+                                      </div>
+                                    ),
+                                  },
+                                ]}
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-  }
+                  )}
                 </div>
 
                 <div>
@@ -3090,37 +3145,38 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
                       </div>
                     </a>
                   </p>
-                  { this.state.showSidebar ? '' : 
-
-                  <div class="collapse" id="collapseExample2">
-                    <FormControl fullWidth style={{ marginTop: -30 }}>
-                      <InputLabel
-                        htmlFor="simple-select"
-                        className={classes.selectLabel}
-                      >
-                        Load Saved Media Plans
-                      </InputLabel>
-                      <Select
-                        // MenuProps={{
-                        //   className: classes.selectMenu
-                        // }}
-                        // classes={{
-                        //   select: classes.select
-                        // }}
-                        value={savedPlan}
-                        onChange={(e) =>
-                          savedPlanSelected(e.target.value, savedPlans)
-                        }
-                        inputProps={{
-                          name: "simpleSelect",
-                          id: "simple-select",
-                        }}
-                      >
-                        {this.renderLoadedPlans()}
-                      </Select>
-                    </FormControl>
-                  </div>
-  }
+                  {this.state.showSidebar ? (
+                    ""
+                  ) : (
+                    <div class="collapse" id="collapseExample2">
+                      <FormControl fullWidth style={{ marginTop: -30 }}>
+                        <InputLabel
+                          htmlFor="simple-select"
+                          className={classes.selectLabel}
+                        >
+                          Load Saved Media Plans
+                        </InputLabel>
+                        <Select
+                          // MenuProps={{
+                          //   className: classes.selectMenu
+                          // }}
+                          // classes={{
+                          //   select: classes.select
+                          // }}
+                          value={savedPlan}
+                          onChange={(e) =>
+                            savedPlanSelected(e.target.value, savedPlans)
+                          }
+                          inputProps={{
+                            name: "simpleSelect",
+                            id: "simple-select",
+                          }}
+                        >
+                          {this.renderLoadedPlans()}
+                        </Select>
+                      </FormControl>
+                    </div>
+                  )}
                 </div>
 
                 <div className="sidebar-li" onClick={this.addOne}>
@@ -3170,8 +3226,11 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
                 </div>
               </div>
             </div>
-            
-            <div className={`${ !this.state.showSidebar? "main" : "main2"}`} style={{ height: "110vh", overflow: "auto" }}>
+
+            <div
+              className={`${!this.state.showSidebar ? "main" : "main2"}`}
+              style={{ height: "110vh", overflow: "auto" }}
+            >
               <div>
                 {this.state.stage === 0 && (
                   <GridContainer justify="center" style={{ marginTop: 70 }}>
@@ -3254,7 +3313,7 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
                         )
                       }
                       saveLoader={saveLoader}
-                      showSidebar={this.state.showSidebar}
+                      showSidebar={this.props.showSidebar}
                       saveMessage={saveMessage}
                       saveError={saveError}
                       campaignTitle={campaignTitle}
@@ -3715,10 +3774,12 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
                                   marginRight: 10,
                                   backgroundColor: "white",
                                 }}
-                                    className={`${
-                                      this.state.showSidebar === true ? "try2" : "try"
-                                    }`}
-                                >
+                                className={`${
+                                  this.state.showSidebar === true
+                                    ? "try2"
+                                    : "try"
+                                }`}
+                              >
                                 <div
                                   style={{
                                     height: 60,
@@ -3755,9 +3816,11 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
                                   </div>
 
                                   <div>
-                                    <h4 style={{
-                    fontWeight: "bold",
-                  }}   >
+                                    <h4
+                                      style={{
+                                        fontWeight: "bold",
+                                      }}
+                                    >
                                       Total |{" "}
                                       <span
                                         style={{
@@ -3777,29 +3840,28 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
                                     }`}
                                     onClick={this.sholl}
                                   >
-                                     {/* <span>
+                                    {/* <span>
                                      {formatCurrency(
                                       totalPrice || 0,
                                       this.props.exchange,
                                       this.props.currency
                                     )}
                                      </span> */}
-                                     <Modals
-        formatCurrency={formatCurrency}
-        exchange={this.props.exchange}
-        currency={this.props.currency}
-        totalPrice={this.props.totalPrice}
-        originalLocationsArray={
-          this.props.originalLocationsArray
-        }
-        userAddedQuantity={
-          this.state.userAddedQuantity
-        }
-        chartData={this.getChartData}
-        location="Chart"
-        legendPosition="bottom"
-      />
-                                    
+                                    <Modals
+                                      formatCurrency={formatCurrency}
+                                      exchange={this.props.exchange}
+                                      currency={this.props.currency}
+                                      totalPrice={this.props.totalPrice}
+                                      originalLocationsArray={
+                                        this.props.originalLocationsArray
+                                      }
+                                      userAddedQuantity={
+                                        this.state.userAddedQuantity
+                                      }
+                                      chartData={this.getChartData}
+                                      location="Chart"
+                                      legendPosition="bottom"
+                                    />
                                   </h4>
                                   <button
                                     className="btn btn-primary btn-md"
@@ -3808,8 +3870,8 @@ console.log('[' + result[0] + ']','[' + result[1] + ']')
                                       marginRight: 20,
                                       color: "black",
                                       background: "yellow",
-                                      border: 'none',
-                                      fontWeight: 900
+                                      border: "none",
+                                      fontWeight: 900,
                                     }}
                                   >
                                     Next
@@ -3908,7 +3970,7 @@ const mapStateToProps = ({
     openRow,
     savedPlans,
     savedPlan,
-    showSidebar
+    showSidebar,
   } = mediaplanning;
 
   return {
@@ -3949,7 +4011,7 @@ const mapStateToProps = ({
     openRow,
     savedPlans,
     savedPlan,
-    showSidebar
+    showSidebar,
   };
 };
 
